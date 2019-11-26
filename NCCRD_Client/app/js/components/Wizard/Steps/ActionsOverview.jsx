@@ -55,6 +55,11 @@ class ActionsOverview extends React.Component {
     let { addAdaptationDetails } = this.props
     addAdaptationDetails();
   }
+  
+  addMitigation() {
+    
+
+  }
 
   addFunding() {
     let { projectFunderDetails, addProjectFunderDetails } = this.props
@@ -226,7 +231,7 @@ class ActionsOverview extends React.Component {
           Add Adaptation
         </Button>
 
-        <Button className="inline-button add-btn-special" color="" style={{ backgroundColor: DEAGreen }}>
+        <Button className="inline-button add-btn-special" color="" onClick={this.addMitigation} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
           Add Mitigation
           {/* <div style={{ fontSize: "10px", marginTop: -1 }}>*coming soon*</div> */}
