@@ -348,7 +348,15 @@ class SteppedInputForm extends React.Component {
     })
 
     //Mitigation
-    //...coming soon...
+    //...coming soon... (as in now)
+    // mitigationDetails.map(action => {
+    //   let index = mitigationDetails.indexOf(action) + 1
+
+    //   steps.push({
+    //     title: `Mitigation #${index} - Details`,
+    //     backAction: "Actions - Overview"
+    //   })
+    // })
 
     //Validate inputs before summary
     this.validateInputs()
