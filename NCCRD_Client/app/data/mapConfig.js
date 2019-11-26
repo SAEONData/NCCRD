@@ -1,7 +1,7 @@
-import { siteBaseURL } from '../js/config/serviceURLs.js'
+import { siteBaseURL, apiBaseURL } from '../js/config/serviceURLs.js'
 
 export const MapConfig = {
-    service: `${siteBaseURL + 'api/odata/projects/extensions.geojson' }`,
+    service: `${apiBaseURL + 'projects/extensions.geojson' }`,
     //  "https://ccis.environment.gov.za/nccrd/api/odata/projects/extensions.geojson",
     domain: siteBaseURL,
     IDField: "properties.id",
