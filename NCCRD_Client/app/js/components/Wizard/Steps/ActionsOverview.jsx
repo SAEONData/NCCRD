@@ -4,26 +4,27 @@ import { Select, Checkbox } from 'antd';
 import { connect } from 'react-redux'
 import { DEAGreen } from '../../../config/colours';
 
+import {ProjectLocationStep} from './ProjectLocationStep.jsx'
+
 import './shared.css'
 import './ActionsOverview.css'
 
 const Option = Select.Option;
 
 const mapStateToProps = (state, props) => {
-  let { projectFundersData: { projectFunderDetails } } = state
+
   let { adaptationData: { adaptationDetails } } = state
+  let { projectFundersData: { projectFunderDetails } } = state
+  let { locationData: { locationDetails } } = state
   let { mitigationData: { mitigationDetails } } = state
-  return { projectFunderDetails, adaptationDetails, mitigationDetails }
+
+  return { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails }
 }
 
 const mapDispatchToProps = (dispatch) => {
+
   return {
-    addProjectFunderDetails: payload => {
-      dispatch({ type: "ADD_PROJECTFUNDER_DETAILS", payload })
-    },
-    removeFundingAction: payload => {
-      dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
-    },
+
     addAdaptationDetails: payload => {
       dispatch({ type: "ADD_ADAPTATION_DETAILS", payload })
     },
@@ -35,7 +36,32 @@ const mapDispatchToProps = (dispatch) => {
     },
     removeAdaptationDetailsResearchDetails: payload => {
       dispatch({ type: "SET_ADAPTATION_DETAILS_RESEARCH_DETAILS", payload })
-    }
+    },
+    addProjectFunderDetails: payload => {
+      dispatch({ type: "ADD_PROJECTFUNDER_DETAILS", payload })
+    },
+    removeFundingAction: payload => {
+      dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
+    },
+    addLocationDetails: payload => {
+      dispatch({ type: "ADD_LOCATION_DETAILS", payload })
+    },
+    removeLocationDetails: payload => {
+      dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
+    },
+    addMitigationDetails: payload => {
+      dispatch({ type: "ADD_MITIGATION_DETAILS", payload })
+    },
+    addMitigationDetailsResearchDetails: payload => {
+      dispatch({ type: "ADD_MITIGATION_DETAILS_RESEARCH_DETAILS", payload })
+    },
+    removeMitigationDetails: payload => {
+      dispatch({ type: "REMOVE_MITIGATION_DETAILS", payload })
+    },
+    removeMitigationDetailsResearchDetails: payload => {
+      dispatch({ type: "SET_MITIGATION_DETAILS_RESEARCH_DETAILS", payload })
+    },
+  
   }
 }
 
@@ -46,6 +72,8 @@ class ActionsOverview extends React.Component {
 
     this.addFunding = this.addFunding.bind(this)
     this.addAdaptation = this.addAdaptation.bind(this)
+    this.addMitigation = this.addMitigation.bind(this)
+    this.addLocation = this.addLocation.bind(this)
     this.constructActionsTable = this.constructActionsTable.bind(this)
     this.onImplementationChange = this.onImplementationChange.bind(this)
     this.onEdit = this.onEdit.bind(this)
@@ -53,12 +81,12 @@ class ActionsOverview extends React.Component {
 
   addAdaptation() {
     let { addAdaptationDetails } = this.props
-    addAdaptationDetails();
+    addAdaptationDetails()
   }
   
   addMitigation() {
-    
-
+    let { addMitigationDetails } = this.props
+    addMitigationDetails()
   }
 
   addFunding() {
@@ -66,9 +94,14 @@ class ActionsOverview extends React.Component {
     addProjectFunderDetails(projectFunderDetails.ProjectId)
   }
 
+  addLocation() {
+    let { locationDetails, addLocationDetails } = this.props
+    addLocationDetails(locationDetails.ProjectId)
+  }
+
   constructActionsTable() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
 
     return (
       <table width="100%">
@@ -77,6 +110,7 @@ class ActionsOverview extends React.Component {
             <td className="table-cell table-side table-head">Title</td>
             <td className="table-side table-cell table-head">Type</td>
             <td className="table-side table-cell table-head">Implementation</td>
+            <td className="table-side table-cell table-head">Location</td>
             <td className="table-side table-cell table-head">
               Funded
             {/* <br style={{ marginTop: 0, marginBottom: 0 }}/> */}
@@ -105,7 +139,25 @@ class ActionsOverview extends React.Component {
           })}
 
           {/* Mitigation */}
-          {/* ...coming soon... */}
+          {mitigationDetails.sort((a, b) => a.MitigationDetailId > b.MitigationDetailId ? 1: 0).map(a => {
+            let index = adaptationDetails.indexOf(a) + 1
+            return this.createTableEntry(
+              'Mitigation',
+              `Mitigation #${index}`,
+              a.ResearchDetail === null ? 'Applied' : 'Research',
+              a.MitigationDetailId
+            )
+          })}
+
+          {/* Location */}
+          {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
+            let index = adaptationDetails.indexOf(a) + 1
+            return this.createTableEntry(
+              'Location',
+              `Location #${index}`,
+              l.LocationId
+            )
+          })}
 
         </tbody>
       </table>
@@ -179,8 +231,20 @@ class ActionsOverview extends React.Component {
         })
       }
     }
-    else if (type === "Mitigation") {
-      //coming soon//
+    if (type === "Mitigation") {
+      if (value === 'Research') {
+        this.props.addMitigationDetailsResearchDetails({
+          id: id,
+          state: 'modified'
+        })
+      }
+    }
+    else {
+      this.props.removeMitigationDetailsResearchDetails({
+        id: id,
+        value: null,
+        state: 'modified'
+      })
     }
   }
 
@@ -191,14 +255,23 @@ class ActionsOverview extends React.Component {
         state: 'modified'
       })
     }
-    else if (type === "Adaptation") {
+   if (type === "Adaptation") {
       this.props.removeAdaptationDetails({
         id,
         state: 'modified'
       })
     }
-    else if (type === "Mitigation") {
-      //coming soon//
+    if (type === "Mitigation") {
+      this.props.removeMitigationDetails({
+        id,
+        state: 'modified'
+      })
+    }
+    if (type === "Location") {
+      this.props.removeLocationDetails({
+        id,
+        state: 'modified'
+      })
     }
   }
 
@@ -211,7 +284,7 @@ class ActionsOverview extends React.Component {
 
   render() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
 
     return (
       <>
@@ -237,11 +310,17 @@ class ActionsOverview extends React.Component {
           {/* <div style={{ fontSize: "10px", marginTop: -1 }}>*coming soon*</div> */}
         </Button>
 
+        <Button className="inline-button add-btn-special" color="" onClick={this.addLocation} style={{ backgroundColor: DEAGreen }}>
+          <Fa className="button-icon" icon="plus" />
+          Add Location
+          {/* <div style={{ fontSize: "10px", marginTop: -1 }}>*coming soon*</div> */}
+        </Button>
+
         <div className="vertical-spacer" />
         <div className="vertical-spacer" />
 
         {
-          (projectFunderDetails.length + adaptationDetails.length) > 0 &&
+          (projectFunderDetails.length + adaptationDetails.length + mitigationDetails.length + locationDetails.length ) > 0 &&
           <div>
             <h5>
               List of existing actions:

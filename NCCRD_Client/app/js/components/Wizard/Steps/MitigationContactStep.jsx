@@ -36,7 +36,7 @@ class MitigationContactStep extends React.Component {
             label="Contact Name:"
             id="txtMitigationContactName"
             value={details.ContactName}
-            setValueKey={"SET_ADAPTATION_DETAILS_CONTACT_NAME"}
+            setValueKey={"SET_MITIGATION_DETAILS_CONTACT_NAME"}
             parentId={details.MitigationDetailId}
           />
         </Row>
@@ -49,7 +49,7 @@ class MitigationContactStep extends React.Component {
             label="Contact Email Address:"
             id="txtMitigationContactEmail"
             value={details.ContactEmail}
-            setValueKey={"SET_ADAPTATION_DETAILS_CONTACT_EMAIL"}
+            setValueKey={"SET_MITIGATION_DETAILS_CONTACT_EMAIL"}
             parentId={details.MitigationDetailId}
           />
         </Row>
