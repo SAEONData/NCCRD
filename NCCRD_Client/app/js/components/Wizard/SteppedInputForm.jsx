@@ -12,6 +12,7 @@ import AdaptationDetailsStep from './Steps/AdaptationDetailsStep.jsx';
 import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
 import FundingDetailsStep from './Steps/FundingDetailsStep.jsx';
+import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
 import { UILookup } from "../../config/ui_config.js"
@@ -31,8 +32,8 @@ const mapStateToProps = (state, props) => {
   let { projectData: { projectDetails, selectedProjectId } } = state
   let { projectFundersData: { projectFunderDetails } } = state
   let { adaptationData: { adaptationDetails } } = state
-  // let { mitigationData: { mitigationDetails } } = state
-  // let { emissionsData: { emissionsData } } = state
+  let { mitigationData: { mitigationDetails } } = state
+  let { emissionsData: { emissionsData } } = state
   let lookupDataLoaded = state.lookupData.loaded
   let editListModalType = state.editListModalData.type
   let editListModalShow = state.editListModalData.show
@@ -48,7 +49,7 @@ const mapStateToProps = (state, props) => {
   })
 
   return {
-    projectDetails, projectFunderDetails, adaptationDetails, //mitigationDetails, emissionsData,
+    projectDetails, projectFunderDetails, adaptationDetails, mitigationDetails, emissionsData,
     lookupDataLoaded, selectedProjectId, user, editListModalType, editListModalShow
   }
 }
@@ -136,7 +137,7 @@ class SteppedInputForm extends React.Component {
 
   async saveChanges() {
 
-    let { user, projectDetails, adaptationDetails, projectFunderDetails, selectedProjectId: projectId } = this.props
+    let { user, projectDetails, adaptationDetails, mitigationDetails, projectFunderDetails, selectedProjectId: projectId } = this.props
     let result = true
     let dataObj = { Id: projectId }
 
@@ -349,14 +350,19 @@ class SteppedInputForm extends React.Component {
 
     //Mitigation
     //...coming soon... (as in now)
-    // mitigationDetails.map(action => {
-    //   let index = mitigationDetails.indexOf(action) + 1
+    mitigationDetails.map(action => {
+      let index = mitigationDetails.indexOf(action) + 1
 
-    //   steps.push({
-    //     title: `Mitigation #${index} - Details`,
-    //     backAction: "Actions - Overview"
-    //   })
-    // })
+      steps.push({
+        title: `Mitigation #${index} - Details`,
+        backAction: "Actions - Overview",
+        content: <MitigationDetailsStep details={action} />,
+        error: galse
+      })
+      steps.push({
+        title: `Adaptation #${index} - Details`
+      })
+    })
 
     //Validate inputs before summary
     this.validateInputs()
@@ -378,6 +384,7 @@ class SteppedInputForm extends React.Component {
         projectDetails={projectDetails}
         adaptationDetails={adaptationDetails}
         funderDetails={projectFunderDetails}
+        mitigationDetails={mitigationDetails}
         errors={steps.filter(s => s.error === true).length > 0}
       />,
       error: false
@@ -488,7 +495,41 @@ class SteppedInputForm extends React.Component {
         step.error = stepValidations.includes(false)
       }
     })
+
+    //MITIGATION//
+    mitigationDetails.map(ad => {
+      let index = adaptationDetails.indexOf(ad) + 1
+
+      //Mitigation ## details //
+      step = this.getStepByTitle(`Adaptation #${index} - Details`)
+     
+      if (step && steps.indexOf(step) < currentStep) {
+        
+        let stepValidations = []
+
+        stepValidations.push(this.validateRequiredInput("txtMitigationTitle", ad, "Title"))
+        stepValidations.push(this.validateRequiredInput("txtMitigationDescription", ad, "Description"))
+        stepValidations.push(this.validateRequiredInput("selMitigationPurpose", ad, "MitigationPurposeId"))
+        stepValidations.push(this.validateRequiredInput("selMitigationSector", ad, "SectorId"))
+        stepValidations.push(this.validateRequiredInput("selMitigationHazard", ad, "HazardId"))
+        stepValidations.push(this.validateRequiredInput("selMitigationActionStatus", ad, "ProjectStatusId"))
+
+        step.error = stepValidations.includes(false)
+      }
+      //MITIGATION #XX - CONTACT//
+      step = this.getStepByTitle(`Mitigation #${index} - Contact`)
+      if (step && steps.indexOf(step) < currentStep) {
+        let stepValidations = []
+
+        stepValidations.push(this.validateRequiredInput("txtMitigationContactName", ad, "ContactName"))
+        stepValidations.push(this.validateRequiredInput("txtMitigationContactEmail", ad, "ContactEmail"))
+
+        step.error = stepValidations.includes(false)
+      }
+    })
   }
+
+
 
   validateRequiredInput(id, data, key) {
     if (id && data && key) {
@@ -524,7 +565,7 @@ class SteppedInputForm extends React.Component {
   render() {
 
     let { winHeight, currentStep, progressCompleteOverride } = this.state
-    let { projectDetails, projectFunderDetails, adaptationDetails, /*mitigationDetails, MitigationEmissionsData*/ } = this.props
+    let { projectDetails, projectFunderDetails, adaptationDetails, mitigationDetails, MitigationEmissionsData } = this.props
 
     this.getSteps()
     let errors = steps.filter(s => s.error === true).length > 0
