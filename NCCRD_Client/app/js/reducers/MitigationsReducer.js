@@ -49,7 +49,7 @@ export default function MitigationsReducer(state = {}, action) {
             return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, state: "original" }] }
         }
 
-        case "ADD_MITIGATION_DETAILS": {
+        case "ADD_MITIGATION_DETAILS": { 
 
             let { mitigationDetails, projectDetails } = state
 
@@ -77,6 +77,33 @@ export default function MitigationsReducer(state = {}, action) {
             }
             else {
                 return { ...state, mitigationDetails: [newItem] }
+            }
+        }
+
+        case "REMOVE_MITIGATION_DETAILS": {
+
+            let { mitigationDetails } = state
+            mitigationDetails.splice(payload, 1)
+
+            return { ...state, mitigationDetails: [...mitigationDetails] }
+        }
+
+        case "SET_MITIGATION_DETAILS_TITLE": {
+
+            let { mitigationDetails } = state
+            //get item and id
+            let details = extractItemAndId(mitigationDetails, "MitigationDetailId", id)
+            //remove item from array
+            mitigationDetails.splice(details.id, 1)
+
+            return { 
+                ...state, 
+                mitigationDetails: [
+                    ...mitigationDetails, { 
+                        ...details.id,
+                        Title: payload, state: modstate
+                    }
+                ]
             }
         }
 

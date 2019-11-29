@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, Fa } from 'mdbreact'
-import { Select, Checkbox } from 'antd';
+import { Select, Checkbox } from 'antd'
 import { connect } from 'react-redux'
-import { DEAGreen } from '../../../config/colours';
+import { DEAGreen } from '../../../config/colours'
 
 import {ProjectLocationStep} from './ProjectLocationStep.jsx'
+
 
 import './shared.css'
 import './ActionsOverview.css'
@@ -15,10 +16,10 @@ const mapStateToProps = (state, props) => {
 
   let { adaptationData: { adaptationDetails } } = state
   let { projectFundersData: { projectFunderDetails } } = state
-  let { locationData: { locationDetails } } = state
+  // let { locationData: { locationDetails } } = state
   let { mitigationData: { mitigationDetails } } = state
 
-  return { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails }
+  return { projectFunderDetails, adaptationDetails, mitigationDetails }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -43,12 +44,12 @@ const mapDispatchToProps = (dispatch) => {
     removeFundingAction: payload => {
       dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
     },
-    addLocationDetails: payload => {
-      dispatch({ type: "ADD_LOCATION_DETAILS", payload })
-    },
-    removeLocationDetails: payload => {
-      dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
-    },
+    // addLocationDetails: payload => {
+    //   dispatch({ type: "ADD_LOCATION_DETAILS", payload })
+    // },
+    // removeLocationDetails: payload => {
+    //   dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
+    // },
     addMitigationDetails: payload => {
       dispatch({ type: "ADD_MITIGATION_DETAILS", payload })
     },
@@ -73,7 +74,7 @@ class ActionsOverview extends React.Component {
     this.addFunding = this.addFunding.bind(this)
     this.addAdaptation = this.addAdaptation.bind(this)
     this.addMitigation = this.addMitigation.bind(this)
-    this.addLocation = this.addLocation.bind(this)
+    // this.addLocation = this.addLocation.bind(this)
     this.constructActionsTable = this.constructActionsTable.bind(this)
     this.onImplementationChange = this.onImplementationChange.bind(this)
     this.onEdit = this.onEdit.bind(this)
@@ -94,14 +95,14 @@ class ActionsOverview extends React.Component {
     addProjectFunderDetails(projectFunderDetails.ProjectId)
   }
 
-  addLocation() {
-    let { locationDetails, addLocationDetails } = this.props
-    addLocationDetails(locationDetails.ProjectId)
-  }
+  // addLocation() {
+  //   let { locationDetails, addLocationDetails } = this.props
+  //   addLocationDetails(locationDetails.ProjectId)
+  // }
 
   constructActionsTable() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
 
     return (
       <table width="100%">
@@ -110,7 +111,7 @@ class ActionsOverview extends React.Component {
             <td className="table-cell table-side table-head">Title</td>
             <td className="table-side table-cell table-head">Type</td>
             <td className="table-side table-cell table-head">Implementation</td>
-            <td className="table-side table-cell table-head">Location</td>
+            {/* <td className="table-side table-cell table-head">Location</td> */}
             <td className="table-side table-cell table-head">
               Funded
             {/* <br style={{ marginTop: 0, marginBottom: 0 }}/> */}
@@ -150,14 +151,15 @@ class ActionsOverview extends React.Component {
           })}
 
           {/* Location */}
-          {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
+          {/* TODO - finish integratino of locationstep to actions overview */}
+          {/* {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
             let index = adaptationDetails.indexOf(a) + 1
             return this.createTableEntry(
               'Location',
               `Location #${index}`,
               l.LocationId
             )
-          })}
+          })} */}
 
         </tbody>
       </table>
@@ -231,7 +233,7 @@ class ActionsOverview extends React.Component {
         })
       }
     }
-    if (type === "Mitigation") {
+    else if (type === "Mitigation") {
       if (value === 'Research') {
         this.props.addMitigationDetailsResearchDetails({
           id: id,
@@ -267,12 +269,12 @@ class ActionsOverview extends React.Component {
         state: 'modified'
       })
     }
-    if (type === "Location") {
-      this.props.removeLocationDetails({
-        id,
-        state: 'modified'
-      })
-    }
+    // if (type === "Location") {
+    //   this.props.removeLocationDetails({
+    //     id,
+    //     state: 'modified'
+    //   })
+    // }
   }
 
   onEdit(title) {
@@ -284,7 +286,7 @@ class ActionsOverview extends React.Component {
 
   render() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
 
     return (
       <>
@@ -309,18 +311,17 @@ class ActionsOverview extends React.Component {
           Add Mitigation
           {/* <div style={{ fontSize: "10px", marginTop: -1 }}>*coming soon*</div> */}
         </Button>
-
+{/* 
         <Button className="inline-button add-btn-special" color="" onClick={this.addLocation} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
           Add Location
-          {/* <div style={{ fontSize: "10px", marginTop: -1 }}>*coming soon*</div> */}
-        </Button>
+        </Button> */}
 
         <div className="vertical-spacer" />
         <div className="vertical-spacer" />
 
         {
-          (projectFunderDetails.length + adaptationDetails.length + mitigationDetails.length + locationDetails.length ) > 0 &&
+          (projectFunderDetails.length + adaptationDetails.length + mitigationDetails.length ) > 0 &&
           <div>
             <h5>
               List of existing actions:
