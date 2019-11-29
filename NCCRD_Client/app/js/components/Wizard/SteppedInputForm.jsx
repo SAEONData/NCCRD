@@ -357,7 +357,7 @@ class SteppedInputForm extends React.Component {
         title: `Mitigation #${index} - Details`,
         backAction: "Actions - Overview",
         content: <MitigationDetailsStep details={action} />,
-        error: galse
+        error: false
       })
       steps.push({
         title: `Adaptation #${index} - Details`
