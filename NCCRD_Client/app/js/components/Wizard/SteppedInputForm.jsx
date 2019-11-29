@@ -269,7 +269,7 @@ class SteppedInputForm extends React.Component {
 
   getSteps() {
 
-    let { projectDetails, adaptationDetails, projectFunderDetails, setLinkedDAOGoalId, user } = this.props
+    let { projectDetails, adaptationDetails, mitigationDetails, projectFunderDetails, setLinkedDAOGoalId, user } = this.props
     steps = []
 
     //Project
