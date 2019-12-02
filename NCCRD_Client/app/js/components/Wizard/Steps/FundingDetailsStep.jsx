@@ -167,7 +167,7 @@ class FundingDetailsStep extends React.Component {
         </Row>
 
         <div className="vertical-spacer" />
-
+{/* 
         <Row>
           <SelectComponent
             col="col-md-6"
@@ -187,7 +187,7 @@ class FundingDetailsStep extends React.Component {
             }}
             allowClear={true}
           />
-        </Row>
+        </Row> */}
 
         {/* <div className="vertical-spacer" />
 
