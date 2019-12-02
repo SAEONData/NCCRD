@@ -13,6 +13,7 @@ import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
 import FundingDetailsStep from './Steps/FundingDetailsStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
+import MitigationApproachStep from './Steps/MitigationApproachStep.jsx'
 // import MitigationContactStep from './Steps/MitigationContactStep.jsx  '
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
@@ -24,6 +25,7 @@ import ProjectVerifyStep from './Steps/ProjectVerifyStep.jsx';
 
 import "./SteppedInputForm.css"
 import { CustomFetch } from '../../globalFunctions.js';
+import MitigationApproachStep from './Steps/MitigationApproachStep.jsx'
 
 const _gf = require("../../globalFunctions")
 
@@ -367,7 +369,7 @@ class SteppedInputForm extends React.Component {
       })
       steps.push({
         title: `Mitigation #${index} - Approach`,
-        content: <MitigationDetailsStep details={action} />,
+        content: <MitigationApproachStep details={action} />,
         error: false
       })
       steps.push({
