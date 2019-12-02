@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     removeFundingAction: payload => {
       dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
+    },
+    addFundingAction: payload => {
+      dispatch({ type: "ADD_PROJECTFUNDER_DETAILS", payload })
     }
   }
 }
@@ -26,8 +29,18 @@ class FundingDetailsStep extends React.Component {
   constructor(props) {
     super(props);
 
+    this.onAdd = this.onAdd.bind(this)
     this.onRemove = this.onRemove.bind(this)
   }
+
+  onAdd() {
+    let { addFundingAction, details } = this.props
+    addFundingAction({
+      id: details.FundingDetailId, 
+      state: 'modified'
+    })
+  }
+
 
   onRemove() {
     let { removeFundingAction, details, projectFunderDetails } = this.props
@@ -41,6 +54,29 @@ class FundingDetailsStep extends React.Component {
 
     return (
       <>
+        <Row>
+          <SelectComponent
+            col="col-md-6"
+            id="lblFundingStatus"
+            label="Funding Status:"
+            selectedValue={details.FundingStatusId}
+            data={fundingStatus}
+            setSelectedValueKey={"SET_PROJECTFUNDERS_FUNDINGSTATUS"}
+            parentId={details.FunderId}
+            dispatch={"LOAD_PROJECTFUNDERS_FUNDINGSTATUS"}
+            persist="FundingStatus"
+            allowEdit={false}
+            newItemTemplate={{
+              "Id": 0,
+              "Value": "",
+              "Description": ""
+            }}
+            allowClear={true}
+          />
+        </Row>
+
+        <div className="vertical-spacer" />
+
         <Row>
           <TextComponent
             col="col-md-6"

@@ -60,7 +60,7 @@ class InputWizard extends React.Component {
           placement="right"
           closable={false}
           visible={visible}
-          width={winInnerWidth < 1250 ? "100%" : 1250}
+          width={winInnerWidth < 1250 ? "100%" : "100%"}
         >
           <ProjectDataLoader>
             <SteppedInputForm onClose={this.onClose} visible={visible} />

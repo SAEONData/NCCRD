@@ -113,9 +113,9 @@ class ActionsOverview extends React.Component {
             <td className="table-side table-cell table-head">Implementation</td>
             {/* <td className="table-side table-cell table-head">Location</td> */}
             <td className="table-side table-cell table-head">
-              Funded
+              Funding status
             {/* <br style={{ marginTop: 0, marginBottom: 0 }}/> */}
-              <div style={{ fontSize: "10px", marginTop: -5 }}>*coming soon*</div>
+              {/* <div style={{ fontSize: "10px", marginTop: -5 }}>*coming soon*</div> */}
             </td>
             <td className="table-cell table-head">Options</td>
           </tr>
@@ -192,7 +192,7 @@ class ActionsOverview extends React.Component {
           <Checkbox disabled /*onChange={onChange}*/>(No)</Checkbox>
         </td>
         <td className="table-cell">
-          <Button
+          {/* <Button
             className="table-button"
             size="sm"
             color=""
@@ -201,7 +201,7 @@ class ActionsOverview extends React.Component {
           >
             <Fa className="button-icon" icon="pencil" />
             Edit
-          </Button>
+          </Button> */}
           <Button
             className="table-button"
             size="sm"
@@ -296,10 +296,10 @@ class ActionsOverview extends React.Component {
 
         <div className="vertical-spacer" />
 
-        <Button className="inline-button add-btn" color="" onClick={this.addFunding} style={{ backgroundColor: DEAGreen }}>
+        {/* <Button className="inline-button add-btn" color="" onClick={this.addFunding} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
           Add Funding
-        </Button>
+        </Button> */}
 
         <Button className="inline-button add-btn" color="" onClick={this.addAdaptation} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />

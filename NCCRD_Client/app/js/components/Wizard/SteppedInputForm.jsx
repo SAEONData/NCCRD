@@ -13,6 +13,7 @@ import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
 import FundingDetailsStep from './Steps/FundingDetailsStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
+// import MitigationContactStep from './Steps/MitigationContactStep.jsx  '
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
 import { UILookup } from "../../config/ui_config.js"
@@ -360,8 +361,35 @@ class SteppedInputForm extends React.Component {
         error: false
       })
       steps.push({
-        title: `Adaptation #${index} - Details`
+        title: `Mitigation #${index} - Adaptation`,
+        content: <AdaptationDetailsStep details={action} />,
+        error: false
       })
+      steps.push({
+        title: `Mitigation #${index} - Approach`,
+        content: <MitigationDetailsStep details={action} />,
+        error: false
+      })
+      steps.push({
+        title: `Mitigation #${index} - Carbon Credits`,
+        content: <MitigationDetailsStep details={action} />,
+        error: false
+      })
+      steps.push({
+        title: `Mitigation #${index} - Location`,
+        content: <MitigationDetailsStep details={action} />,
+        error: false
+      })
+      steps.push({
+        title: `Mitigation #${index} - Funding`,
+        content: <FundingDetailsStep details={action} />,
+        error: false
+      })
+      // steps.push({
+      //   title: `Mitigation #${index} - Contact`,
+      //   content: <MitigationContactStep details={action} />,
+      //   error: false
+      // })
     })
 
     //Validate inputs before summary
