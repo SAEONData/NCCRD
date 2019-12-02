@@ -149,7 +149,7 @@ class MitigationDetailsStep extends React.Component {
             label="Hazard:"
             placeholder="Select..."
             // disabled
-            selectedValue={undefined} //{details.HazardId}
+            selectedValue={details.HazardId} 
             data={hazards}
             setSelectedValueKey={"SET_MITIGATION_DETAILS_HAZARD"}
             parentId={details.MitigationDetailId}

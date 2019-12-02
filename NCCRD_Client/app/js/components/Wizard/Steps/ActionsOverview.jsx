@@ -44,13 +44,7 @@ const mapDispatchToProps = (dispatch) => {
     removeFundingAction: payload => {
       dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
     },
-    // addLocationDetails: payload => {
-    //   dispatch({ type: "ADD_LOCATION_DETAILS", payload })
-    // },
-    // removeLocationDetails: payload => {
-    //   dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
-    // },
-    addMitigationDetails: payload => {
+      addMitigationDetails: payload => {
       dispatch({ type: "ADD_MITIGATION_DETAILS", payload })
     },
     addMitigationDetailsResearchDetails: payload => {
@@ -62,6 +56,13 @@ const mapDispatchToProps = (dispatch) => {
     removeMitigationDetailsResearchDetails: payload => {
       dispatch({ type: "SET_MITIGATION_DETAILS_RESEARCH_DETAILS", payload })
     },
+
+    // addLocationDetails: payload => {
+    //   dispatch({ type: "ADD_LOCATION_DETAILS", payload })
+    // },
+    // removeLocationDetails: payload => {
+    //   dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
+    // },
   
   }
 }
@@ -141,9 +142,9 @@ class ActionsOverview extends React.Component {
 
           {/* Mitigation */}
           {mitigationDetails.sort((a, b) => a.MitigationDetailId > b.MitigationDetailId ? 1: 0).map(a => {
-            let index = adaptationDetails.indexOf(a) + 1
+            let index = mitigationDetails.indexOf(a) + 1
             return this.createTableEntry(
-              'Mitigation',
+              "Mitigation",
               `Mitigation #${index}`,
               a.ResearchDetail === null ? 'Applied' : 'Research',
               a.MitigationDetailId
@@ -189,6 +190,7 @@ class ActionsOverview extends React.Component {
           }
         </td>
         <td className="table-side table-cell">
+          {/* TODO pull status from funding step*/}
           <Checkbox disabled /*onChange={onChange}*/>(No)</Checkbox>
         </td>
         <td className="table-cell">
