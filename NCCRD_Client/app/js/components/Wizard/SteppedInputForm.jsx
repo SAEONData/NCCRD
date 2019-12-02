@@ -13,8 +13,6 @@ import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
 import FundingDetailsStep from './Steps/FundingDetailsStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
-import MitigationApproachStep from './Steps/MitigationApproachStep.jsx'
-// import MitigationContactStep from './Steps/MitigationContactStep.jsx  '
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
 import { UILookup } from "../../config/ui_config.js"
