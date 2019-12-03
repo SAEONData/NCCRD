@@ -24,6 +24,7 @@ import ProjectVerifyStep from './Steps/ProjectVerifyStep.jsx';
 import "./SteppedInputForm.css"
 import { CustomFetch } from '../../globalFunctions.js';
 import MitigationApproachStep from './Steps/MitigationApproachStep.jsx'
+import CarbonCreditStep from './Steps/CarbonCreditStep.jsx'
 
 const _gf = require("../../globalFunctions")
 
@@ -372,7 +373,7 @@ class SteppedInputForm extends React.Component {
       })
       steps.push({
         title: `Mitigation #${index} - Carbon Credits`,
-        content: <MitigationDetailsStep details={action} />,
+        content: <CarbonCreditStep details={action} />,
         error: false
       })
       steps.push({
