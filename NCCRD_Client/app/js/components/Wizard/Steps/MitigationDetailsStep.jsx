@@ -139,10 +139,10 @@ class MitigationDetailsStep extends React.Component {
             }}
           />
         </Row>
-
+        
         <div className="vertical-spacer" />
 
-        <Row>
+        {/* <Row>
           <TreeSelectComponent
             id="selMitigationHazard"
             col="col-md-6"
@@ -157,7 +157,7 @@ class MitigationDetailsStep extends React.Component {
             type="tree"
             allowEdit={false}
           />
-        </Row>
+        </Row> */}
 
         <div className="vertical-spacer" />
 
