@@ -212,186 +212,186 @@ export const ui_config = [
 
 
   // MITIGATION DETAILS //
-  // {
-  //   key: "selMitigationCarbonCredit",
-  //   label: "Carbon credit:",
-  //   tooltip: "Carbon credit",
-  //   required: true
-  // },
-  // {
-  //   key: "selMitigationCarbonCreditMarket",
-  //   label: "Carbon credit market:",
-  //   tooltip: "Carbon credit market"
-  // },
-  // {
-  //   key: "selMitigationCDMStatus",
-  //   label: "CDM status:",
-  //   tooltip: "CDM status"
-  // },
-  // {
-  //   key: "selMitigationCDMMethodology",
-  //   label: "CDM methodology:",
-  //   tooltip: "CDM methodology"
-  // },
-  // {
-  //   key: "selMitigationVoluntaryMethodology",
-  //   label: "Voluntary methodology:",
-  //   tooltip: "Voluntary methodology"
-  // },
-  // {
-  //   key: "selMitigationVoluntaryGoldStandard",
-  //   label: "Voluntary gold standard:",
-  //   tooltip: "Voluntary gold standard"
-  // },
-  // {
-  //   key: "txtMitigationCDMProjectNumber",
-  //   label: "CDM project number:",
-  //   tooltip: "CDM project number"
-  // },
-  // {
-  //   key: "txtMitigationOtherDescription",
-  //   label: "Other description:",
-  //   tooltip: "Other description"
-  // },
-  // {
-  //   key: "selMitigationSector",
-  //   label: "Sector:",
-  //   tooltip: "Sector"
-  // },
+  {
+    key: "selMitigationCarbonCredit",
+    label: "Carbon credit:",
+    tooltip: "Carbon credit",
+    required: true
+  },
+  {
+    key: "selMitigationCarbonCreditMarket",
+    label: "Carbon credit market:",
+    tooltip: "Carbon credit market"
+  },
+  {
+    key: "selMitigationCDMStatus",
+    label: "CDM status:",
+    tooltip: "CDM status"
+  },
+  {
+    key: "selMitigationCDMMethodology",
+    label: "CDM methodology:",
+    tooltip: "CDM methodology"
+  },
+  {
+    key: "selMitigationVoluntaryMethodology",
+    label: "Voluntary methodology:",
+    tooltip: "Voluntary methodology"
+  },
+  {
+    key: "selMitigationVoluntaryGoldStandard",
+    label: "Voluntary gold standard:",
+    tooltip: "Voluntary gold standard"
+  },
+  {
+    key: "txtMitigationCDMProjectNumber",
+    label: "CDM project number:",
+    tooltip: "CDM project number"
+  },
+  {
+    key: "txtMitigationOtherDescription",
+    label: "Other description:",
+    tooltip: "Other description"
+  },
+  {
+    key: "selMitigationSector",
+    label: "Sector:",
+    tooltip: "Sector"
+  },
 
 
   // EMISSIONS DETAILS //
-  // {
-  //   key: "txtEmissionsYear",
-  //   label: "Year:",
-  //   tooltip: "Year",
-  //   required: true
-  // },
-  // {
-  //   key: "txtEmissionsCO2",
-  //   label: "CO2:",
-  //   tooltip: "CO2"
-  // },
-  // {
-  //   key: "txtEmissionsCH4",
-  //   label: "CH4:",
-  //   tooltip: "CH4"
-  // },
-  // {
-  //   key: "txtEmissionsCH4_CO2e",
-  //   label: "CH4_CO2e:",
-  //   tooltip: "CH4_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsN2O",
-  //   label: "N2O:",
-  //   tooltip: "N2O"
-  // },
-  // {
-  //   key: "txtEmissionsN2O_CO2e",
-  //   label: "N2O_CO2e:",
-  //   tooltip: "N2O_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsHFC",
-  //   label: "HFC:",
-  //   tooltip: "HFC"
-  // },
-  // {
-  //   key: "txtEmissionsHFC_CO2e",
-  //   label: "HFC_CO2e:",
-  //   tooltip: "HFC_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsPFC",
-  //   label: "PFC:",
-  //   tooltip: "PFC"
-  // },
-  // {
-  //   key: "txtEmissionsPFC_CO2e",
-  //   label: "PFC_CO2e:",
-  //   tooltip: "PFC_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsSF6",
-  //   label: "SF6:",
-  //   tooltip: "SF6"
-  // },
-  // {
-  //   key: "txtEmissionsSF6_CO2e",
-  //   label: "SF6_CO2e:",
-  //   tooltip: "SF6_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsHydro",
-  //   label: "Hydro:",
-  //   tooltip: "Hydro"
-  // },
-  // {
-  //   key: "txtEmissionsHydro_CO2e",
-  //   label: "Hydro_CO2e:",
-  //   tooltip: "Hydro_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsTidal",
-  //   label: "Tidal:",
-  //   tooltip: "Tidal"
-  // },
-  // {
-  //   key: "txtEmissionsTidal_CO2e",
-  //   label: "Tidal_CO2e:",
-  //   tooltip: "Tidal_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsWind",
-  //   label: "Wind:",
-  //   tooltip: "Wind"
-  // },
-  // {
-  //   key: "txtEmissionsWind_CO2e",
-  //   label: "Wind_CO2e:",
-  //   tooltip: "Wind_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsSolar",
-  //   label: "Solar:",
-  //   tooltip: "Solar"
-  // },
-  // {
-  //   key: "txtEmissionsSolar_CO2e",
-  //   label: "Solar_CO2e:",
-  //   tooltip: "Solar_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsFossilFuelElecRed",
-  //   label: "FossilFuelElecRed:",
-  //   tooltip: "FossilFuelElecRed"
-  // },
-  // {
-  //   key: "txtEmissionsFossilFuelElecRed_CO2e",
-  //   label: "FossilFuelElecRed_CO2e:",
-  //   tooltip: "FossilFuelElecRed_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsBioWaste",
-  //   label: "BioWaste:",
-  //   tooltip: "BioWaste"
-  // },
-  // {
-  //   key: "txtEmissionsBioWaste_CO2e",
-  //   label: "BioWaste_CO2e:",
-  //   tooltip: "BioWaste_CO2e"
-  // },
-  // {
-  //   key: "txtEmissionsGeothermal",
-  //   label: "Geothermal:",
-  //   tooltip: "Geothermal"
-  // },
-  // {
-  //   key: "txtEmissionsGeothermal_CO2e",
-  //   label: "Geothermal_CO2e:",
-  //   tooltip: "Geothermal_CO2e"
-  // },
+  {
+    key: "txtEmissionsYear",
+    label: "Year:",
+    tooltip: "Year",
+    required: true
+  },
+  {
+    key: "txtEmissionsCO2",
+    label: "CO2:",
+    tooltip: "CO2"
+  },
+  {
+    key: "txtEmissionsCH4",
+    label: "CH4:",
+    tooltip: "CH4"
+  },
+  {
+    key: "txtEmissionsCH4_CO2e",
+    label: "CH4_CO2e:",
+    tooltip: "CH4_CO2e"
+  },
+  {
+    key: "txtEmissionsN2O",
+    label: "N2O:",
+    tooltip: "N2O"
+  },
+  {
+    key: "txtEmissionsN2O_CO2e",
+    label: "N2O_CO2e:",
+    tooltip: "N2O_CO2e"
+  },
+  {
+    key: "txtEmissionsHFC",
+    label: "HFC:",
+    tooltip: "HFC"
+  },
+  {
+    key: "txtEmissionsHFC_CO2e",
+    label: "HFC_CO2e:",
+    tooltip: "HFC_CO2e"
+  },
+  {
+    key: "txtEmissionsPFC",
+    label: "PFC:",
+    tooltip: "PFC"
+  },
+  {
+    key: "txtEmissionsPFC_CO2e",
+    label: "PFC_CO2e:",
+    tooltip: "PFC_CO2e"
+  },
+  {
+    key: "txtEmissionsSF6",
+    label: "SF6:",
+    tooltip: "SF6"
+  },
+  {
+    key: "txtEmissionsSF6_CO2e",
+    label: "SF6_CO2e:",
+    tooltip: "SF6_CO2e"
+  },
+  {
+    key: "txtEmissionsHydro",
+    label: "Hydro:",
+    tooltip: "Hydro"
+  },
+  {
+    key: "txtEmissionsHydro_CO2e",
+    label: "Hydro_CO2e:",
+    tooltip: "Hydro_CO2e"
+  },
+  {
+    key: "txtEmissionsTidal",
+    label: "Tidal:",
+    tooltip: "Tidal"
+  },
+  {
+    key: "txtEmissionsTidal_CO2e",
+    label: "Tidal_CO2e:",
+    tooltip: "Tidal_CO2e"
+  },
+  {
+    key: "txtEmissionsWind",
+    label: "Wind:",
+    tooltip: "Wind"
+  },
+  {
+    key: "txtEmissionsWind_CO2e",
+    label: "Wind_CO2e:",
+    tooltip: "Wind_CO2e"
+  },
+  {
+    key: "txtEmissionsSolar",
+    label: "Solar:",
+    tooltip: "Solar"
+  },
+  {
+    key: "txtEmissionsSolar_CO2e",
+    label: "Solar_CO2e:",
+    tooltip: "Solar_CO2e"
+  },
+  {
+    key: "txtEmissionsFossilFuelElecRed",
+    label: "FossilFuelElecRed:",
+    tooltip: "FossilFuelElecRed"
+  },
+  {
+    key: "txtEmissionsFossilFuelElecRed_CO2e",
+    label: "FossilFuelElecRed_CO2e:",
+    tooltip: "FossilFuelElecRed_CO2e"
+  },
+  {
+    key: "txtEmissionsBioWaste",
+    label: "BioWaste:",
+    tooltip: "BioWaste"
+  },
+  {
+    key: "txtEmissionsBioWaste_CO2e",
+    label: "BioWaste_CO2e:",
+    tooltip: "BioWaste_CO2e"
+  },
+  {
+    key: "txtEmissionsGeothermal",
+    label: "Geothermal:",
+    tooltip: "Geothermal"
+  },
+  {
+    key: "txtEmissionsGeothermal_CO2e",
+    label: "Geothermal_CO2e:",
+    tooltip: "Geothermal_CO2e"
+  },
 
 
   // RESEARCH DETAILS //

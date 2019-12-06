@@ -54,7 +54,8 @@ class FundingDetailsStep extends React.Component {
 
     return (
       <>
-        <Row>
+        {/* <Row>
+          
           <SelectComponent
             col="col-md-6"
             id="lblFundingStatus"
@@ -73,7 +74,7 @@ class FundingDetailsStep extends React.Component {
             }}
             allowClear={true}
           />
-        </Row>
+        </Row> */}
 
         <div className="vertical-spacer" />
 
@@ -128,7 +129,7 @@ class FundingDetailsStep extends React.Component {
             parentId={details.FunderId}
             dispatch={"LOAD_PROJECTFUNDERS_PROJECTCOORDINATOR"}
             persist="ProjectCoordinator"
-            allowEdit={true}
+            allowEdit={false}
             newItemTemplate={{
               "Id": 0,
               "Value": "",
@@ -167,7 +168,7 @@ class FundingDetailsStep extends React.Component {
         </Row>
 
         <div className="vertical-spacer" />
-{/* 
+
         <Row>
           <SelectComponent
             col="col-md-6"
@@ -187,7 +188,7 @@ class FundingDetailsStep extends React.Component {
             }}
             allowClear={true}
           />
-        </Row> */}
+        </Row>
 
         {/* <div className="vertical-spacer" />
 
