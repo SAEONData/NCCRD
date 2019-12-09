@@ -175,7 +175,7 @@ class FundingDetailsStep extends React.Component {
             id="lblFundingStatus"
             label="Funding Status:"
             selectedValue={details.FundingStatusId}
-            data={fundingStatus}
+            data={this.props.fundingStatus}
             setSelectedValueKey={"SET_PROJECTFUNDERS_FUNDINGSTATUS"}
             parentId={details.FunderId}
             dispatch={"LOAD_PROJECTFUNDERS_FUNDINGSTATUS"}
@@ -186,7 +186,8 @@ class FundingDetailsStep extends React.Component {
               "Value": "",
               "Description": ""
             }}
-            allowClear={true}
+            editModeOverride={true}
+            allowClear={false}
           />
         </Row>
 

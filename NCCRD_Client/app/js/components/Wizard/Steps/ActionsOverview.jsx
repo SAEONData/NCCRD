@@ -112,20 +112,20 @@ class ActionsOverview extends React.Component {
             <td className="table-cell table-side table-head">Title</td>
             <td className="table-side table-cell table-head">Type</td>
             <td className="table-side table-cell table-head">Implementation</td>
-            <td className="table-cell table-head">Cross-cutting</td>
-            {/* <td className="table-cell table-head">Location</td>
-            <td className="table-side table-cell table-head">Funding status</td> */}
+            <td className="table-side table-cell table-head">Cross-cutting</td>
             <td className="table-cell table-head">Options</td>
+            {/* <td className="table-cell table-head table-side">Location</td>
+            <td className="table-side table-cell table-head">Funding status</td> */}
             
           </tr>
         </thead>
         <tbody>
 
           {/* Funding */}
-          {projectFunderDetails.sort((a, b) => a.FunderId > b.FunderId ? 1 : 0).map(f => {
+          {/* {projectFunderDetails.sort((a, b) => a.FunderId > b.FunderId ? 1 : 0).map(f => {
             let index = projectFunderDetails.indexOf(f) + 1
             return this.createTableEntry("Funding", `Funding #${index}`, "Applied", f.FunderId)
-          })}
+          })} */}
 
           {/* Adaptations */}
           {adaptationDetails.sort((a, b) => a.AdaptationDetailId > b.AdaptationDetailId ? 1 : 0).map(a => {
