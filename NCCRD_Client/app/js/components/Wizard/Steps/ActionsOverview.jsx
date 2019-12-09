@@ -112,22 +112,20 @@ class ActionsOverview extends React.Component {
             <td className="table-cell table-side table-head">Title</td>
             <td className="table-side table-cell table-head">Type</td>
             <td className="table-side table-cell table-head">Implementation</td>
-            {/* <td className="table-side table-cell table-head">Location</td> */}
-            <td className="table-side table-cell table-head">
-              Funding status
-            {/* <br style={{ marginTop: 0, marginBottom: 0 }}/> */}
-              {/* <div style={{ fontSize: "10px", marginTop: -5 }}>*coming soon*</div> */}
-            </td>
+            <td className="table-cell table-head">Cross-cutting</td>
+            {/* <td className="table-cell table-head">Location</td>
+            <td className="table-side table-cell table-head">Funding status</td> */}
             <td className="table-cell table-head">Options</td>
+            
           </tr>
         </thead>
         <tbody>
 
           {/* Funding */}
-          {/* {projectFunderDetails.sort((a, b) => a.FunderId > b.FunderId ? 1 : 0).map(f => {
+          {projectFunderDetails.sort((a, b) => a.FunderId > b.FunderId ? 1 : 0).map(f => {
             let index = projectFunderDetails.indexOf(f) + 1
             return this.createTableEntry("Funding", `Funding #${index}`, "Applied", f.FunderId)
-          })} */}
+          })}
 
           {/* Adaptations */}
           {adaptationDetails.sort((a, b) => a.AdaptationDetailId > b.AdaptationDetailId ? 1 : 0).map(a => {
@@ -152,7 +150,7 @@ class ActionsOverview extends React.Component {
           })}
 
           {/* Location */}
-          {/* TODO - finish integratino of locationstep to actions overview */}
+          {/* TODO - finish integration of locationstep to actions overview */}
           {/* {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
             let index = adaptationDetails.indexOf(a) + 1
             return this.createTableEntry(
@@ -191,7 +189,7 @@ class ActionsOverview extends React.Component {
         </td>
         <td className="table-side table-cell">
           {/* TODO pull status from funding step*/}
-          <Checkbox disabled /*onChange={onChange}*/>(No)</Checkbox>
+          <Checkbox ></Checkbox>
         </td>
         <td className="table-cell">
           {/* <Button
