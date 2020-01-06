@@ -113,7 +113,7 @@ export default function ProjectFundersReducer(state = {}, action) {
             //return updated state
             return { ...state, projectFunderDetails: [...projectFunderDetails, { ...details.item, PartnerDepsOrgs: payload, state: modState }] }
         }
-   
+
         case "SET_PROJECTFUNDER_TOTALBUDGET": {
             let { projectFunderDetails } = state
 
