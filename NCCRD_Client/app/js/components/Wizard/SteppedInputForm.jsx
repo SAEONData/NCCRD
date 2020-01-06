@@ -11,7 +11,7 @@ import ProjectManagerStep from './Steps/ProjectManagerStep.jsx';
 import AdaptationDetailsStep from './Steps/AdaptationDetailsStep.jsx';
 import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
-import FundingDetailsStep from './Steps/FundingDetailsStep.jsx';
+import FundingDetailStep from './Steps/FundingDetailStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
@@ -316,7 +316,7 @@ class SteppedInputForm extends React.Component {
       steps.push({
         title: `Funding #${index} - Details`,
         backAction: "Actions - Overview",
-        content: <FundingDetailsStep details={funder} />,
+        content: <FundingDetailStep details={funder} />,
         error: false
       })
     })
@@ -348,6 +348,13 @@ class SteppedInputForm extends React.Component {
 
       // Optionally add Funding
       // ...
+      if (action.ResearchDetail !== null) {
+        steps.push({
+          title: `Adaptation #${index} - Funding`,
+          content: <FundingDetailStep details={action} stepWizard={this.stepWizard} />,
+          error: false
+        })
+      }
     })
 
     //Mitigation
@@ -383,7 +390,7 @@ class SteppedInputForm extends React.Component {
       })
       steps.push({
         title: `Mitigation #${index} - Funding`,
-        content: <FundingDetailsStep details={action} />,
+        content: <FundingDetailStep details={action} />,
         error: false
       })
       // steps.push({
