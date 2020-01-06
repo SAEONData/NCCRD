@@ -122,10 +122,10 @@ class ActionsOverview extends React.Component {
         <tbody>
 
           {/* Funding */}
-          {projectFunderDetails.sort((a, b) => a.FunderId > b.FunderId ? 1 : 0).map(f => {
+          {/* {projectFunderDetails.sort((a, b) => a.FunderId > b.FunderId ? 1 : 0).map(f => {
             let index = projectFunderDetails.indexOf(f) + 1
             return this.createTableEntry("Funding", `Funding #${index}`, "Applied", f.FunderId)
-          })}
+          })} */}
 
           {/* Adaptations */}
           {adaptationDetails.sort((a, b) => a.AdaptationDetailId > b.AdaptationDetailId ? 1 : 0).map(a => {
