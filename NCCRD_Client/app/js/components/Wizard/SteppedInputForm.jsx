@@ -11,7 +11,7 @@ import ProjectManagerStep from './Steps/ProjectManagerStep.jsx';
 import AdaptationDetailsStep from './Steps/AdaptationDetailsStep.jsx';
 import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
-import FundingDetailsStep from './Steps/FundingDetailsStep.jsx';
+import FundingDetailStep from './Steps/FundingDetailStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
@@ -310,13 +310,13 @@ class SteppedInputForm extends React.Component {
     })
 
     //Funding
-    projectFunderDetails.map(funder => {
-      let index = projectFunderDetails.indexOf(funder) + 1
+    projectFunderDetails.map(action => {
+      let index = projectFunderDetails.indexOf(action) + 1
 
       steps.push({
         title: `Funding #${index} - Details`,
         backAction: "Actions - Overview",
-        content: <FundingDetailsStep details={funder} />,
+        content: <FundingDetailStep details={action} />,
         error: false
       })
     })
@@ -363,27 +363,32 @@ class SteppedInputForm extends React.Component {
       })
       steps.push({
         title: `Mitigation #${index} - Adaptation`,
+        backAction: "Actions - Overview",
         content: <AdaptationDetailsStep details={action} />,
         error: false
       })
       steps.push({
         title: `Mitigation #${index} - Approach`,
+        backAction: "Actions - Overview",
         content: <MitigationApproachStep details={action} />,
         error: false
       })
       steps.push({
         title: `Mitigation #${index} - Carbon Credits`,
+        backAction: "Actions - Overview",
         content: <CarbonCreditStep details={action} />,
         error: false
       })
       steps.push({
         title: `Mitigation #${index} - Location`,
+        backAction: "Actions - Overview",
         content: <ProjectLocationStep details={action} />,
         error: false
       })
       steps.push({
         title: `Mitigation #${index} - Funding`,
-        content: <FundingDetailsStep details={action} />,
+        backAction: "Actions - Overview",
+        content: <FundingDetailStep details={action} />,
         error: false
       })
       // steps.push({

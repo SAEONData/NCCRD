@@ -1,10 +1,9 @@
 import React from 'react'
 import { Row, Col, Fa, Button } from 'mdbreact'
 import { connect } from 'react-redux'
-import TextComponent from '../../Shared/TextComponent.jsx'
-import SelectComponent from '../../Shared/SelectComponent.jsx'
+import TextComponent from '../../Shared/TextComponent.jsx';
+import SelectComponent from '../../Shared/SelectComponent.jsx';
 import { Popover } from 'antd'
-import _ from 'lodash'
 
 import "./shared.css"
 
@@ -27,8 +26,8 @@ class FundingDetailStep extends React.Component {
   constructor(props) {
     super(props);
 
-    fundingStatus = this.fundingStatus.bind(this)
-
+    this.onAdd = this.onAdd.bind(this)
+    this.onRemove = this.onRemove.bind(this)
   }
 
   onAdd() {
@@ -48,8 +47,7 @@ class FundingDetailStep extends React.Component {
 
   render() {
 
-    let { details, users, fundingStatus } = this.props    
-    // let fundingStatus = this.state.bind(this)
+    let { details, users, fundingStatus } = this.props
 
     return (
       <>
