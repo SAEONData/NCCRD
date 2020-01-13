@@ -3,6 +3,8 @@ import { Button, Fa } from 'mdbreact'
 import { apiBaseURL } from "../../../config/serviceURLs.js"
 import { connect } from 'react-redux'
 import MitigationDetailsItem from './MitigationDetailsItem.jsx'
+import TextAreaComponent from '../../Shared/TextAreaComponent.jsx'
+
 
 const mapStateToProps = (state, props) => {
   let { mitigationData: { mitigationDetails } } = state
@@ -42,6 +44,11 @@ class CarbonCreditStep extends React.Component {
     return (
       <>
         {this.loadDetails()}
+        <TextAreaComponent
+          label={<Fa icon="info-circle"></Fa>, "Enter the details of the method used"}
+        >
+        
+        </TextAreaComponent>
       </>
     )
   }

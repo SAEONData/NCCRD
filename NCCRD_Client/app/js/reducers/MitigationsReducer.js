@@ -63,6 +63,7 @@ export default function MitigationsReducer(state = {}, action) {
                 CarbonCreditMarketId: null,
                 CDMStatusId: null,
                 CDMMethodologyId: null,
+                MitigationFundingId: null,
                 VoluntaryMethodologyId: null,
                 VoluntaryGoldStandardId: null,
                 ProjectId: payload,
@@ -154,6 +155,18 @@ export default function MitigationsReducer(state = {}, action) {
 
             //return updated state
             return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, CDMMethodologyId: payload, state: modState }] }
+        }
+
+        case "SET_MITIGATION_FUNDING_DETAIL": {
+            let { mitigationDetails } = state
+
+            //get item and id
+            let details = extractItemAndId(mitigationDetails, "MitigationDetailId", id)
+            //remove item from arary
+            mitigationDetails.splice(details.id, 1);
+
+            //return updated state
+            return { ...state, mitigationDetails: [ ...mitigationDetails, { ...details.item, MitigationFundingId: payload, modState }]}
         }
 
         case "SET_MITIGATION_VOLUNTARY_METHODOLOGY": {

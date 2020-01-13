@@ -11,7 +11,7 @@ import ProjectManagerStep from './Steps/ProjectManagerStep.jsx';
 import AdaptationDetailsStep from './Steps/AdaptationDetailsStep.jsx';
 import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
-import FundingDetailStep from './Steps/FundingDetailStep.jsx';
+import FundingDetailStep from './Steps/MitigationFundingDetailStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
@@ -351,7 +351,7 @@ class SteppedInputForm extends React.Component {
     })
 
     //Mitigation
-    //...coming soon... (as in now)
+   
     mitigationDetails.map(action => {
       let index = mitigationDetails.indexOf(action) + 1
 
