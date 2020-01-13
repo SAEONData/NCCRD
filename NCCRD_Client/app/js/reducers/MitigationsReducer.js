@@ -73,12 +73,14 @@ export default function MitigationsReducer(state = {}, action) {
                 state: "modified"
             }
 
-            if (mitigationDetails.length > 0) {
-                return { ...state, mitigationDetails: [...mitigationDetails, newItem] }
-            }
-            else {
-                return { ...state, mitigationDetails: [newItem] }
-            }
+            // if (mitigationDetails.length > 0) {
+            //     return { ...state, mitigationDetails: [...mitigationDetails, newItem] }
+            // }
+            // else {
+            //     return { ...state, mitigationDetails: [newItem] }
+            // }
+
+            return { ...state, mitigationDetails: [...mitigationDetails, newItem]}
         }
 
         case "REMOVE_MITIGATION_DETAILS": {

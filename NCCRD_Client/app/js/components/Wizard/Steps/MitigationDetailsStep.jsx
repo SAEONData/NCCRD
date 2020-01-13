@@ -80,13 +80,13 @@ class MitigationDetailsStep extends React.Component {
             label="Description:"
             id="txtMitigationDescription"
             value={details.Description}
-            setValueKey={"SET_MITIGATION_DETAILS_DESCR"}
+            setValueKey={"SET_MITIGATION_OTHER_DESCR"}
             parentId={details.MitigationDetailId}
             rows={3}
           />
         </Row>
 
-        <div className="vertical-spacer" />
+        {/* <div className="vertical-spacer" />
 
         <Row>
           <SelectComponent
@@ -108,7 +108,7 @@ class MitigationDetailsStep extends React.Component {
             }}
             allowClear={true}
           />
-        </Row>
+        </Row> */}
 
         <div className="vertical-spacer" />
 
@@ -119,7 +119,7 @@ class MitigationDetailsStep extends React.Component {
             label="Sector:"
             selectedValue={details.SectorId}
             data={sector}
-            setSelectedValueKey={"SET_MITIGATION_DETAILS_SECTOR"}
+            setSelectedValueKey={"SET_MITIGATION_SECTOR"}
             parentId={details.MitigationDetailId}
             dispatch={"LOAD_SECTOR"}
             persist="Sector"
@@ -129,7 +129,7 @@ class MitigationDetailsStep extends React.Component {
               { key: "ParentSectorId", value: sector, type: "tree" },
               { key: "TypologyId", value: typology, type: "std" }
             ]}
-            allowEdit={true}
+            allowEdit={false}
             newItemTemplate={{
               "SectorId": 0,
               "Value": "",
@@ -159,7 +159,7 @@ class MitigationDetailsStep extends React.Component {
           />
         </Row> */}
 
-        <div className="vertical-spacer" />
+        {/* <div className="vertical-spacer" />
 
         <Row>
           <SelectComponent
@@ -173,7 +173,7 @@ class MitigationDetailsStep extends React.Component {
             allowEdit={false}
             allowClear={true}
           />
-        </Row>
+        </Row> */}
       </>
     )
   }

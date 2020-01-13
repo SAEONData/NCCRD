@@ -129,7 +129,7 @@ class AdaptationDetailsStep extends React.Component {
               { key: "ParentSectorId", value: sector, type: "tree" },
               { key: "TypologyId", value: typology, type: "std" }
             ]}
-            allowEdit={true}
+            allowEdit={false}
             newItemTemplate={{
               "SectorId": 0,
               "Value": "",

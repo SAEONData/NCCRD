@@ -192,7 +192,7 @@ class ActionsOverview extends React.Component {
           <Checkbox ></Checkbox>
         </td>
         <td className="table-cell">
-          {/* <Button
+          <Button
             className="table-button"
             size="sm"
             color=""
@@ -201,7 +201,7 @@ class ActionsOverview extends React.Component {
           >
             <Fa className="button-icon" icon="pencil" />
             Edit
-          </Button> */}
+          </Button>
           <Button
             className="table-button"
             size="sm"
