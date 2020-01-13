@@ -168,7 +168,7 @@ export default function MitigationsReducer(state = {}, action) {
             mitigationDetails.splice(details.id, 1);
 
             //return updated state
-            return { ...state, mitigationDetails: [ ...mitigationDetails, { ...details.item, MitigationFundingId: payload, modState }]}
+            return { ...state, mitigationDetails: [ ...mitigationDetails, { ...details.item, MitigationFundingId: payload, state: modState }]}
         }
 
         case "SET_MITIGATION_VOLUNTARY_METHODOLOGY": {

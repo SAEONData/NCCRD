@@ -57,13 +57,13 @@ class FundingDetailStep extends React.Component {
           
           <SelectComponent
             col="col-md-6"
-            id="lblMitigationFundingStatus"
+            id="lblFundingStatus"
             label="Funding Status:"
-            selectedValue={details.fundingStatus}
+            selectedValue={details.FundingStatusId}
             data={fundingStatus}
             setSelectedValueKey={"SET_MITIGATION_FUNDING_DETAIL"}
-            parentId={details.fundingStatus}
-            dispatch={"LOAD_MITIGATION_DETAILS"}
+            parentId={details.FunderId}
+            dispatch={"LOAD_FUNDINGSTATUS"}
             persist="FundingStatus"
             allowEdit={false}
             newItemTemplate={{
