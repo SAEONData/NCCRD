@@ -284,6 +284,19 @@ export default function AdaptationsReducer(state = {}, action) {
             return { ...state, adaptationDetails: [...adaptationDetails, { ...details.item, ResearchDetail: researchDetail, state: modState }] }
         }
 
+        case "SET_ADAPTATION_FUNDING_DETAIL": {
+            let { adaptationDetails } = state
+        
+            //Get item and ID
+            let details = extractItemAndId(adaptationDetails, "AdaptationDetailId", id)
+            adaptationDetails.splice(details.id, 1)
+
+            let fundingDetail = details.item.FundingDetail
+            fundingDetail.FundingStatusId = payload
+
+            return { ...state, adaptationDetails: [...adaptationDetails, { ...details.item, FundingDetail: fundingDetail, state: modState }]}
+        }
+
         default: {
             return state
         }

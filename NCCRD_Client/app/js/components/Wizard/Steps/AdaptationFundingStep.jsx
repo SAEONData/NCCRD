@@ -61,7 +61,7 @@ class FundingDetailStep extends React.Component {
             label="Funding Status:"
             selectedValue={details.FundingStatusId}
             data={fundingStatus}
-            setSelectedValueKey={"SET_MITIGATION_FUNDING_DETAIL"}
+            setSelectedValueKey={"SET_ADAPTATION_FUNDING_DETAIL"}
             parentId={details.FunderId}
             dispatch={"LOAD_FUNDINGSTATUS"}
             persist="FundingStatus"
