@@ -71,7 +71,8 @@ class FundingDetailStep extends React.Component {
               "Value": "",
               "Description": ""
             }}
-            allowClear={false}
+            editModeOverride={true}
+            allowClear={true}
           />
         </Row>
 
@@ -125,15 +126,16 @@ class FundingDetailStep extends React.Component {
             selectedValue={details.ProjectCoordinatorId}
             data={users.map(x => { return { Id: x.PersonId, Value: (x.FirstName + " " + x.Surname + " (" + x.EmailAddress + ")") } })}
             setSelectedValueKey={"SET_PROJECTFUNDERS_PROJECTCOORDINATOR"}
-            parentId={details.FunderId}
+            parentId={details.AdaptationId}
             dispatch={"LOAD_PROJECTFUNDERS_PROJECTCOORDINATOR"}
             persist="ProjectCoordinator"
-            allowEdit={false}
+            allowEdit={true}
             newItemTemplate={{
               "Id": 0,
               "Value": "",
               "Description": ""
             }}
+            editModeOverride={true}
             allowClear={true}
           />
         </Row>

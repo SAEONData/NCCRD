@@ -71,7 +71,8 @@ class FundingDetailStep extends React.Component {
               "Value": "",
               "Description": ""
             }}
-            allowClear={false}
+            editModeOverride={true}
+            allowClear={true}
           />
         </Row>
 
