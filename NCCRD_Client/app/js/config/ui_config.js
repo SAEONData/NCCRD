@@ -99,32 +99,32 @@ export const ui_config = [
     label: "Project verification status:",
     tooltip: "Click the button below to verify this project"
   },
-  // {
-  //   key: "txtProjectValidationComments",
-  //   label: "Validation comments:",
-  //   tooltip: "Validation comments"
-  // },
-  // {
-  //   key: "selProjectType",
-  //   label: "Project type:",
-  //   tooltip: "Project type",
-  //   required: true
-  // },
-  // {
-  //   key: "selProjectSubType",
-  //   label: "Project sub-type:",
-  //   tooltip: "Project sub-type"
-  // },
-  // {
-  //   key: "selProjectValidationStatus",
-  //   label: "Validation status:",
-  //   tooltip: "Validation status"
-  // },
-  // {
-  //   key: "selProjectMAOptions",
-  //   label: "M.A. Options:",
-  //   tooltip: "Mitigation & Adaptation options"
-  // },
+  {
+    key: "txtProjectValidationComments",
+    label: "Validation comments:",
+    tooltip: "Validation comments"
+  },
+  {
+    key: "selProjectType",
+    label: "Project type:",
+    tooltip: "Project type",
+    required: true
+  },
+  {
+    key: "selProjectSubType",
+    label: "Project sub-type:",
+    tooltip: "Project sub-type"
+  },
+  {
+    key: "selProjectValidationStatus",
+    label: "Validation status:",
+    tooltip: "Validation status"
+  },
+  {
+    key: "selProjectMAOptions",
+    label: "M.A. Options:",
+    tooltip: "Mitigation & Adaptation options"
+  },
 
 
   //FUNDING

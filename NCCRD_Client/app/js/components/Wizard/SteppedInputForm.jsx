@@ -347,7 +347,11 @@ class SteppedInputForm extends React.Component {
       }
 
       // Optionally add Funding
-      // ...
+      steps.push({
+        title: `Adaptation #${index} - Funding`,
+        content: <FundingDetailStep details={action} />,
+        error: false
+      })
     })
 
     //Mitigation
@@ -391,11 +395,7 @@ class SteppedInputForm extends React.Component {
         content: <FundingDetailStep details={action} />,
         error: false
       })
-      // steps.push({
-      //   title: `Mitigation #${index} - Contact`,
-      //   content: <MitigationContactStep details={action} />,
-      //   error: false
-      // })
+   
     })
 
     //Validate inputs before summary
