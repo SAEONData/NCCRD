@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-class FundingDetailStep extends React.Component {
+class MitigationFundingDetailStep extends React.Component {
 
   constructor(props) {
     super(props);
@@ -59,7 +59,7 @@ class FundingDetailStep extends React.Component {
             col="col-md-6"
             id="lblFundingStatus"
             label="Funding Status:"
-            selectedValue={details.FundingStatusId}
+            selectedValue={details.fundingStatus}
             data={fundingStatus}
             setSelectedValueKey={"SET_MITIGATION_FUNDING_DETAIL"}
             parentId={details.FunderId}
@@ -208,4 +208,4 @@ class FundingDetailStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FundingDetailStep)
+export default connect(mapStateToProps, mapDispatchToProps)(MitigationFundingDetailStep)

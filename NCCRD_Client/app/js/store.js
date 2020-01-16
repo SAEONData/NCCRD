@@ -55,15 +55,19 @@ const store = createStore(
         },
 
         projectFundersData: {
-            projectFunderDetails: []
+            projectFunderDetails: [],
+            adaptationDetails: [],
+            mitigationDetails: []
         },
 
         adaptationData: {
-            adaptationDetails: []
+            adaptationDetails: [],
+            // projectFunderDetails: []
         },
 
         mitigationData: {
-            mitigationDetails: []
+            mitigationDetails: [],
+            projectFunderDetails: []
         },
 
         emissionsData: {

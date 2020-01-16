@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-class FundingDetailStep extends React.Component {
+class AdaptationFundingDetailStep extends React.Component {
 
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ class FundingDetailStep extends React.Component {
   onAdd() {
     let { addFundingAction, details } = this.props
     addFundingAction({
-      id: details.MitigationDetailId, 
+      id: details.AdaptationDetailId, 
       state: 'modified'
     })
   }
@@ -59,10 +59,10 @@ class FundingDetailStep extends React.Component {
             col="col-md-6"
             id="lblFundingStatus"
             label="Funding Status:"
-            selectedValue={details.FundingStatusId}
+            selectedValue={details.fundingStatusId}
             data={fundingStatus}
             setSelectedValueKey={"SET_ADAPTATION_FUNDING_DETAIL"}
-            parentId={details.FunderId}
+            parentId={details.AdaptationFundingDetailStep}
             dispatch={"LOAD_FUNDINGSTATUS"}
             persist="FundingStatus"
             allowEdit={false}
@@ -209,4 +209,4 @@ class FundingDetailStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FundingDetailStep)
+export default connect(mapStateToProps, mapDispatchToProps)(AdaptationFundingDetailStep)
