@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-class MitigationFundingDetailStep extends React.Component {
+class FundingDetailStep extends React.Component {
 
   constructor(props) {
     super(props);
@@ -53,7 +53,29 @@ class MitigationFundingDetailStep extends React.Component {
 
     return (
       <>
-        <Row>
+       <Row>
+          <SelectComponent
+            col="col-md-6"
+            id="lblFundingStatus"
+            label="Funding Status:"
+            selectedValue={details.FundingStatusId}
+            data={fundingStatus}
+            setSelectedValueKey={"SET_PROJECTFUNDERS_FUNDINGSTATUS"}
+            parentId={details.FunderId}
+            dispatch={"LOAD_PROJECTFUNDERS_FUNDINGSTATUS"}
+            persist="FundingStatus"
+            allowEdit={false}
+            newItemTemplate={{
+              "Id": 0,
+              "Value": "",
+              "Description": ""
+            }}
+            editModeOverride={true}
+            allowClear={false}
+          />
+        </Row>
+        <div className="vertical-spacer" />
+        {/* <Row>
           
           <SelectComponent
             col="col-md-6"
@@ -76,7 +98,7 @@ class MitigationFundingDetailStep extends React.Component {
           />
         </Row>
 
-        <div className="vertical-spacer" />
+        <div className="vertical-spacer" /> */}
 
         <Row>
           <TextComponent
@@ -208,4 +230,4 @@ class MitigationFundingDetailStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MitigationFundingDetailStep)
+export default connect(mapStateToProps, mapDispatchToProps)(FundingDetailStep)

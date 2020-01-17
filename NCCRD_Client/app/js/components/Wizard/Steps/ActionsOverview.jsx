@@ -3,6 +3,7 @@ import { Button, Fa } from 'mdbreact'
 import { Select, Checkbox } from 'antd'
 import { connect } from 'react-redux'
 import { DEAGreen } from '../../../config/colours'
+import SelectComponent from '../../Shared/SelectComponent.jsx'
 
 import {ProjectLocationStep} from './ProjectLocationStep.jsx'
 
@@ -15,11 +16,12 @@ const Option = Select.Option;
 const mapStateToProps = (state, props) => {
 
   let { adaptationData: { adaptationDetails } } = state
-  let { projectFundersData: { projectFunderDetails } } = state
+  let { projectFundersData: { projectFunderDetails, details } } = state
+  let { lookupData: { users, fundingStatus } } = state
   // let { locationData: { locationDetails } } = state
   let { mitigationData: { mitigationDetails } } = state
 
-  return { projectFunderDetails, adaptationDetails, mitigationDetails }
+  return { projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -92,8 +94,8 @@ class ActionsOverview extends React.Component {
   }
 
   addFunding() {
-    let { projectFunderDetails, addProjectFunderDetails } = this.props
-    addProjectFunderDetails(projectFunderDetails.ProjectId)
+    let { projectFunderDetails, addProjectFunderDetails, details } = this.props
+    addProjectFunderDetails(projectFunderDetails.ProjectId, details)
   }
 
   // addLocation() {
@@ -103,7 +105,7 @@ class ActionsOverview extends React.Component {
 
   constructActionsTable() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails, details } = this.props
 
     return (
       <table width="100%">
@@ -113,9 +115,10 @@ class ActionsOverview extends React.Component {
             <td className="table-side table-cell table-head">Type</td>
             <td className="table-side table-cell table-head">Implementation</td>
             <td className="table-side table-cell table-head">Cross-cutting</td>
+            <td className="table-side table-cell table-head">Funding status</td>
             <td className="table-cell table-head">Options</td>
-            {/* <td className="table-cell table-head table-side">Location</td>
-            <td className="table-side table-cell table-head">Funding status</td> */}
+            {/* <td className="table-cell table-head table-side">Location</td> */}
+            
             
           </tr>
         </thead>
@@ -165,7 +168,7 @@ class ActionsOverview extends React.Component {
     )
   }
 
-  createTableEntry(type, title, implementation, id) {
+  createTableEntry(type, title, implementation, id, details) {
     return (
       <tr key={title}>
         <td className="table-side table-cell">
@@ -188,9 +191,30 @@ class ActionsOverview extends React.Component {
           }
         </td>
         <td className="table-side table-cell">
-          {/* TODO pull status from funding step*/}
           <Checkbox ></Checkbox>
         </td>
+        <td className="table-side table-cell">
+          {/* TODO pull status from funding step*/}
+          <SelectComponent
+            // col="col-md-6"
+            // id=""
+            label="."
+            selectedValue={this.FundingStatusId}
+            data={this.fundingStatus}
+            setSelectedValueKey={"SET_PROJECTFUNDERS_FUNDINGSTATUS"}
+            parentId={this.FunderId}
+            dispatch={"LOAD_PROJECTFUNDERS_FUNDINGSTATUS"}
+            persist="FundingStatus"
+            allowEdit={true}
+            newItemTemplate={{
+              "Id": 0,
+              "Value": "",
+              "Description": ""
+            }}
+            editModeOverride={true}
+            allowClear={false}
+          />
+          </td>
         <td className="table-cell">
           <Button
             className="table-button"
@@ -286,7 +310,7 @@ class ActionsOverview extends React.Component {
 
   render() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails, details } = this.props
 
     return (
       <>
