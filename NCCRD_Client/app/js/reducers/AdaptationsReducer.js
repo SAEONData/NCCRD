@@ -285,18 +285,18 @@ export default function AdaptationsReducer(state = {}, action) {
             return { ...state, adaptationDetails: [...adaptationDetails, { ...details.item, ResearchDetail: researchDetail, state: modState }] }
         }
 
-        case "SET_ADAPTATION_FUNDING_DETAIL": {
-            let { adaptationDetails } = state
+        // case "SET_ADAPTATION_FUNDING_DETAIL": {
+        //     let { adaptationDetails } = state
         
-            //Get item and ID
-            let details = extractItemAndId(adaptationDetails, "AdaptationDetailId", id)
-            adaptationDetails.splice(details.id, 1)
+        //     //Get item and ID
+        //     let details = extractItemAndId(adaptationDetails, "AdaptationDetailId", id)
+        //     adaptationDetails.splice(details.id, 1)
 
-            let adaptationFundingDetail = details.item.FundingDetail
-            fundingDetail.FundingStatusId = payload
+        //     let adaptationFundingDetail = details.item.FundingDetail
+        //     fundingDetail.FundingStatusId = payload
 
-            return { ...state, adaptationDetails: [...adaptationDetails, { ...details.item, adaptationFundingDetail: FundingDetail, state: modState }]}
-        }
+        //     return { ...state, adaptationDetails: [...adaptationDetails, { ...details.item, adaptationFundingDetail: FundingDetail, state: modState }]}
+        // }
 
         case "SET_PROJECTFUNDERS_PROJECTCOORDINATOR": {
             let { adaptationFunderDetails } = state

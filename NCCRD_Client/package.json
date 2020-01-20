@@ -2,6 +2,9 @@
   "name": "nccrd",
   "version": "1.0.0",
   "main": "./app/index.ejs",
+  "quokka": {
+    "babel": "module:react"
+  },
   "scripts": {
     "app-dev": "webpack-dev-server --hot --watch-poll --progress=true --open --config ./webpack.dev.config.js",
     "build-test": "webpack --optimize-minimize --progress --config ./webpack.test.config.js",
@@ -12,6 +15,7 @@
   "description": "",
   "dependencies": {
     "@ant-design/icons": "^2.1.1",
+    "@babel/register": "^7.8.3",
     "ajv": "^6.0.0",
     "antd": "^3.21.4",
     "bootstrap": "^4.1.3",

@@ -5,7 +5,7 @@ import TextComponent from '../../Shared/TextComponent.jsx';
 import TextAreaComponent from '../../Shared/TextAreaComponent.jsx';
 import SelectComponent from '../../Shared/SelectComponent.jsx';
 import TreeSelectComponent from '../../Shared/TreeSelectComponent.jsx';
-import { Popover } from 'antd'
+
 
 import "./shared.css"
 
@@ -37,7 +37,7 @@ class AdaptationDetailsStep extends React.Component {
 
   onAdd() {
 
-    let { addAdaptationDetailsResearchDetails, details } = this.props
+    let { addAdaptationDetailsResearchDetails } = this.props
 
     //Add adaptation action
     addAdaptationDetailsResearchDetails({

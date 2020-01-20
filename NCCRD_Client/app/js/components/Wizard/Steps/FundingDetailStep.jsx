@@ -17,37 +17,17 @@ const mapDispatchToProps = (dispatch) => {
   return {
     removeFundingAction: payload => {
       dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
-    },
-    addProjectFunderDetails: payload => {
-      dispatch({ type: "ADD_PROJECTFUNDER_DETAILS", payload })
     }
   }
 }
 
-class AdaptationFundingDetailStep extends React.Component {
+class FundingDetailStep extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.addFunding = this.addFunding.bind(this)
-
-    this.onAdd = this.onAdd.bind(this)
     this.onRemove = this.onRemove.bind(this)
   }
-
-  addFunding() {
-    let { projectFunderDetails, addProjectFunderDetails } = this.props
-    addProjectFunderDetails(projectFunderDetails.ProjectId)
-  }
-
-  onAdd() {
-    let { addFundingAction, details } = this.props
-    addFundingAction({
-      id: details.AdaptationDetailId, 
-      state: 'modified'
-    })
-  }
-
 
   onRemove() {
     let { removeFundingAction, details, projectFunderDetails } = this.props
@@ -59,35 +39,8 @@ class AdaptationFundingDetailStep extends React.Component {
 
     let { details, users, fundingStatus } = this.props
 
-    
-
     return (
       <>
-        <Row>
-          
-          <SelectComponent
-            col="col-md-6"
-            id="lblFundingStatus"
-            label="Funding Status:"
-            selectedValue={details.FundingStatusId}
-            data={fundingStatus}
-            setSelectedValueKey={"SET_ADAPTATION_FUNDING_DETAIL"}
-            parentId={details.FunderId}
-            dispatch={"LOAD_FUNDINGSTATUS"}
-            persist="FundingStatus"
-            allowEdit={false}
-            newItemTemplate={{
-              "Id": 0,
-              "Value": "",
-              "Description": ""
-            }}
-            editModeOverride={true}
-            allowClear={true}
-          />
-        </Row>
-
-        <div className="vertical-spacer" />
-
         <Row>
           <TextComponent
             col="col-md-6"
@@ -136,7 +89,7 @@ class AdaptationFundingDetailStep extends React.Component {
             selectedValue={details.ProjectCoordinatorId}
             data={users.map(x => { return { Id: x.PersonId, Value: (x.FirstName + " " + x.Surname + " (" + x.EmailAddress + ")") } })}
             setSelectedValueKey={"SET_PROJECTFUNDERS_PROJECTCOORDINATOR"}
-            parentId={details.AdaptationId}
+            parentId={details.FunderId}
             dispatch={"LOAD_PROJECTFUNDERS_PROJECTCOORDINATOR"}
             persist="ProjectCoordinator"
             allowEdit={true}
@@ -145,7 +98,6 @@ class AdaptationFundingDetailStep extends React.Component {
               "Value": "",
               "Description": ""
             }}
-            editModeOverride={true}
             allowClear={true}
           />
         </Row>
@@ -180,7 +132,7 @@ class AdaptationFundingDetailStep extends React.Component {
 
         <div className="vertical-spacer" />
 
-        {/* <Row>
+        <Row>
           <SelectComponent
             col="col-md-6"
             id="lblFundingStatus"
@@ -197,10 +149,9 @@ class AdaptationFundingDetailStep extends React.Component {
               "Value": "",
               "Description": ""
             }}
-            editModeOverride={true}
-            allowClear={false}
+            allowClear={true}
           />
-        </Row> */}
+        </Row>
 
         {/* <div className="vertical-spacer" />
 
@@ -219,4 +170,4 @@ class AdaptationFundingDetailStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdaptationFundingDetailStep)
+export default connect(mapStateToProps, mapDispatchToProps)(FundingDetailStep)

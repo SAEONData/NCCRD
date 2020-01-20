@@ -1,27 +1,25 @@
 import React from 'react'
-import { Button, Fa } from 'mdbreact'
+import { Button, Fa, Row } from 'mdbreact'
 import { Select, Checkbox } from 'antd'
 import { connect } from 'react-redux'
 import { DEAGreen } from '../../../config/colours'
-import SelectComponent from '../../Shared/SelectComponent.jsx'
-
-import {ProjectLocationStep} from './ProjectLocationStep.jsx'
-
 
 import './shared.css'
 import './ActionsOverview.css'
+
+
 
 const Option = Select.Option;
 
 const mapStateToProps = (state, props) => {
 
   let { adaptationData: { adaptationDetails } } = state
-  let { projectFundersData: { projectFunderDetails, details } } = state
-  let { lookupData: { users, fundingStatus } } = state
-  // let { locationData: { locationDetails } } = state
+  let { projectFundersData: { projectFunderDetails } } = state
+  let { lookupData: { users, fundingStatus, details } } = state
+  let { locationData: { locationDetails } } = modState
   let { mitigationData: { mitigationDetails } } = state
 
-  return { projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus }
+  return { locationDetails, projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus, details }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -59,12 +57,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: "SET_MITIGATION_DETAILS_RESEARCH_DETAILS", payload })
     },
 
-    // addLocationDetails: payload => {
-    //   dispatch({ type: "ADD_LOCATION_DETAILS", payload })
-    // },
-    // removeLocationDetails: payload => {
-    //   dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
-    // },
+    addLocationDetails: payload => {
+      dispatch({ type: "ADD_LOCATION_DETAILS", payload })
+    },
+    removeLocationDetails: payload => {
+      dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
+    },
   
   }
 }
@@ -77,7 +75,7 @@ class ActionsOverview extends React.Component {
     this.addFunding = this.addFunding.bind(this)
     this.addAdaptation = this.addAdaptation.bind(this)
     this.addMitigation = this.addMitigation.bind(this)
-    // this.addLocation = this.addLocation.bind(this)
+    this.addLocation = this.addLocation.bind(this)
     this.constructActionsTable = this.constructActionsTable.bind(this)
     this.onImplementationChange = this.onImplementationChange.bind(this)
     this.onEdit = this.onEdit.bind(this)
@@ -95,17 +93,17 @@ class ActionsOverview extends React.Component {
 
   addFunding() {
     let { projectFunderDetails, addProjectFunderDetails, details } = this.props
-    addProjectFunderDetails(projectFunderDetails.ProjectId, details)
+    addProjectFunderDetails(projectFunderDetails.ProjectId, FundingDetailStep, details)
   }
 
-  // addLocation() {
-  //   let { locationDetails, addLocationDetails } = this.props
-  //   addLocationDetails(locationDetails.ProjectId)
-  // }
+  addLocation() {
+    let { locationDetails, addLocationDetails } = this.props
+    addLocationDetails(locationDetails.ProjectId, ProjectLocationStep, details)
+  }
 
   constructActionsTable() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails, details } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
 
     return (
       <table width="100%">
@@ -117,7 +115,7 @@ class ActionsOverview extends React.Component {
             <td className="table-side table-cell table-head">Cross-cutting</td>
             <td className="table-side table-cell table-head">Funding status</td>
             <td className="table-cell table-head">Options</td>
-            {/* <td className="table-cell table-head table-side">Location</td> */}
+            <td className="table-cell table-head table-side">Location</td>
             
             
           </tr>
@@ -154,21 +152,21 @@ class ActionsOverview extends React.Component {
 
           {/* Location */}
           {/* TODO - finish integration of locationstep to actions overview */}
-          {/* {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
+          {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
             let index = adaptationDetails.indexOf(a) + 1
             return this.createTableEntry(
               'Location',
               `Location #${index}`,
               l.LocationId
             )
-          })} */}
+          })}
 
         </tbody>
       </table>
     )
   }
 
-  createTableEntry(type, title, implementation, id, details) {
+  createTableEntry(type, title, implementation, id) {
     return (
       <tr key={title}>
         <td className="table-side table-cell">
@@ -195,7 +193,28 @@ class ActionsOverview extends React.Component {
         </td>
         <td className="table-side table-cell">
           {/* TODO pull status from funding step*/}
+          
+        {/* <Row>
           <SelectComponent
+            col="col-md-6"
+            id="lblFundingStatus"
+            label="Funding Status:"
+            selectedValue={adaptationDetails.FundingStatusId}
+            data={fundingStatus}
+            setSelectedValueKey={"SET_PROJECTFUNDERS_FUNDINGSTATUS"}
+            parentId={details.FunderId}
+            dispatch={"LOAD_PROJECTFUNDERS_FUNDINGSTATUS"}
+            persist="FundingStatus"
+            allowEdit={false}
+            newItemTemplate={{
+              "Id": 0,
+              "Value": "",
+              "Description": ""
+            }}
+            allowClear={true}
+          />
+        </Row> */}
+          {/* <SelectComponent
             // col="col-md-6"
             // id=""
             label="."
@@ -213,7 +232,7 @@ class ActionsOverview extends React.Component {
             }}
             editModeOverride={true}
             allowClear={false}
-          />
+          /> */}
           </td>
         <td className="table-cell">
           <Button
@@ -293,12 +312,12 @@ class ActionsOverview extends React.Component {
         state: 'modified'
       })
     }
-    // if (type === "Location") {
-    //   this.props.removeLocationDetails({
-    //     id,
-    //     state: 'modified'
-    //   })
-    // }
+    if (type === "Location") {
+      this.props.removeLocationDetails({
+        id,
+        state: 'modified'
+      })
+    }
   }
 
   onEdit(title) {
@@ -310,7 +329,7 @@ class ActionsOverview extends React.Component {
 
   render() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails, details } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
 
     return (
       <>
@@ -320,10 +339,10 @@ class ActionsOverview extends React.Component {
 
         <div className="vertical-spacer" />
 
-        {/* <Button className="inline-button add-btn" color="" onClick={this.addFunding} style={{ backgroundColor: DEAGreen }}>
+        <Button className="inline-button add-btn" color="" onClick={this.addFunding} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
           Add Funding
-        </Button> */}
+        </Button>
 
         <Button className="inline-button add-btn" color="" onClick={this.addAdaptation} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
