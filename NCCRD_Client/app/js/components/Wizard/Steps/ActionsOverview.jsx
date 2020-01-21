@@ -3,6 +3,8 @@ import { Button, Fa, Row } from 'mdbreact'
 import { Select, Checkbox } from 'antd'
 import { connect } from 'react-redux'
 import { DEAGreen } from '../../../config/colours'
+import SelectComponent from '../../Shared/SelectComponent.jsx'
+
 
 import './shared.css'
 import './ActionsOverview.css'
@@ -18,7 +20,7 @@ const mapStateToProps = (state, props) => {
   let { lookupData: { users, fundingStatus, details } } = state
   // let { locationData: { locationDetails } } = state
   let { mitigationData: { mitigationDetails } } = state
-
+  
   return { projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus, details }
 }
 
@@ -194,26 +196,13 @@ class ActionsOverview extends React.Component {
         <td className="table-side table-cell">
           {/* TODO pull status from funding step*/}
           
-        {/* <Row>
-          <SelectComponent
-            col="col-md-6"
-            id="lblFundingStatus"
-            label="Funding Status:"
-            selectedValue={adaptationDetails.FundingStatusId}
-            data={fundingStatus}
-            setSelectedValueKey={"SET_PROJECTFUNDERS_FUNDINGSTATUS"}
-            parentId={details.FunderId}
-            dispatch={"LOAD_PROJECTFUNDERS_FUNDINGSTATUS"}
-            persist="FundingStatus"
-            allowEdit={false}
-            newItemTemplate={{
-              "Id": 0,
-              "Value": "",
-              "Description": ""
-            }}
-            allowClear={true}
-          />
-        </Row> */}
+        <td>
+            <Select defaultValue="Seeking" onChange={(value, option) => this.onFundingStatSelect(value, option, type, id)}>
+              <Option value="Funded">Funded</Option>
+              <Option value="Partial">Partial</Option>
+              <Option value="Seeking">Seeking</Option>
+            </Select>
+        </td>
           {/* <SelectComponent
             // col="col-md-6"
             // id=""
@@ -258,6 +247,68 @@ class ActionsOverview extends React.Component {
       </tr>
     )
   }
+
+  onFundingStatSelect(type, value, id) {
+    if (type === "Adatpation") {
+      if (value === "Seeking") {
+        this.props.addAdaptationDetailsFundingStatus({
+          id: id, 
+          state: 'modified'
+        })
+      }
+      else if (type === "Mitigation") {
+        if (value === "Funded") {
+          this.props.addAdaptationDetailsFundingStatus({
+            id: id,
+            value: "Funded",
+            state: 'modified'
+          })
+        }
+      }
+      else if (type === "Mitigation") {
+        if (value === "Partial") {
+          this.props.addAdaptationDetailsFundingStatus({
+            id: id,
+            value: "Partial",
+            state: 'modified'
+          })
+        }
+      }
+      else {
+        this.props.removeAdaptationDetailsFundingStatus({
+          id: id, 
+          value: null, 
+          state: 'modified'
+        })
+      }
+    }
+    else if (type === "Mitigation") {
+      if (value === "Funded") {
+        this.props.addMitigationDetailsFundingDetails({
+          id: id,
+          value: "Funded",
+          state: 'modified'
+        })
+      }
+    }
+    else if (type === "Mitigation") {
+      if (value === "Partial") {
+        this.props.addMitigationDetailsFundingDetails({
+          id: id,
+          value: "Partial",
+          state: 'modified'
+        })
+      }
+    }
+    else {
+      this.props.removeMitigationDetailsFundingDetails({
+        id: id,
+        value: null,
+        state: 'modified'
+      })
+    }
+  }
+
 
   onImplementationChange(value, option, type, id) {
 
@@ -339,10 +390,10 @@ class ActionsOverview extends React.Component {
 
         <div className="vertical-spacer" />
 
-        <Button className="inline-button add-btn" color="" onClick={this.addFunding} style={{ backgroundColor: DEAGreen }}>
+        {/* <Button className="inline-button add-btn" color="" onClick={this.addFunding} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
           Add Funding
-        </Button>
+        </Button> */}
 
         <Button className="inline-button add-btn" color="" onClick={this.addAdaptation} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />

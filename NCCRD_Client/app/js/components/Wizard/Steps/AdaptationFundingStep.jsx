@@ -1,8 +1,9 @@
 import React from 'react'
 import { Row, Col, Fa, Button } from 'mdbreact'
+import { Select, Checkbox } from 'antd'
 import { connect } from 'react-redux'
-import TextComponent from '../../Shared/TextComponent.jsx';
-import SelectComponent from '../../Shared/SelectComponent.jsx';
+import TextComponent from '../../Shared/TextComponent.jsx'
+import SelectComponent from '../../Shared/SelectComponent.jsx'
 import { Popover } from 'antd'
 
 import "./shared.css"
@@ -10,7 +11,8 @@ import "./shared.css"
 const mapStateToProps = (state, props) => {
   let { lookupData: { users, fundingStatus } } = state
   let { projectFundersData: { projectFunderDetails } } = state
-  return { users, fundingStatus, projectFunderDetails }
+  let { onFundingStatSelect: { value } } = props
+  return { users, fundingStatus, projectFunderDetails, onFundingStatSelect }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -34,6 +36,68 @@ class AdaptationFundingDetailStep extends React.Component {
     this.onAdd = this.onAdd.bind(this)
     this.onRemove = this.onRemove.bind(this)
   }
+
+  onFundingStatSelect(type, value, id) {
+    if (type === "Adatpation") {
+      if (value === "Seeking") {
+        this.props.addAdaptationDetailsFundingStatus({
+          id: id, 
+          state: 'modified'
+        })
+      }
+      else if (type === "Mitigation") {
+        if (value === "Funded") {
+          this.props.addAdaptationDetailsFundingStatus({
+            id: id,
+            value: "Funded",
+            state: 'modified'
+          })
+        }
+      }
+      else if (type === "Mitigation") {
+        if (value === "Partial") {
+          this.props.addAdaptationDetailsFundingStatus({
+            id: id,
+            value: "Partial",
+            state: 'modified'
+          })
+        }
+      }
+      else {
+        this.props.removeAdaptationDetailsFundingStatus({
+          id: id, 
+          value: null, 
+          state: 'modified'
+        })
+      }
+    }
+    else if (type === "Mitigation") {
+      if (value === "Funded") {
+        this.props.addMitigationDetailsFundingDetails({
+          id: id,
+          value: "Funded",
+          state: 'modified'
+        })
+      }
+    }
+    else if (type === "Mitigation") {
+      if (value === "Partial") {
+        this.props.addMitigationDetailsFundingDetails({
+          id: id,
+          value: "Partial",
+          state: 'modified'
+        })
+      }
+    }
+    else {
+      this.props.removeMitigationDetailsFundingDetails({
+        id: id,
+        value: null,
+        state: 'modified'
+      })
+    }
+  }
+
 
   addFunding() {
     let { projectFunderDetails, addProjectFunderDetails } = this.props
@@ -65,7 +129,7 @@ class AdaptationFundingDetailStep extends React.Component {
       <>
         <Row>
           
-          <SelectComponent
+          {/* <SelectComponent
             col="col-md-6"
             id="lblFundingStatus"
             label="Funding Status:"
@@ -83,7 +147,17 @@ class AdaptationFundingDetailStep extends React.Component {
             }}
             editModeOverride={true}
             allowClear={true}
-          />
+          /> */}
+
+            <Select 
+              col="col-md-6"
+              defaultValue={onFundingStatSelect.value} 
+              onChange={(value, option) => this.onFundingStatSelect(value, option, type, id)}
+            >
+              <Option value="Funded">Funded</Option>
+              <Option value="Partial">Partial</Option>
+              <Option value="Seeking">Seeking</Option>
+            </Select>
         </Row>
 
         <div className="vertical-spacer" />

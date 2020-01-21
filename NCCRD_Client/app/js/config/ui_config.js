@@ -164,8 +164,13 @@ export const ui_config = [
     label: "Funding status:",
     tooltip: "The current funding status of the project"
   },
+  {
+    key: "lblFundingStatusTable",
+    // label: "",
+    // tooltip: "Select current funding status for the project"
+  },
 
-
+ 
   // ADAPTATION DETAILS //
   {
     key: "txtAdaptationTitle",
