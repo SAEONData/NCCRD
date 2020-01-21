@@ -1,29 +1,33 @@
 import React from 'react'
-import { Button, Fa } from 'mdbreact'
-import { Select, Checkbox } from 'antd';
+import { Button, Fa, Row } from 'mdbreact'
+import { Select, Checkbox } from 'antd'
 import { connect } from 'react-redux'
-import { DEAGreen } from '../../../config/colours';
+import { DEAGreen } from '../../../config/colours'
+import SelectComponent from '../../Shared/SelectComponent.jsx'
+
 
 import './shared.css'
 import './ActionsOverview.css'
 
+
+
 const Option = Select.Option;
 
 const mapStateToProps = (state, props) => {
-  let { projectFundersData: { projectFunderDetails } } = state
+
   let { adaptationData: { adaptationDetails } } = state
+  let { projectFundersData: { projectFunderDetails } } = state
+  let { lookupData: { users, fundingStatus, details } } = state
+  // let { locationData: { locationDetails } } = state
   let { mitigationData: { mitigationDetails } } = state
-  return { projectFunderDetails, adaptationDetails, mitigationDetails }
+  
+  return { projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus, details }
 }
 
 const mapDispatchToProps = (dispatch) => {
+
   return {
-    addProjectFunderDetails: payload => {
-      dispatch({ type: "ADD_PROJECTFUNDER_DETAILS", payload })
-    },
-    removeFundingAction: payload => {
-      dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
-    },
+
     addAdaptationDetails: payload => {
       dispatch({ type: "ADD_ADAPTATION_DETAILS", payload })
     },
@@ -35,7 +39,33 @@ const mapDispatchToProps = (dispatch) => {
     },
     removeAdaptationDetailsResearchDetails: payload => {
       dispatch({ type: "SET_ADAPTATION_DETAILS_RESEARCH_DETAILS", payload })
-    }
+    },
+    addProjectFunderDetails: payload => {
+      dispatch({ type: "ADD_PROJECTFUNDER_DETAILS", payload })
+    },
+    removeFundingAction: payload => {
+      dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
+    },
+      addMitigationDetails: payload => {
+      dispatch({ type: "ADD_MITIGATION_DETAILS", payload })
+    },
+    addMitigationDetailsResearchDetails: payload => {
+      dispatch({ type: "ADD_MITIGATION_DETAILS_RESEARCH_DETAILS", payload })
+    },
+    removeMitigationDetails: payload => {
+      dispatch({ type: "REMOVE_MITIGATION_DETAILS", payload })
+    },
+    removeMitigationDetailsResearchDetails: payload => {
+      dispatch({ type: "SET_MITIGATION_DETAILS_RESEARCH_DETAILS", payload })
+    },
+
+    addLocationDetails: payload => {
+      dispatch({ type: "ADD_LOCATION_DETAILS", payload })
+    },
+    removeLocationDetails: payload => {
+      dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
+    },
+  
   }
 }
 
@@ -46,6 +76,8 @@ class ActionsOverview extends React.Component {
 
     this.addFunding = this.addFunding.bind(this)
     this.addAdaptation = this.addAdaptation.bind(this)
+    this.addMitigation = this.addMitigation.bind(this)
+    this.addLocation = this.addLocation.bind(this)
     this.constructActionsTable = this.constructActionsTable.bind(this)
     this.onImplementationChange = this.onImplementationChange.bind(this)
     this.onEdit = this.onEdit.bind(this)
@@ -53,17 +85,27 @@ class ActionsOverview extends React.Component {
 
   addAdaptation() {
     let { addAdaptationDetails } = this.props
-    addAdaptationDetails();
+    addAdaptationDetails()
+  }
+  
+  addMitigation() {
+    let { addMitigationDetails } = this.props
+    addMitigationDetails()
   }
 
   addFunding() {
-    let { projectFunderDetails, addProjectFunderDetails } = this.props
-    addProjectFunderDetails(projectFunderDetails.ProjectId)
+    let { projectFunderDetails, addProjectFunderDetails, details } = this.props
+    addProjectFunderDetails(projectFunderDetails.ProjectId, FundingDetailStep, details)
+  }
+
+  addLocation() {
+    let { locationDetails, addLocationDetails } = this.props
+    addLocationDetails(locationDetails.ProjectId, ProjectLocationStep, details)
   }
 
   constructActionsTable() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
 
     return (
       <table width="100%">
@@ -72,12 +114,12 @@ class ActionsOverview extends React.Component {
             <td className="table-cell table-side table-head">Title</td>
             <td className="table-side table-cell table-head">Type</td>
             <td className="table-side table-cell table-head">Implementation</td>
-            <td className="table-side table-cell table-head">
-              Funded
-            {/* <br style={{ marginTop: 0, marginBottom: 0 }}/> */}
-              <div style={{ fontSize: "10px", marginTop: -5 }}>*coming soon*</div>
-            </td>
+            <td className="table-side table-cell table-head">Cross-cutting</td>
+            <td className="table-side table-cell table-head">Funding status</td>
             <td className="table-cell table-head">Options</td>
+            {/* <td className="table-cell table-head table-side">Location</td> */}
+            
+            
           </tr>
         </thead>
         <tbody>
@@ -100,7 +142,26 @@ class ActionsOverview extends React.Component {
           })}
 
           {/* Mitigation */}
-          {/* ...coming soon... */}
+          {mitigationDetails.sort((a, b) => a.MitigationDetailId > b.MitigationDetailId ? 1: 0).map(a => {
+            let index = mitigationDetails.indexOf(a) + 1
+            return this.createTableEntry(
+              "Mitigation",
+              `Mitigation #${index}`,
+              a.ResearchDetail === null ? 'Applied' : 'Research',
+              a.MitigationDetailId
+            )
+          })}
+
+          {/* Location */}
+          {/* TODO - finish integration of locationstep to actions overview */}
+          {/* {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
+            let index = adaptationDetails.indexOf(a) + 1
+            return this.createTableEntry(
+              'Location',
+              `Location #${index}`,
+              l.LocationId
+            )
+          })} */}
 
         </tbody>
       </table>
@@ -130,8 +191,38 @@ class ActionsOverview extends React.Component {
           }
         </td>
         <td className="table-side table-cell">
-          <Checkbox disabled /*onChange={onChange}*/>(No)</Checkbox>
+          <Checkbox ></Checkbox>
         </td>
+        <td className="table-side table-cell">
+          {/* TODO pull status from funding step*/}
+          
+        <td>
+            <Select defaultValue="Seeking" onChange={(value, option) => this.onFundingStatSelect(value, option, type, id)}>
+              <Option value="Funded">Funded</Option>
+              <Option value="Partial">Partial</Option>
+              <Option value="Seeking">Seeking</Option>
+            </Select>
+        </td>
+          {/* <SelectComponent
+            // col="col-md-6"
+            // id=""
+            label="."
+            selectedValue={this.FundingStatusId}
+            data={this.fundingStatus}
+            setSelectedValueKey={"SET_PROJECTFUNDERS_FUNDINGSTATUS"}
+            parentId={this.FunderId}
+            dispatch={"LOAD_PROJECTFUNDERS_FUNDINGSTATUS"}
+            persist="FundingStatus"
+            allowEdit={true}
+            newItemTemplate={{
+              "Id": 0,
+              "Value": "",
+              "Description": ""
+            }}
+            editModeOverride={true}
+            allowClear={false}
+          /> */}
+          </td>
         <td className="table-cell">
           <Button
             className="table-button"
@@ -157,6 +248,68 @@ class ActionsOverview extends React.Component {
     )
   }
 
+  onFundingStatSelect(type, value, id) {
+    if (type === "Adatpation") {
+      if (value === "Seeking") {
+        this.props.addAdaptationDetailsFundingStatus({
+          id: id, 
+          state: 'modified'
+        })
+      }
+      else if (type === "Mitigation") {
+        if (value === "Funded") {
+          this.props.addAdaptationDetailsFundingStatus({
+            id: id,
+            value: "Funded",
+            state: 'modified'
+          })
+        }
+      }
+      else if (type === "Mitigation") {
+        if (value === "Partial") {
+          this.props.addAdaptationDetailsFundingStatus({
+            id: id,
+            value: "Partial",
+            state: 'modified'
+          })
+        }
+      }
+      else {
+        this.props.removeAdaptationDetailsFundingStatus({
+          id: id, 
+          value: null, 
+          state: 'modified'
+        })
+      }
+    }
+    else if (type === "Mitigation") {
+      if (value === "Funded") {
+        this.props.addMitigationDetailsFundingDetails({
+          id: id,
+          value: "Funded",
+          state: 'modified'
+        })
+      }
+    }
+    else if (type === "Mitigation") {
+      if (value === "Partial") {
+        this.props.addMitigationDetailsFundingDetails({
+          id: id,
+          value: "Partial",
+          state: 'modified'
+        })
+      }
+    }
+    else {
+      this.props.removeMitigationDetailsFundingDetails({
+        id: id,
+        value: null,
+        state: 'modified'
+      })
+    }
+  }
+
+
   onImplementationChange(value, option, type, id) {
 
     if (type === "Adaptation") {
@@ -175,7 +328,19 @@ class ActionsOverview extends React.Component {
       }
     }
     else if (type === "Mitigation") {
-      //coming soon//
+      if (value === 'Research') {
+        this.props.addMitigationDetailsResearchDetails({
+          id: id,
+          state: 'modified'
+        })
+      }
+    }
+    else {
+      this.props.removeMitigationDetailsResearchDetails({
+        id: id,
+        value: null,
+        state: 'modified'
+      })
     }
   }
 
@@ -186,14 +351,23 @@ class ActionsOverview extends React.Component {
         state: 'modified'
       })
     }
-    else if (type === "Adaptation") {
+   if (type === "Adaptation") {
       this.props.removeAdaptationDetails({
         id,
         state: 'modified'
       })
     }
-    else if (type === "Mitigation") {
-      //coming soon//
+    if (type === "Mitigation") {
+      this.props.removeMitigationDetails({
+        id,
+        state: 'modified'
+      })
+    }
+    if (type === "Location") {
+      this.props.removeLocationDetails({
+        id,
+        state: 'modified'
+      })
     }
   }
 
@@ -206,7 +380,7 @@ class ActionsOverview extends React.Component {
 
   render() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
 
     return (
       <>
@@ -216,27 +390,32 @@ class ActionsOverview extends React.Component {
 
         <div className="vertical-spacer" />
 
-        <Button className="inline-button add-btn" color="" onClick={this.addFunding} style={{ backgroundColor: DEAGreen }}>
+        {/* <Button className="inline-button add-btn" color="" onClick={this.addFunding} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
           Add Funding
-        </Button>
+        </Button> */}
 
         <Button className="inline-button add-btn" color="" onClick={this.addAdaptation} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
           Add Adaptation
         </Button>
 
-        <Button disabled className="inline-button add-btn-special" color="" style={{ backgroundColor: DEAGreen }}>
+        <Button className="inline-button add-btn" color="" onClick={this.addMitigation} style={{ backgroundColor: DEAGreen }}>
           <Fa className="button-icon" icon="plus" />
           Add Mitigation
-          <div style={{ fontSize: "10px", marginTop: -1 }}>*coming soon*</div>
+          {/* <div style={{ fontSize: "10px", marginTop: -1 }}>*coming soon*</div> */}
         </Button>
+{/* 
+        <Button className="inline-button add-btn-special" color="" onClick={this.addLocation} style={{ backgroundColor: DEAGreen }}>
+          <Fa className="button-icon" icon="plus" />
+          Add Location
+        </Button> */}
 
         <div className="vertical-spacer" />
         <div className="vertical-spacer" />
 
         {
-          (projectFunderDetails.length + adaptationDetails.length) > 0 &&
+          (projectFunderDetails.length + adaptationDetails.length + mitigationDetails.length ) > 0 &&
           <div>
             <h5>
               List of existing actions:

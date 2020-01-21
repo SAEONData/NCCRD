@@ -1,8 +1,9 @@
 import React from 'react'
 import { Row, Col, Fa, Button } from 'mdbreact'
+import { Select, Checkbox } from 'antd'
 import { connect } from 'react-redux'
-import TextComponent from '../../Shared/TextComponent.jsx';
-import SelectComponent from '../../Shared/SelectComponent.jsx';
+import TextComponent from '../../Shared/TextComponent.jsx'
+import SelectComponent from '../../Shared/SelectComponent.jsx'
 import { Popover } from 'antd'
 
 import "./shared.css"
@@ -10,24 +11,107 @@ import "./shared.css"
 const mapStateToProps = (state, props) => {
   let { lookupData: { users, fundingStatus } } = state
   let { projectFundersData: { projectFunderDetails } } = state
-  return { users, fundingStatus, projectFunderDetails }
+  let { onFundingStatSelect: { value } } = props
+  return { users, fundingStatus, projectFunderDetails, onFundingStatSelect }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     removeFundingAction: payload => {
       dispatch({ type: "REMOVE_PROJECTFUNDER_DETAILS", payload })
+    },
+    addProjectFunderDetails: payload => {
+      dispatch({ type: "ADD_PROJECTFUNDER_DETAILS", payload })
     }
   }
 }
 
-class FundingDetailsStep extends React.Component {
+class AdaptationFundingDetailStep extends React.Component {
 
   constructor(props) {
     super(props);
 
+    this.addFunding = this.addFunding.bind(this)
+
+    this.onAdd = this.onAdd.bind(this)
     this.onRemove = this.onRemove.bind(this)
   }
+
+  onFundingStatSelect(type, value, id) {
+    if (type === "Adatpation") {
+      if (value === "Seeking") {
+        this.props.addAdaptationDetailsFundingStatus({
+          id: id, 
+          state: 'modified'
+        })
+      }
+      else if (type === "Mitigation") {
+        if (value === "Funded") {
+          this.props.addAdaptationDetailsFundingStatus({
+            id: id,
+            value: "Funded",
+            state: 'modified'
+          })
+        }
+      }
+      else if (type === "Mitigation") {
+        if (value === "Partial") {
+          this.props.addAdaptationDetailsFundingStatus({
+            id: id,
+            value: "Partial",
+            state: 'modified'
+          })
+        }
+      }
+      else {
+        this.props.removeAdaptationDetailsFundingStatus({
+          id: id, 
+          value: null, 
+          state: 'modified'
+        })
+      }
+    }
+    else if (type === "Mitigation") {
+      if (value === "Funded") {
+        this.props.addMitigationDetailsFundingDetails({
+          id: id,
+          value: "Funded",
+          state: 'modified'
+        })
+      }
+    }
+    else if (type === "Mitigation") {
+      if (value === "Partial") {
+        this.props.addMitigationDetailsFundingDetails({
+          id: id,
+          value: "Partial",
+          state: 'modified'
+        })
+      }
+    }
+    else {
+      this.props.removeMitigationDetailsFundingDetails({
+        id: id,
+        value: null,
+        state: 'modified'
+      })
+    }
+  }
+
+
+  addFunding() {
+    let { projectFunderDetails, addProjectFunderDetails } = this.props
+    addProjectFunderDetails(projectFunderDetails.ProjectId)
+  }
+
+  onAdd() {
+    let { addFundingAction, details } = this.props
+    addFundingAction({
+      id: details.AdaptationDetailId, 
+      state: 'modified'
+    })
+  }
+
 
   onRemove() {
     let { removeFundingAction, details, projectFunderDetails } = this.props
@@ -39,8 +123,45 @@ class FundingDetailsStep extends React.Component {
 
     let { details, users, fundingStatus } = this.props
 
+    
+
     return (
       <>
+        <Row>
+          
+          {/* <SelectComponent
+            col="col-md-6"
+            id="lblFundingStatus"
+            label="Funding Status:"
+            selectedValue={details.FundingStatusId}
+            data={fundingStatus}
+            setSelectedValueKey={"SET_ADAPTATION_FUNDING_DETAIL"}
+            parentId={details.FunderId}
+            dispatch={"LOAD_FUNDINGSTATUS"}
+            persist="FundingStatus"
+            allowEdit={false}
+            newItemTemplate={{
+              "Id": 0,
+              "Value": "",
+              "Description": ""
+            }}
+            editModeOverride={true}
+            allowClear={true}
+          /> */}
+
+            <Select 
+              col="col-md-6"
+              defaultValue={onFundingStatSelect.value} 
+              onChange={(value, option) => this.onFundingStatSelect(value, option, type, id)}
+            >
+              <Option value="Funded">Funded</Option>
+              <Option value="Partial">Partial</Option>
+              <Option value="Seeking">Seeking</Option>
+            </Select>
+        </Row>
+
+        <div className="vertical-spacer" />
+
         <Row>
           <TextComponent
             col="col-md-6"
@@ -89,7 +210,7 @@ class FundingDetailsStep extends React.Component {
             selectedValue={details.ProjectCoordinatorId}
             data={users.map(x => { return { Id: x.PersonId, Value: (x.FirstName + " " + x.Surname + " (" + x.EmailAddress + ")") } })}
             setSelectedValueKey={"SET_PROJECTFUNDERS_PROJECTCOORDINATOR"}
-            parentId={details.FunderId}
+            parentId={details.AdaptationId}
             dispatch={"LOAD_PROJECTFUNDERS_PROJECTCOORDINATOR"}
             persist="ProjectCoordinator"
             allowEdit={true}
@@ -98,6 +219,7 @@ class FundingDetailsStep extends React.Component {
               "Value": "",
               "Description": ""
             }}
+            editModeOverride={true}
             allowClear={true}
           />
         </Row>
@@ -132,7 +254,7 @@ class FundingDetailsStep extends React.Component {
 
         <div className="vertical-spacer" />
 
-        <Row>
+        {/* <Row>
           <SelectComponent
             col="col-md-6"
             id="lblFundingStatus"
@@ -149,9 +271,10 @@ class FundingDetailsStep extends React.Component {
               "Value": "",
               "Description": ""
             }}
-            allowClear={true}
+            editModeOverride={true}
+            allowClear={false}
           />
-        </Row>
+        </Row> */}
 
         {/* <div className="vertical-spacer" />
 
@@ -170,4 +293,4 @@ class FundingDetailsStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FundingDetailsStep)
+export default connect(mapStateToProps, mapDispatchToProps)(AdaptationFundingDetailStep)

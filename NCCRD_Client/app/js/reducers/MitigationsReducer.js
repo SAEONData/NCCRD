@@ -49,7 +49,7 @@ export default function MitigationsReducer(state = {}, action) {
             return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, state: "original" }] }
         }
 
-        case "ADD_MITIGATION_DETAILS": {
+        case "ADD_MITIGATION_DETAILS": { 
 
             let { mitigationDetails, projectDetails } = state
 
@@ -63,6 +63,7 @@ export default function MitigationsReducer(state = {}, action) {
                 CarbonCreditMarketId: null,
                 CDMStatusId: null,
                 CDMMethodologyId: null,
+                MitigationFundingId: null,
                 VoluntaryMethodologyId: null,
                 VoluntaryGoldStandardId: null,
                 ProjectId: payload,
@@ -72,11 +73,40 @@ export default function MitigationsReducer(state = {}, action) {
                 state: "modified"
             }
 
-            if (mitigationDetails.length > 0) {
-                return { ...state, mitigationDetails: [...mitigationDetails, newItem] }
-            }
-            else {
-                return { ...state, mitigationDetails: [newItem] }
+            // if (mitigationDetails.length > 0) {
+            //     return { ...state, mitigationDetails: [...mitigationDetails, newItem] }
+            // }
+            // else {
+            //     return { ...state, mitigationDetails: [newItem] }
+            // }
+
+            return { ...state, mitigationDetails: [...mitigationDetails, newItem]}
+        }
+
+        case "REMOVE_MITIGATION_DETAILS": {
+
+            let { mitigationDetails } = state
+            mitigationDetails.splice(payload, 1)
+
+            return { ...state, mitigationDetails: [...mitigationDetails] }
+        }
+
+        case "SET_MITIGATION_DETAILS_TITLE": {
+
+            let { mitigationDetails } = state
+            //get item and id
+            let details = extractItemAndId(mitigationDetails, "MitigationDetailId", id)
+            //remove item from array
+            mitigationDetails.splice(details.id, 1)
+
+            return { 
+                ...state, 
+                mitigationDetails: [
+                    ...mitigationDetails, { 
+                        ...details.id,
+                        Title: payload, state: modstate
+                    }
+                ]
             }
         }
 
@@ -127,6 +157,18 @@ export default function MitigationsReducer(state = {}, action) {
 
             //return updated state
             return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, CDMMethodologyId: payload, state: modState }] }
+        }
+
+        case "SET_MITIGATION_FUNDING_DETAIL": {
+            let { mitigationDetails } = state
+
+            //get item and id
+            let details = extractItemAndId(mitigationDetails, "MitigationDetailId", id)
+            //remove item from arary
+            mitigationDetails.splice(details.id, 1);
+
+            //return updated state
+            return { ...state, mitigationDetails: [ ...mitigationDetails, { ...details.item, MitigationFundingId: payload, state: modState }]}
         }
 
         case "SET_MITIGATION_VOLUNTARY_METHODOLOGY": {
