@@ -16,10 +16,11 @@ const mapStateToProps = (state, props) => {
   let { adaptationData: { adaptationDetails } } = state
   let { projectFundersData: { projectFunderDetails } } = state
   let { lookupData: { users, fundingStatus, details } } = state
-  let { locationData: { locationDetails } } = modState
+  //let { locationData: { locationDetails } } = modState
   let { mitigationData: { mitigationDetails } } = state
 
-  return { locationDetails, projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus, details }
+  //return { locationDetails, projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus, details }
+  return { projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus, details }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -57,12 +58,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: "SET_MITIGATION_DETAILS_RESEARCH_DETAILS", payload })
     },
 
-    addLocationDetails: payload => {
-      dispatch({ type: "ADD_LOCATION_DETAILS", payload })
-    },
-    removeLocationDetails: payload => {
-      dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
-    },
+    // addLocationDetails: payload => {
+    //   dispatch({ type: "ADD_LOCATION_DETAILS", payload })
+    // },
+    // removeLocationDetails: payload => {
+    //   dispatch({ type: "REMOVE_LOCATION_DETAILS", payload })
+    // },
   
   }
 }
@@ -75,7 +76,7 @@ class ActionsOverview extends React.Component {
     this.addFunding = this.addFunding.bind(this)
     this.addAdaptation = this.addAdaptation.bind(this)
     this.addMitigation = this.addMitigation.bind(this)
-    this.addLocation = this.addLocation.bind(this)
+    //this.addLocation = this.addLocation.bind(this)
     this.constructActionsTable = this.constructActionsTable.bind(this)
     this.onImplementationChange = this.onImplementationChange.bind(this)
     this.onEdit = this.onEdit.bind(this)
@@ -96,14 +97,15 @@ class ActionsOverview extends React.Component {
     addProjectFunderDetails(projectFunderDetails.ProjectId, FundingDetailStep, details)
   }
 
-  addLocation() {
-    let { locationDetails, addLocationDetails } = this.props
-    addLocationDetails(locationDetails.ProjectId, ProjectLocationStep, details)
-  }
+  // addLocation() {
+  //   let { locationDetails, addLocationDetails } = this.props
+  //   addLocationDetails(locationDetails.ProjectId, ProjectLocationStep, details)
+  // }
 
   constructActionsTable() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
+    //let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
 
     return (
       <table width="100%">
@@ -115,7 +117,7 @@ class ActionsOverview extends React.Component {
             <td className="table-side table-cell table-head">Cross-cutting</td>
             <td className="table-side table-cell table-head">Funding status</td>
             <td className="table-cell table-head">Options</td>
-            <td className="table-cell table-head table-side">Location</td>
+            {/* <td className="table-cell table-head table-side">Location</td> */}
             
             
           </tr>
@@ -152,14 +154,14 @@ class ActionsOverview extends React.Component {
 
           {/* Location */}
           {/* TODO - finish integration of locationstep to actions overview */}
-          {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
+          {/* {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
             let index = adaptationDetails.indexOf(a) + 1
             return this.createTableEntry(
               'Location',
               `Location #${index}`,
               l.LocationId
             )
-          })}
+          })} */}
 
         </tbody>
       </table>
@@ -312,12 +314,12 @@ class ActionsOverview extends React.Component {
         state: 'modified'
       })
     }
-    if (type === "Location") {
-      this.props.removeLocationDetails({
-        id,
-        state: 'modified'
-      })
-    }
+    // if (type === "Location") {
+    //   this.props.removeLocationDetails({
+    //     id,
+    //     state: 'modified'
+    //   })
+    // }
   }
 
   onEdit(title) {
@@ -329,7 +331,8 @@ class ActionsOverview extends React.Component {
 
   render() {
 
-    let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
+    // let { projectFunderDetails, adaptationDetails, mitigationDetails, locationDetails } = this.props
+    let { projectFunderDetails, adaptationDetails, mitigationDetails } = this.props
 
     return (
       <>

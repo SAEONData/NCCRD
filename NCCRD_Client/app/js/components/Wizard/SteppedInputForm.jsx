@@ -27,6 +27,7 @@ import "./SteppedInputForm.css"
 import { CustomFetch } from '../../globalFunctions.js';
 import MitigationApproachStep from './Steps/MitigationApproachStep.jsx'
 import CarbonCreditStep from './Steps/CarbonCreditStep.jsx'
+import EmissionsCalculatorStep from './Steps/EmissionsCalculatorStep.jsx'
 
 const _gf = require("../../globalFunctions")
 
@@ -395,6 +396,12 @@ class SteppedInputForm extends React.Component {
         title: `Mitigation #${index} - Funding`,
         backAction: "Actions - Overview",
         content: <FundingDetailStep details={action} />,
+        error: false
+      })
+      steps.push({
+        title: `Mitigation #${index} - Emissions Calculator`,
+        backAction: "Actions - Overview",
+        content: <EmissionsCalculatorStep details={action} />,
         error: false
       })
    

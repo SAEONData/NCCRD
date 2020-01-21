@@ -66,11 +66,6 @@ module.exports = {
       exclude: /node_modules/
     },
     {
-      test: /\.json$/,
-      use: ['json-loader'],
-      exclude: /node_modules/
-    },
-    {
       test: /\.css$/,
       use: [
         'style-loader',
