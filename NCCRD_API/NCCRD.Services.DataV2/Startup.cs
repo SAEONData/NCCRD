@@ -15,12 +15,12 @@ namespace NCCRD.Services.DataV2
 {
     public class Startup
     {
-        public static IConfiguration Configuration { get; set; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -81,9 +81,8 @@ namespace NCCRD.Services.DataV2
 
         private static void GetJwtBearerOptions(JwtBearerOptions options)
         {
-            var authBaseAddress = Configuration.GetSection("IdentityServiceURL").Value;
-            options.Authority = authBaseAddress; //"http://identity.saeon.ac.za";
-            options.Audience = authBaseAddress + "/resources";
+            options.Authority = "http://identity.saeon.ac.za";
+            options.Audience = "http://identity.saeon.ac.za/resources";
             options.RequireHttpsMetadata = false;
         }
 

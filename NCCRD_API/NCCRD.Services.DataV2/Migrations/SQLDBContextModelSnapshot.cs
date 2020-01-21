@@ -15,7 +15,7 @@ namespace NCCRD.Services.DataV2.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -31,9 +31,21 @@ namespace NCCRD.Services.DataV2.Migrations
 
                     b.Property<string>("ContactName");
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
 
                     b.Property<int?>("HazardId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<int>("ProjectId");
 
@@ -64,7 +76,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -81,7 +105,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -98,7 +134,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -115,7 +163,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -132,7 +192,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -151,12 +223,24 @@ namespace NCCRD.Services.DataV2.Migrations
 
                     b.Property<decimal?>("AnnualBudget");
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("FundingAgency")
                         .IsRequired();
 
                     b.Property<int?>("FundingStatusId");
 
                     b.Property<string>("GrantProgName");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("PartnerDepsOrgs");
 
@@ -179,7 +263,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -195,6 +291,18 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.Property<int>("LocationId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<double?>("LatCalculated");
 
@@ -221,6 +329,18 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.Property<int>("CarbonCreditId");
 
                     b.Property<int?>("CarbonCreditMarketId");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<int?>("Other");
 
@@ -279,6 +399,11 @@ namespace NCCRD.Services.DataV2.Migrations
 
                     b.Property<double?>("CO2");
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<double?>("FossilFuelElecRed");
 
                     b.Property<double?>("FossilFuelElecRed_CO2e");
@@ -294,6 +419,13 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.Property<double?>("Hydro");
 
                     b.Property<double?>("Hydro_CO2e");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<double?>("N2O");
 
@@ -340,6 +472,11 @@ namespace NCCRD.Services.DataV2.Migrations
 
                     b.Property<string>("AddressLine2");
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(450);
@@ -347,6 +484,13 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(450);
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("MobileNumber")
                         .HasMaxLength(450);
@@ -383,6 +527,11 @@ namespace NCCRD.Services.DataV2.Migrations
 
                     b.Property<decimal?>("BudgetUpper");
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<int>("EndYear");
 
                     b.Property<string>("HostOrganisation")
@@ -391,6 +540,13 @@ namespace NCCRD.Services.DataV2.Migrations
 
                     b.Property<string>("HostPartner")
                         .HasMaxLength(450);
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("LeadAgent")
                         .IsRequired()
@@ -444,7 +600,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<Guid>("DAOId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<int>("ProjectId");
 
@@ -461,7 +629,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<int>("FunderId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<int>("ProjectId");
 
@@ -479,6 +659,18 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.Property<int>("ProjectLocationId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<int>("LocationId");
 
@@ -499,6 +691,18 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
+
                     b.Property<int>("ProjectId");
 
                     b.Property<int>("RegionId");
@@ -516,7 +720,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("NextStates");
 
@@ -537,7 +753,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<int>("ProjectTypeId");
 
@@ -558,7 +786,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -578,6 +818,18 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasMaxLength(450);
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("PaperLink")
                         .HasMaxLength(450);
@@ -609,7 +861,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired();
@@ -625,7 +889,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -642,7 +918,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -659,6 +947,18 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
+
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasMaxLength(450);
@@ -674,7 +974,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -693,6 +1005,18 @@ namespace NCCRD.Services.DataV2.Migrations
 
                     b.Property<string>("Comments");
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
+
                     b.Property<DateTime>("UpdateTime");
 
                     b.Property<string>("VersionNumber")
@@ -710,7 +1034,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -727,7 +1063,19 @@ namespace NCCRD.Services.DataV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -743,83 +1091,74 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.AdaptationPurpose", "AdaptationPurpose")
                         .WithMany()
                         .HasForeignKey("AdaptationPurposeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Project", "Project")
                         .WithMany("AdaptationDetails")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ProjectStatus", "ProjectStatus")
                         .WithMany("AdaptationDetails")
                         .HasForeignKey("ProjectStatusId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ResearchDetail", "ResearchDetail")
                         .WithMany()
-                        .HasForeignKey("ResearchDetailId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ResearchDetailId");
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.Funder", b =>
                 {
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.FundingStatus", "FundingStatus")
                         .WithMany()
-                        .HasForeignKey("FundingStatusId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("FundingStatusId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Person", "ProjectCoordinator")
                         .WithMany()
-                        .HasForeignKey("ProjectCoordinatorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ProjectCoordinatorId");
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.MitigationDetail", b =>
                 {
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.CDMMethodology", "CDMMethodology")
                         .WithMany()
-                        .HasForeignKey("CDMMethodologyId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CDMMethodologyId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.CDMStatus", "CDMStatus")
                         .WithMany()
-                        .HasForeignKey("CDMStatusId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CDMStatusId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.CarbonCredit", "CarbonCredit")
                         .WithMany()
                         .HasForeignKey("CarbonCreditId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.CarbonCreditMarket", "CarbonCreditMarket")
                         .WithMany()
-                        .HasForeignKey("CarbonCreditMarketId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("CarbonCreditMarketId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Project", "Project")
                         .WithMany("MitigationDetails")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ProjectStatus", "ProjectStatus")
                         .WithMany("MitigationDetails")
                         .HasForeignKey("ProjectStatusId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ResearchDetail", "ResearchDetail")
                         .WithMany()
-                        .HasForeignKey("ResearchDetailId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ResearchDetailId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.VoluntaryGoldStandard", "VoluntaryGoldStandard")
                         .WithMany()
-                        .HasForeignKey("VoluntaryGoldStandardId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("VoluntaryGoldStandardId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.VoluntaryMethodology", "VoluntaryMethodology")
                         .WithMany()
-                        .HasForeignKey("VoluntaryMethodologyId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("VoluntaryMethodologyId");
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.MitigationEmissionsData", b =>
@@ -827,7 +1166,7 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Project", "Project")
                         .WithMany("MitigationEmissionsData")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.Project", b =>
@@ -835,27 +1174,23 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Person", "ProjectManager")
                         .WithMany()
                         .HasForeignKey("ProjectManagerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ProjectStatus", "ProjectStatus")
                         .WithMany()
-                        .HasForeignKey("ProjectStatusId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ProjectStatusId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ProjectSubType", "ProjectSubType")
                         .WithMany()
-                        .HasForeignKey("ProjectSubTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ProjectSubTypeId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ProjectType", "ProjectType")
                         .WithMany()
-                        .HasForeignKey("ProjectTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ProjectTypeId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ValidationStatus", "ValidationStatus")
                         .WithMany()
-                        .HasForeignKey("ValidationStatusId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ValidationStatusId");
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.ProjectDAO", b =>
@@ -863,7 +1198,7 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Project", "Project")
                         .WithMany("ProjectDAOs")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.ProjectFunder", b =>
@@ -871,12 +1206,12 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Funder", "Funder")
                         .WithMany()
                         .HasForeignKey("FunderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Project", "Project")
                         .WithMany("ProjectFunders")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.ProjectLocation", b =>
@@ -884,12 +1219,12 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Project", "Project")
                         .WithMany("ProjectLocations")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.ProjectRegion", b =>
@@ -897,7 +1232,7 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Project", "Project")
                         .WithMany("ProjectRegions")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.ProjectSubType", b =>
@@ -905,7 +1240,7 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ProjectType", "ProjectType")
                         .WithMany()
                         .HasForeignKey("ProjectTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NCCRD.Services.DataV2.Database.Models.ResearchDetail", b =>
@@ -913,22 +1248,21 @@ namespace NCCRD.Services.DataV2.Migrations
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.Project", "Project")
                         .WithMany("ResearchDetails")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ResearchMaturity", "ResearchMaturity")
                         .WithMany()
-                        .HasForeignKey("ResearchMaturityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ResearchMaturityId");
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.ResearchType", "ResearchType")
                         .WithMany()
                         .HasForeignKey("ResearchTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("NCCRD.Services.DataV2.Database.Models.TargetAudience", "TargetAudience")
                         .WithMany()
                         .HasForeignKey("TargetAudienceId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

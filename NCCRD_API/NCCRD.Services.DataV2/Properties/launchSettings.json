@@ -7,7 +7,7 @@
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://localhost:62553/",
+      "applicationUrl": "http://localhost:62556/",
       "sslPort": 0
     }
   },
@@ -27,7 +27,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:62554/"
+      "applicationUrl": "http://localhost:62557/"
     }
   }
 }

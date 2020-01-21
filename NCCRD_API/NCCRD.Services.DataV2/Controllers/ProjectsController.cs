@@ -46,7 +46,7 @@ namespace NCCRD.Services.DataV2.Controllers
         [EnableQuery]
         public IQueryable<Project> Get()
         {
-            return _context.Project.AsQueryable();
+            return _context.Project.AsQueryable().Where(x => x.IsDeleted == false);
         }
 
         /// <summary>
@@ -59,7 +59,63 @@ namespace NCCRD.Services.DataV2.Controllers
         [ODataRoute("({id})")]
         public Project Get(int id)
         {
-            return _context.Project.FirstOrDefault(x => x.ProjectId == id);
+            //return _context.Project.FirstOrDefault(x => x.ProjectId == id);
+            var project = _context.Project.FirstOrDefault(x => x.ProjectId == id && x.IsDeleted == false);
+            if (project == null)
+                return new Project();
+            else
+                return project;
+
+        }
+
+        /// <summary>
+        /// Get project by id
+        /// </summary>
+        /// <param name="id">ProjectId</param>
+        /// <returns>Single project</returns>
+        [HttpDelete]
+        [EnableQuery]
+        [ODataRoute("({id})")]
+        public StatusCodeResult Delete(int id)
+        {
+            Project project = _context.Project.FirstOrDefault(x => x.ProjectId == id);
+
+            if (project == null)
+                return NotFound();
+
+
+            #region Foreign Key Constraints
+
+            //ProjectRegion
+            _context.ProjectRegion.Where(x => x.ProjectId == id).ToList().ForEach(a => _context.ProjectRegion.Remove(a));
+
+            //ProjectLocation
+            _context.ProjectLocation.Where(x => x.ProjectId == id).ToList().ForEach(a => _context.ProjectLocation.Remove(a));
+
+            //MitigationEmmissionsData
+            _context.MitigationEmissionsData.Where(x => x.ProjectId == id).ToList().ForEach(a => _context.MitigationEmissionsData.Remove(a));
+
+            //ResearchDetails
+            _context.ResearchDetails.Where(x => x.ProjectId == id).ToList().ForEach(a => _context.ResearchDetails.Remove(a));
+
+            //AdaptationDetails
+            _context.AdaptationDetails.Where(x => x.ProjectId == id).ToList().ForEach(a => _context.AdaptationDetails.Remove(a));
+
+            //MitigationDetails
+            _context.MitigationDetails.Where(x => x.ProjectId == id).ToList().ForEach(a => _context.MitigationDetails.Remove(a));
+
+            //ProjectFunder
+            _context.ProjectFunder.Where(x => x.ProjectId == id).ToList().ForEach(a => _context.ProjectFunder.Remove(a));
+
+            //ProjectDAOs
+            _context.ProjectDAOs.Where(x => x.ProjectId == id).ToList().ForEach(a => _context.ProjectDAOs.Remove(a));
+
+            #endregion
+
+            _context.Project.Remove(project);
+            _context.SaveChanges();
+
+            return NoContent();
         }
 
         /*

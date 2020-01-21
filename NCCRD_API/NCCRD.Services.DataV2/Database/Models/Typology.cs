@@ -16,5 +16,14 @@ namespace NCCRD.Services.DataV2.Database.Models
         [Required]
         [MaxLength(450)]
         public string Value { get; set; }
+
+        //Arbitrary DB Fields
+        [MaxLength(50)]
+        public string CreatedBy { get; set; } = "System";
+        [MaxLength(50)]
+        public string LastModifiedBy { get; set; } = "System";
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; } = false;
     }
 }

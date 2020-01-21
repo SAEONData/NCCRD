@@ -45,7 +45,7 @@ namespace NCCRD.Services.DataV2.Controllers
                 .Include(x => x.ProjectRegions)
                 .Include(x => x.ProjectDAOs)
                 .Include(x => x.ProjectLocations).ThenInclude(x => x.Location)
-                .FirstOrDefault(x => x.ProjectId == id);
+                .FirstOrDefault(x => x.ProjectId == id && x.IsDeleted == false);
 
             var funders = _context.ProjectFunder.Include(x => x.Funder).Where(x => x.ProjectId == id)
                 .OrderBy(x => x.FunderId).Select(x => x.Funder).ToArray();
@@ -91,9 +91,7 @@ namespace NCCRD.Services.DataV2.Controllers
         public async Task<IActionResult> Post([FromBody]ProjectDetails data)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             try
             {

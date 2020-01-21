@@ -4,8 +4,8 @@ import { useTable, usePagination } from 'react-table'
 import { MultiSelect } from '@progress/kendo-react-dropdowns';
 
 import customData from './ApiData_Experiment.json';
-// import makeData from './makeData'
 
+//#region Styles
 const Styles = styled.div`
   padding: 1rem;
 
@@ -61,6 +61,7 @@ const Styles = styled.div`
     font-weight: bolder;
   }
 `
+//#endregion
 
 // Create an editable cell renderer
 const EditableCell = ({
@@ -96,7 +97,7 @@ const defaultColumn = {
 
 // Be sure to pass our updateMyData and the disablePageResetOnDataChange option
 function Table({ columns, data, updateMyData, disablePageResetOnDataChange, finalTable }) {
-  // For this example, we're using pagination to illustrate how to stop
+  // We're using pagination to illustrate how to stop
   // the current page from resetting when our data changes
   // Otherwise, nothing is different here.
   const {
@@ -347,61 +348,19 @@ const EmissionsTableComponent = (props) => {
     ],
     []
   )
-
-  // const finalColumns = React.useMemo(
-  //   () => [
-  //     {
-  //       Header: 'Calculated',
-  //       columns: [
-  //         {
-  //           Header: 'Emissions Input',
-  //           accessor: 'EI',
-  //         },
-  //         {
-  //           Header: 'Year',
-  //           accessor: 'year',
-  //         },
-  //         {
-  //           Header: 'Notes',
-  //           accessor: 'notes'
-  //         },
-  //         {
-  //           Header: 'CO2',
-  //           accessor: 'co2'
-  //         },
-  //         {
-  //           Header: 'CH4_CO2e (TAR 100)',
-  //           accessor: 'ch4_co2e'
-  //         },
-  //         {
-  //           Header: 'N2O_CO2e (TAR 100)',
-  //           accessor: 'n2o_co2e'
-  //         }
-  //       ],
-  //     }      
-  //   ],
-  //   []
-  // )
-
-  
-  //const finalColumns = null;
-
+ 
   const [finalColumns, setFinalColumns] = React.useState();
-  const [data, setData] = React.useState(() => props.data)//makeData('Emissions'))
+  const [data, setData] = React.useState(() => props.data)
   const [selectedEmissions] = React.useState(() => props.selectedEmissions)
   const [userLevel] = React.useState(() => props.userLevel)
   const [originalData] = React.useState(data)
   const [skipPageReset, setSkipPageReset] = React.useState(false)
   const [finalTable, setFinalTable] = React.useState(false);
-  //const finalData = JSON.parse('[{"EI":"2009","year":"CO2","notes":8,"co2":"relationship"}]')
-  const [finalData, setFinalData] = React.useState(); //React.useState(() => calculateFinalData());
-  
+  const [finalData, setFinalData] = React.useState();
   const [IPCCData] = React.useState(['SAR', 'TAR', 'AR4', 'AR5']);
   const [IPCCSelected, setIPCCSelected] = React.useState();
-  
   const [ProjectedYears] = React.useState(['20', '100', '500']);
   const [SelectedProjectedYears, setSelectedProjectedYears] = React.useState();
-
   
   // We need to keep the table from resetting the pageIndex when we
   // Update data. So we can keep track of that flag with a ref.
@@ -454,21 +413,17 @@ const EmissionsTableComponent = (props) => {
 
     let endDataString = '[', dynamic = ''
 
-    
     Object.keys(consolidatedTPY).forEach(function(year) {
       
       //const innerRecord = []
       let EI = '', notes = '', co2 = ''
 
       consolidatedTPY[year].forEach(element => {
-        //console.log(element)
         if (EI != '') EI += ', '
         EI += element.chemical
 
         if (notes != '') notes += ', '
         notes += element.notes
-
-        //co2 = customData[]
 
         dynamicColumns.forEach(e => {
             

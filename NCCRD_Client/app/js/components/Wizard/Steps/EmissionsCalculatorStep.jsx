@@ -39,7 +39,7 @@ class EmissionsCalculatorStep extends React.Component {
 
     render() {
         return (
-          <>
+          <div style={{ paddingLeft: '2%' }}>
             <div className="vertical-spacer"/>
 
             <Row>
@@ -68,7 +68,7 @@ class EmissionsCalculatorStep extends React.Component {
             {
               this.checkState()
             }
-          </>
+          </div>
         )
       }
 }
@@ -137,20 +137,6 @@ class EmissionsData extends React.Component {
     });
  
     this.setState({ data: records})
-    // var asdasd = JSON.parse(
-    //   `[
-    //     {
-    //       "year":"NewData",
-    //       "chemical":"CO2",
-    //       "TPY":8,
-    //       "notes":"relationship"
-    //     }
-    //   ]`);
-    // this.setState({data: asdasd})
-    
-    //alert(`Records : ${JSON.stringify(records)}`)
-
-    //alert(this.state.selectedEmissions);
 
     if (this.state.startDate != null && this.state.endDate != null) {
       this.setState({ table : true });
@@ -162,24 +148,16 @@ class EmissionsData extends React.Component {
   Simple (){
     return ( !this.state.table ? 
               <div>
-                <div className="vertical-spacer" />
-
-                {/* <Row>
-                  <Dropdown id="ddlEmissionsSource" type="textbox" list={this.state.source} headerTitle="Source : " onChange={event => this.setState({[event.target.id]: event.target.value})} />
-                </Row> */}
-                
+                <div className="vertical-spacer" />                
                 <Row>
                   <div className="example-wrapper">
                       <div>
                           <div>Can you estimate or do you record project emissions? : </div>
-                          {/* <input data={this.state.source}  onChange={event => this.setState({selectedSource: [ ...event.target.value ]})} value={this.state.selectedSource} /> */}
                           <input type="checkbox" checked={this.state.chkCanProvideData} onChange={event => this.setState({chkCanProvideData: !this.state.chkCanProvideData})} />
                       </div>
                   </div>
                 </Row>
-
-                <this.Emissions />
-                
+                <this.Emissions />                
               </div>
               :
               <EmissionsTableComponent data={this.state.data} selectedEmissions={this.state.selectedEmissions} userLevel={CheckUserLevel()}/>
@@ -209,11 +187,6 @@ class EmissionsData extends React.Component {
                       </div>
                   </div>
                 </Row>
-
-                {/* <div className="vertical-spacer" />
-                <Row>
-                  <DateRange id="dpProjectLifetime" onInit={this.handleChange} onChange={this.handleChange} />
-                </Row>  */}
 
                 <div className="vertical-spacer" />
                 <Row>
@@ -373,14 +346,12 @@ class EnergyData extends React.Component {
                        }
 
       return (<div style={ styleVar }>
-                {/* <Date type="yearRange"></Date> Year Range */}
-                <Dropdown type="textbox" list={this.state.source} headerTitle="Year"></Dropdown> {/* <--- Date range, 20000 - 2060 Needs to expand into a dropdown with 10 textbox's for the year range, when the first is filled the remainders should update with the same result  */}
+                <Dropdown type="textbox" list={this.state.source} headerTitle="Year"></Dropdown>
                 <Button btnText="Tonnes" disabled/>
                 <Label title="Select source" headerTitle={"Gas Type"}  list={this.state.source} toggleItem={this.toggleSelected} />
                 <Button btnText={"Submit"} onClick={ this.handleSubmit }/>
               </div>)
   }
-
   //#endregion
 
   render() { return (this.renderHandler(CheckUserLevel())); }
