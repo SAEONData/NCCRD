@@ -16,10 +16,10 @@ const mapStateToProps = (state, props) => {
   let { adaptationData: { adaptationDetails } } = state
   let { projectFundersData: { projectFunderDetails } } = state
   let { lookupData: { users, fundingStatus, details } } = state
-  let { locationData: { locationDetails } } = modState
+  // let { locationData: { locationDetails } } = state
   let { mitigationData: { mitigationDetails } } = state
 
-  return { locationDetails, projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus, details }
+  return { projectFunderDetails, adaptationDetails, mitigationDetails, users, fundingStatus, details }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -115,7 +115,7 @@ class ActionsOverview extends React.Component {
             <td className="table-side table-cell table-head">Cross-cutting</td>
             <td className="table-side table-cell table-head">Funding status</td>
             <td className="table-cell table-head">Options</td>
-            <td className="table-cell table-head table-side">Location</td>
+            {/* <td className="table-cell table-head table-side">Location</td> */}
             
             
           </tr>
@@ -152,14 +152,14 @@ class ActionsOverview extends React.Component {
 
           {/* Location */}
           {/* TODO - finish integration of locationstep to actions overview */}
-          {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
+          {/* {locationDetails.sort((a, b) => a.LocationDetailId > b.LocationDetailId ? 1:0).map(l => {
             let index = adaptationDetails.indexOf(a) + 1
             return this.createTableEntry(
               'Location',
               `Location #${index}`,
               l.LocationId
             )
-          })}
+          })} */}
 
         </tbody>
       </table>
