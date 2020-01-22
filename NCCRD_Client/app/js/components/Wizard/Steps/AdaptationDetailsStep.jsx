@@ -100,7 +100,7 @@ class AdaptationDetailsStep extends React.Component {
             parentId={details.AdaptationDetailId}
             dispatch={"LOAD_ADAPTATION_PURPOSE"}
             persist="AdaptationPurpose"
-            allowEdit={true}
+            allowEdit={false}
             newItemTemplate={{
               "AdaptationPurposeId": 0,
               "Value": "",
