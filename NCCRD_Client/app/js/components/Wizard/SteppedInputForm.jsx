@@ -27,6 +27,7 @@ import "./SteppedInputForm.css"
 import { CustomFetch } from '../../globalFunctions.js';
 import MitigationApproachStep from './Steps/MitigationApproachStep.jsx'
 import CarbonCreditStep from './Steps/CarbonCreditStep.jsx'
+import AdaptationMitigationStep from './Steps/AdaptationMitigationStep.jsx'
 
 const _gf = require("../../globalFunctions")
 
@@ -338,6 +339,12 @@ class SteppedInputForm extends React.Component {
         content: <AdaptationContactStep details={action} />,
         error: false
       })
+      //Adaptation Cross Cutting Mitigation Details
+      steps.push({
+        title: `Adaptation #${index} - Mitigation Details`,
+        content: <AdaptationMitigationStep details={action} />,
+        error: false
+      })
 
       // Optionally add Research
       if (action.ResearchDetail !== null) {
@@ -516,7 +523,7 @@ class SteppedInputForm extends React.Component {
         stepValidations.push(this.validateRequiredInput("selAdaptationSector", ad, "SectorId"))
         stepValidations.push(this.validateRequiredInput("selAdaptationHazard", ad, "HazardId"))
         stepValidations.push(this.validateRequiredInput("selAdaptationActionStatus", ad, "ProjectStatusId"))
-
+        stepValidations.push(this.validateRequiredInput("lblFundingStatus", ad, "FundingStatusId"))
         step.error = stepValidations.includes(false)
       }
 
