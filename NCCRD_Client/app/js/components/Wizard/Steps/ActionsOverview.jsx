@@ -191,7 +191,7 @@ class ActionsOverview extends React.Component {
           }
         </td>
         <td className="table-side table-cell">
-          <Checkbox ></Checkbox>
+          <Checkbox className="crossCut"></Checkbox>
         </td>
         <td className="table-side table-cell">
           {/* TODO pull status from funding step*/}

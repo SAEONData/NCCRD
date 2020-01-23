@@ -15,6 +15,7 @@ import AdaptationFundingDetailStep from './Steps/AdaptationFundingStep.jsx'
 import FundingDetailStep from './Steps/MitigationFundingDetailStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
 import MitigationFundingDetailStep from './Steps/MitigationFundingDetailStep.jsx'
+import MitigationAdaptationDetailStep from './Steps/MitigationAdaptationStep.jsx'
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
 import { UILookup } from "../../config/ui_config.js"
@@ -339,6 +340,7 @@ class SteppedInputForm extends React.Component {
         content: <AdaptationContactStep details={action} />,
         error: false
       })
+
       //Adaptation Cross Cutting Mitigation Details
       steps.push({
         title: `Adaptation #${index} - Mitigation Details`,
@@ -402,6 +404,12 @@ class SteppedInputForm extends React.Component {
         title: `Mitigation #${index} - Funding`,
         backAction: "Actions - Overview",
         content: <FundingDetailStep details={action} />,
+        error: false
+      })
+      //Mitigation Cross Cutting Adaptation Details
+      steps.push({
+        title: `Mitigation #${index} - Adaptation Details`,
+        content: <MitigationAdaptationDetailStep details={action} />,
         error: false
       })
    
