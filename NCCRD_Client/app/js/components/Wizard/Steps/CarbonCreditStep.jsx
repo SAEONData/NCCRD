@@ -43,12 +43,14 @@ class CarbonCreditStep extends React.Component {
 
     return (
       <>
+    
         {this.loadDetails()}
-        <TextAreaComponent
+
+        {/* <TextAreaComponent
           label={<Fa icon="info-circle"></Fa>, "Enter the details of the method used"}
         >
         
-        </TextAreaComponent>
+        </TextAreaComponent> */}
       </>
     )
   }

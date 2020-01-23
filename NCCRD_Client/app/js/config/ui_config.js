@@ -219,24 +219,27 @@ export const ui_config = [
   // MITIGATION DETAILS //
   {
     key: "selMitigationCarbonCredit",
-    label: "Carbon credit:",
+    label: "Does this project produce carbon credits?",
     tooltip: "Carbon credit",
     required: true
   },
   {
     key: "selMitigationCarbonCreditMarket",
-    label: "Carbon credit market:",
-    tooltip: "Carbon credit market"
+    label: "Which programme do these carbon  credits come from?",
+    tooltip: "Carbon credit market",
+    required: true
   },
   {
     key: "selMitigationCDMStatus",
-    label: "CDM status:",
-    tooltip: "CDM status"
+    label: "CDM Executive board status:",
+    tooltip: "CDM status",
+    required: true
   },
   {
     key: "selMitigationCDMMethodology",
-    label: "CDM methodology:",
-    tooltip: "CDM methodology"
+    label: "Approve methodology:",
+    tooltip: "CDM methodology",
+    required: true
   },
   {
     key: "selMitigationVoluntaryMethodology",

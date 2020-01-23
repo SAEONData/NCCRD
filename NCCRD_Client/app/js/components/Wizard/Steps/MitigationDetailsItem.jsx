@@ -80,10 +80,10 @@ class MitigationDetailsItem extends React.Component {
 
         <Row style={{ marginBottom: 10 }}>
           <Col md="6">
-            <label style={{ fontWeight: "bold" }}>
+            {/* <label style={{ fontWeight: "bold" }}>
               Research project:
             </label>
-            <br />
+            <br /> */}
             <label className="bs-switch">
               <input disabled={!editMode} type="checkbox" checked={details.ResearchDetail !== null} onClick={this.onResearchChange.bind(this)} />
               <span className="slider round" />
@@ -95,7 +95,7 @@ class MitigationDetailsItem extends React.Component {
           <SelectComponent
             id="selMitigationCarbonCredit"
             col="col-md-4"
-            label="Carbon credit:"
+            label="Does this project produce carbon credits?"
             selectedValue={details.CarbonCreditId}
             data={carbonCredit}
             setSelectedValueKey={"SET_MITIGATION_CARBON_CREDIT"}
@@ -110,10 +110,13 @@ class MitigationDetailsItem extends React.Component {
             }}
             allowClear={true}
           />
+          </div>
+          <br />
+          <div className="row">
           <SelectComponent
             id="selMitigationCarbonCreditMarket"
             col="col-md-4"
-            label="Carbon credit market:"
+            label="Which programme do the carbon credits come from?:"
             selectedValue={details.CarbonCreditMarketId}
             data={carbonCreditMarket}
             setSelectedValueKey={"SET_MITIGATION_CARBON_CREDIT_MARKET"}
@@ -128,10 +131,22 @@ class MitigationDetailsItem extends React.Component {
             }}
             allowClear={true}
           />
+          </div>
+
+          <br />
+          <br />
+          <h5>
+            CDM Programme details 
+          </h5>
+          <h6>
+          (Only CDM-EM registered and operational projects to be included)
+          </h6>
+          <br />
+          <div className="row">
           <SelectComponent
             id="selMitigationCDMStatus"
             col="col-md-4"
-            label="CDM status:"
+            label="CDM Executive board status:"
             selectedValue={details.CDMStatusId}
             data={cdmStatus}
             setSelectedValueKey={"SET_MITIGATION_CDM_STATUS"}
@@ -169,6 +184,11 @@ class MitigationDetailsItem extends React.Component {
             }}
             allowClear={true}
           />
+          </div>
+
+          <br />
+{/* 
+          <div className="row">
           <SelectComponent
             id="selMitigationVoluntaryMethodology"
             col="col-md-4"
@@ -187,6 +207,11 @@ class MitigationDetailsItem extends React.Component {
             }}
             allowClear={true}
           />
+          </div> */}
+
+          <br />
+
+          {/* <div className="row">
           <SelectComponent
             id="selMitigationVoluntaryGoldStandard"
             col="col-md-4"
@@ -205,9 +230,9 @@ class MitigationDetailsItem extends React.Component {
             }}
             allowClear={true}
           />
-        </div>
+        </div> */}
 
-        <br />
+     
 
         <div className="row">
           <TextComponent
@@ -218,15 +243,21 @@ class MitigationDetailsItem extends React.Component {
             setValueKey={"SET_MITIGATION_CDM_PROJECT_NUMBER"}
             parentId={details.MitigationDetailId}
           />
-          <TextComponent
-            col="col-md-4"
-            label="Other description:"
-            id="txtMitigationOtherDescription"
-            value={details.OtherDescription}
-            setValueKey={"SET_MITIGATION_OTHER_DESCR"}
-            parentId={details.MitigationDetailId}
-          />
-          <TreeSelectComponent
+         </div>
+
+         {/* <br />
+
+          <div className="row"> 
+            <TextComponent
+              col="col-md-4"
+              label="Other description:"
+              id="txtMitigationOtherDescription"
+              value={details.OtherDescription}
+              setValueKey={"SET_MITIGATION_OTHER_DESCR"}
+              parentId={details.MitigationDetailId}
+            />
+          </div>  */}
+          {/* <TreeSelectComponent
             id="selMitigationSector"
             col="col-md-4"
             label="Sector:"
@@ -250,12 +281,12 @@ class MitigationDetailsItem extends React.Component {
               "ParentSectorId": 0,
               "TypologyId": 0
             }}
-          />
-        </div>
+          /> */}
+       
 
         <br />
 
-        <div className="row">
+        {/* <div className="row">
           <SelectComponent
             id="selProjectStatus"
             col="col-md-4"
@@ -269,7 +300,7 @@ class MitigationDetailsItem extends React.Component {
           />
         </div>
 
-        <br />
+        <br /> */}
 
         {
           details.ResearchDetail &&
