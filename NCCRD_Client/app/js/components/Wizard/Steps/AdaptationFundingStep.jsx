@@ -11,8 +11,8 @@ import "./shared.css"
 const mapStateToProps = (state, props) => {
   let { lookupData: { users, fundingStatus } } = state
   let { projectFundersData: { projectFunderDetails } } = state
-  let { onFundingStatSelect: { value } } = props
-  return { users, fundingStatus, projectFunderDetails, onFundingStatSelect }
+ 
+  return { users, fundingStatus, projectFunderDetails }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -127,7 +127,7 @@ class AdaptationFundingDetailStep extends React.Component {
 
     return (
       <>
-        <Row>
+ 
           
           {/* <SelectComponent
             col="col-md-6"
@@ -148,17 +148,17 @@ class AdaptationFundingDetailStep extends React.Component {
             editModeOverride={true}
             allowClear={true}
           /> */}
-
+       {/* <Row>
             <Select 
               col="col-md-6"
-              defaultValue={onFundingStatSelect.value} 
+              defaultValue="Select..."
               onChange={(value, option) => this.onFundingStatSelect(value, option, type, id)}
             >
               <Option value="Funded">Funded</Option>
               <Option value="Partial">Partial</Option>
               <Option value="Seeking">Seeking</Option>
             </Select>
-        </Row>
+        </Row> */}
 
         <div className="vertical-spacer" />
 
