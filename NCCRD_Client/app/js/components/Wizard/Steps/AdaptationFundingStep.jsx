@@ -148,17 +148,31 @@ class AdaptationFundingDetailStep extends React.Component {
             editModeOverride={true}
             allowClear={true}
           /> */}
-       {/* <Row>
-            <Select 
+       <Row>
+    
+            <SelectComponent 
               col="col-md-6"
-              defaultValue="Select..."
+              id="lblFundingStatus"
+              label="Funding Status"
+              data={this.onFundingStatSelect.value}
+              defaultValue={this.value}
+              onChange={(value, option) => this.onFundingStatSelect(value, option, type, id)}
+            >
+                <Option value="Funded">Funded</Option>
+                <Option value="Partial">Partial</Option>
+                <Option value="Seeking">Seeking</Option>
+            </SelectComponent>
+
+            {/* <Select 
+              col="col-md-6"
+              defaultValue={this.value}
               onChange={(value, option) => this.onFundingStatSelect(value, option, type, id)}
             >
               <Option value="Funded">Funded</Option>
               <Option value="Partial">Partial</Option>
               <Option value="Seeking">Seeking</Option>
-            </Select>
-        </Row> */}
+            </Select> */}
+        </Row>
 
         <div className="vertical-spacer" />
 

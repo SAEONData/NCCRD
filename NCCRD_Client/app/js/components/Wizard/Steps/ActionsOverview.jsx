@@ -248,12 +248,13 @@ class ActionsOverview extends React.Component {
     )
   }
 
-  onFundingStatSelect(type, value, id) {
+  onFundingStatSelect(fundingStatus, type, value, id) {
     if (type === "Adatpation") {
       if (value === "Seeking") {
         this.props.addAdaptationDetailsFundingStatus({
           id: id, 
-          state: 'modified'
+          state: 'modified',
+          FundingStatusId: fundingStatus
         })
       }
       else if (type === "Mitigation") {
