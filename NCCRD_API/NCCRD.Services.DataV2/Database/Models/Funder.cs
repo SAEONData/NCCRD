@@ -22,6 +22,15 @@ namespace NCCRD.Services.DataV2.Database.Models
         public decimal? AnnualBudget { get; set; }
         public string PartnerDepsOrgs { get; set; }
 
+        //Arbitrary DB Fields
+        [MaxLength(50)]
+        public string CreatedBy { get; set; } = "System";
+        [MaxLength(50)]
+        public string LastModifiedBy { get; set; } = "System";
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; } = false;
+
         //FK - ProjectCoordinator (Person)
         [ForeignKey("ProjectCoordinator")]
         public int? ProjectCoordinatorId { get; set; }

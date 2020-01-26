@@ -22,6 +22,15 @@ namespace NCCRD.Services.DataV2.Database.Models
         [MaxLength(450)]
         public string PaperLink { get; set; } //Optional
 
+        //Arbitrary DB Fields
+        [MaxLength(50)]
+        public string CreatedBy { get; set; } = "System";
+        [MaxLength(50)]
+        public string LastModifiedBy { get; set; } = "System";
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; } = false;
+
         //FK - ResearchType
         [Range(0, int.MaxValue, ErrorMessage = "The ResearchType field is required.")]
         public int ResearchTypeId { get; set; }

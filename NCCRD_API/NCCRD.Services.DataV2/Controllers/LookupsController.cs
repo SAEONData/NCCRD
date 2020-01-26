@@ -261,23 +261,23 @@ namespace NCCRD.Services.DataV2.Controllers
         internal Lookups GetLookups(int id = 0)
         {
             //Get lookups
-            var adaptationPurpose = _context.AdaptationPurpose.OrderBy(x => x.Value).ToArray();
-            var carbonCredit = _context.CarbonCredit.OrderBy(x => x.Value).ToArray();
-            var carbonCreditMarket = _context.CarbonCreditMarket.OrderBy(x => x.Value).ToArray();
-            var cdmMethodology = _context.CDMMethodology.OrderBy(x => x.Value).ToArray();
-            var cdmStatus = _context.CDMStatus.OrderBy(x => x.Value).ToArray();
-            var fundingStatus = _context.FundingStatus.OrderByDescending(x => x.FundingStatusId).ToArray();
-            var projectStatus = _context.ProjectStatus.OrderBy(x => x.ProjectStatusId).ToArray();
-            var projectType = _context.ProjectType.OrderBy(x => x.Value).ToArray();
-            var projectSubType = _context.ProjectSubType.OrderBy(x => x.Value).ToArray();
-            var researchType = _context.ResearchType.OrderBy(x => x.Value).ToArray();
-            var targetAudience = _context.TargetAudience.OrderBy(x => x.Value).ToArray();
-            var typology = _context.Typology.OrderBy(x => x.Value).ToArray();
-            var user = _context.Person.OrderBy(x => x.FirstName).ThenBy(x => x.Surname).ToArray();
-            var validationStatus = _context.ValidationStatus.OrderBy(x => x.Value).ToArray();
-            var voluntaryGoldStandard = _context.VoluntaryGoldStandard.OrderBy(x => x.Value).ToArray();
-            var voluntaryMethodology = _context.VoluntaryMethodology.OrderBy(x => x.Value).ToArray();
-            var researchMaturity = _context.ResearchMaturity.OrderBy(x => x.Value).ToArray();
+            var adaptationPurpose = _context.AdaptationPurpose.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var carbonCredit = _context.CarbonCredit.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var carbonCreditMarket = _context.CarbonCreditMarket.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var cdmMethodology = _context.CDMMethodology.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var cdmStatus = _context.CDMStatus.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var fundingStatus = _context.FundingStatus.Where(x => x.IsDeleted == false).OrderByDescending(x => x.FundingStatusId).ToArray();
+            var projectStatus = _context.ProjectStatus.Where(x => x.IsDeleted == false).OrderBy(x => x.ProjectStatusId).ToArray();
+            var projectType = _context.ProjectType.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var projectSubType = _context.ProjectSubType.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var researchType = _context.ResearchType.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var targetAudience = _context.TargetAudience.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var typology = _context.Typology.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var user = _context.Person.Where(x => x.IsDeleted == false).OrderBy(x => x.FirstName).ThenBy(x => x.Surname).ToArray();
+            var validationStatus = _context.ValidationStatus.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var voluntaryGoldStandard = _context.VoluntaryGoldStandard.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var voluntaryMethodology = _context.VoluntaryMethodology.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
+            var researchMaturity = _context.ResearchMaturity.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToArray();
 
             return new Lookups()
             {
@@ -305,12 +305,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveAdaptationPurposeAsync(AdaptationPurpose item)
         {
             //Check that Value/Name is unique
-            if (_context.AdaptationPurpose.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.AdaptationPurposeId != item.AdaptationPurposeId) != null)
+            if (_context.AdaptationPurpose.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.AdaptationPurposeId != item.AdaptationPurposeId && item.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.AdaptationPurpose.FirstOrDefault(x => x.AdaptationPurposeId == item.AdaptationPurposeId);
+            var exiting = _context.AdaptationPurpose.FirstOrDefault(x => x.AdaptationPurposeId == item.AdaptationPurposeId && item.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -330,12 +330,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveCarbonCreditAsync(CarbonCredit item)
         {
             //Check that Value/Name is unique
-            if (_context.CarbonCredit.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.CarbonCreditId != item.CarbonCreditId) != null)
+            if (_context.CarbonCredit.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.CarbonCreditId != item.CarbonCreditId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.CarbonCredit.FirstOrDefault(x => x.CarbonCreditId == item.CarbonCreditId);
+            var exiting = _context.CarbonCredit.FirstOrDefault(x => x.CarbonCreditId == item.CarbonCreditId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -355,12 +355,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveCarbonCreditMarketAsync(CarbonCreditMarket item)
         {
             //Check that Value/Name is unique
-            if (_context.CarbonCreditMarket.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.CarbonCreditMarketId != item.CarbonCreditMarketId) != null)
+            if (_context.CarbonCreditMarket.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.CarbonCreditMarketId != item.CarbonCreditMarketId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.CarbonCreditMarket.FirstOrDefault(x => x.CarbonCreditMarketId == item.CarbonCreditMarketId);
+            var exiting = _context.CarbonCreditMarket.FirstOrDefault(x => x.CarbonCreditMarketId == item.CarbonCreditMarketId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -380,12 +380,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveCDMMethodologyAsync(CDMMethodology item)
         {
             //Check that Value/Name is unique
-            if (_context.CDMMethodology.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.CDMMethodologyId != item.CDMMethodologyId) != null)
+            if (_context.CDMMethodology.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.CDMMethodologyId != item.CDMMethodologyId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.CDMMethodology.FirstOrDefault(x => x.CDMMethodologyId == item.CDMMethodologyId);
+            var exiting = _context.CDMMethodology.FirstOrDefault(x => x.CDMMethodologyId == item.CDMMethodologyId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -405,12 +405,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveCDMStatusAsync(CDMStatus item)
         {
             //Check that Value/Name is unique
-            if (_context.CDMStatus.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.CDMStatusId != item.CDMStatusId) != null)
+            if (_context.CDMStatus.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.CDMStatusId != item.CDMStatusId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.CDMStatus.FirstOrDefault(x => x.CDMStatusId == item.CDMStatusId);
+            var exiting = _context.CDMStatus.FirstOrDefault(x => x.CDMStatusId == item.CDMStatusId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -430,12 +430,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SavePersonAsync(Person item)
         {
             //Check that Value/Name is unique
-            if (_context.Person.AsNoTracking().FirstOrDefault(x => x.EmailAddress == item.EmailAddress && x.PersonId != item.PersonId) != null)
+            if (_context.Person.AsNoTracking().FirstOrDefault(x => x.EmailAddress == item.EmailAddress && x.PersonId != item.PersonId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.Person.FirstOrDefault(x => x.PersonId == item.PersonId);
+            var exiting = _context.Person.FirstOrDefault(x => x.PersonId == item.PersonId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -455,12 +455,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveProjectStatusAsync(ProjectStatus item)
         {
             //Check that Value/Name is unique
-            if (_context.ProjectStatus.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ProjectStatusId != item.ProjectStatusId) != null)
+            if (_context.ProjectStatus.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ProjectStatusId != item.ProjectStatusId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.ProjectStatus.FirstOrDefault(x => x.ProjectStatusId == item.ProjectStatusId);
+            var exiting = _context.ProjectStatus.FirstOrDefault(x => x.ProjectStatusId == item.ProjectStatusId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -480,12 +480,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveProjectTypeAsync(ProjectType item)
         {
             //Check that Value/Name is unique
-            if (_context.ProjectType.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ProjectTypeId != item.ProjectTypeId) != null)
+            if (_context.ProjectType.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ProjectTypeId != item.ProjectTypeId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.ProjectType.FirstOrDefault(x => x.ProjectTypeId == item.ProjectTypeId);
+            var exiting = _context.ProjectType.FirstOrDefault(x => x.ProjectTypeId == item.ProjectTypeId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -505,12 +505,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveProjectSubTypeAsync(ProjectSubType item)
         {
             //Check that Value/Name is unique
-            if (_context.ProjectSubType.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ProjectSubTypeId != item.ProjectSubTypeId) != null)
+            if (_context.ProjectSubType.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ProjectSubTypeId != item.ProjectSubTypeId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.ProjectSubType.FirstOrDefault(x => x.ProjectSubTypeId == item.ProjectSubTypeId);
+            var exiting = _context.ProjectSubType.FirstOrDefault(x => x.ProjectSubTypeId == item.ProjectSubTypeId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -530,12 +530,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveResearchTypeAsync(ResearchType item)
         {
             //Check that Value/Name is unique
-            if (_context.ResearchType.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ResearchTypeId != item.ResearchTypeId) != null)
+            if (_context.ResearchType.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ResearchTypeId != item.ResearchTypeId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.ResearchType.FirstOrDefault(x => x.ResearchTypeId == item.ResearchTypeId);
+            var exiting = _context.ResearchType.FirstOrDefault(x => x.ResearchTypeId == item.ResearchTypeId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -555,12 +555,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveTargetAudienceAsync(TargetAudience item)
         {
             //Check that Value/Name is unique
-            if (_context.TargetAudience.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.TargetAudienceId != item.TargetAudienceId) != null)
+            if (_context.TargetAudience.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.TargetAudienceId != item.TargetAudienceId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.TargetAudience.FirstOrDefault(x => x.TargetAudienceId == item.TargetAudienceId);
+            var exiting = _context.TargetAudience.FirstOrDefault(x => x.TargetAudienceId == item.TargetAudienceId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -580,12 +580,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveTypologyAsync(Typology item)
         {
             //Check that Value/Name is unique
-            if (_context.Typology.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.TypologyId != item.TypologyId) != null)
+            if (_context.Typology.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.TypologyId != item.TypologyId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.Typology.FirstOrDefault(x => x.TypologyId == item.TypologyId);
+            var exiting = _context.Typology.FirstOrDefault(x => x.TypologyId == item.TypologyId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -605,12 +605,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveValidationStatusAsync(ValidationStatus item)
         {
             //Check that Value/Name is unique
-            if (_context.ValidationStatus.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ValidationStatusId != item.ValidationStatusId) != null)
+            if (_context.ValidationStatus.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.ValidationStatusId != item.ValidationStatusId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.ValidationStatus.FirstOrDefault(x => x.ValidationStatusId == item.ValidationStatusId);
+            var exiting = _context.ValidationStatus.FirstOrDefault(x => x.ValidationStatusId == item.ValidationStatusId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -630,12 +630,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveVoluntaryGoldStandardAsync(VoluntaryGoldStandard item)
         {
             //Check that Value/Name is unique
-            if (_context.VoluntaryGoldStandard.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.VoluntaryGoldStandardId != item.VoluntaryGoldStandardId) != null)
+            if (_context.VoluntaryGoldStandard.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.VoluntaryGoldStandardId != item.VoluntaryGoldStandardId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.VoluntaryGoldStandard.FirstOrDefault(x => x.VoluntaryGoldStandardId == item.VoluntaryGoldStandardId);
+            var exiting = _context.VoluntaryGoldStandard.FirstOrDefault(x => x.VoluntaryGoldStandardId == item.VoluntaryGoldStandardId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
@@ -655,12 +655,12 @@ namespace NCCRD.Services.DataV2.Controllers
         private IActionResult SaveVoluntaryMethodologyAsync(VoluntaryMethodology item)
         {
             //Check that Value/Name is unique
-            if (_context.VoluntaryMethodology.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.VoluntaryMethodologyId != item.VoluntaryMethodologyId) != null)
+            if (_context.VoluntaryMethodology.AsNoTracking().FirstOrDefault(x => x.Value == item.Value && x.VoluntaryMethodologyId != item.VoluntaryMethodologyId && x.IsDeleted == false) != null)
             {
                 return BadRequest("Duplicate entry/value found.");
             }
 
-            var exiting = _context.VoluntaryMethodology.FirstOrDefault(x => x.VoluntaryMethodologyId == item.VoluntaryMethodologyId);
+            var exiting = _context.VoluntaryMethodology.FirstOrDefault(x => x.VoluntaryMethodologyId == item.VoluntaryMethodologyId && x.IsDeleted == false);
             if (exiting == null)
             {
                 //ADD
