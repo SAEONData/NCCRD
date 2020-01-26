@@ -53,6 +53,19 @@ namespace NCCRD.Services.DataV2.Database.Models
         public decimal? BudgetUpper { get; set; }
 
         public bool Verified { get; set; }
+        [MaxLength(50)]
+        public string Verifier { get; set; } = "System";
+
+        //Arbitrary DB Fields
+        [MaxLength(50)]
+        public string Owner { get; set; } = "System";
+        [MaxLength(50)]
+        public string CreatedBy { get; set; } = "System";
+        [MaxLength(50)]
+        public string LastModifiedBy { get; set; } = "System";
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; } = false;
 
         //FK - ProjectStatus
         public int? ProjectStatusId { get; set; }

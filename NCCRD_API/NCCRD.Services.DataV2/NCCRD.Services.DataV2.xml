@@ -10,11 +10,53 @@
             </summary>
             <returns>List of AdaptationDetail</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.AdaptationDetailsController.Get(System.Int32)">
+            <summary>
+            Get AdaptationDetail by id
+            </summary>
+            <param name="id">AdaptationDetailId</param>
+            <returns>Single AdaptationDetail</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.AdaptationDetailsController.Post(NCCRD.Services.DataV2.Database.Models.AdaptationDetail)">
+            <summary>
+            Add/Update AdaptationDetail
+            </summary>
+            <param name="data">A container for AdaptationDetail</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.AdaptationDetailsController.Delete(System.Int32)">
+            <summary>
+            Delete AdaptationDetail
+            </summary>
+            <param name="id">AdaptationDetailId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.AdaptationPurposeController.Get">
             <summary>
             Get a list of AdaptationPurpose
             </summary>
             <returns>List of AdaptationPurpose</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.AdaptationPurposeController.Get(System.Int32)">
+            <summary>
+            Get AdaptationPurpose by id
+            </summary>
+            <param name="id">AdaptationPurposeId</param>
+            <returns>Single AdaptationPurpose</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.AdaptationPurposeController.Post(NCCRD.Services.DataV2.Database.Models.AdaptationPurpose)">
+            <summary>
+            Add/Update AdaptationPurpose
+            </summary>
+            <param name="data">A container for AdaptationPurpose</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.AdaptationPurposeController.Delete(System.Int32)">
+            <summary>
+            Delete AdaptationPurpose
+            </summary>
+            <param name="id">AdaptationPurposeId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditController.Get">
             <summary>
@@ -22,11 +64,53 @@
             </summary>
             <returns>List of CarbonCredit</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditController.Get(System.Int32)">
+            <summary>
+            Get CarbonCredit by id
+            </summary>
+            <param name="id">CarbonCreditId</param>
+            <returns>Single CarbonCredit</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditController.Post(NCCRD.Services.DataV2.Database.Models.CarbonCredit)">
+            <summary>
+            Add/Update CarbonCredit
+            </summary>
+            <param name="data">A container for CarbonCredit</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditController.Delete(System.Int32)">
+            <summary>
+            Delete CarbonCredit
+            </summary>
+            <param name="id">CarbonCreditId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditMarketController.Get">
             <summary>
             Get a list of CarbonCreditMarket
             </summary>
             <returns>List of CarbonCreditMarket</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditMarketController.Get(System.Int32)">
+            <summary>
+            Get CarbonCreditMarket by id
+            </summary>
+            <param name="id">CarbonCreditMarketId</param>
+            <returns>Single CarbonCreditMarket</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditMarketController.Post(NCCRD.Services.DataV2.Database.Models.CarbonCreditMarket)">
+            <summary>
+            Add/Update CarbonCreditMarket
+            </summary>
+            <param name="data">A container for CarbonCreditMarket</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditMarketController.Delete(System.Int32)">
+            <summary>
+            Delete CarbonCreditMarket
+            </summary>
+            <param name="id">CarbonCreditMarketId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.CDMMethodologyController.Get">
             <summary>
@@ -34,17 +118,80 @@
             </summary>
             <returns>List of CDMMethodology</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CDMMethodologyController.Get(System.Int32)">
+            <summary>
+            Get CDMMethodology by id
+            </summary>
+            <param name="id">CDMMethodologyId</param>
+            <returns>Single CDMMethodology</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CDMMethodologyController.Post(NCCRD.Services.DataV2.Database.Models.CDMMethodology)">
+            <summary>
+            Add/Update CDMMethodology
+            </summary>
+            <param name="data">A container for CDMMethodology</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CDMMethodologyController.Delete(System.Int32)">
+            <summary>
+            Delete CDMMethodology
+            </summary>
+            <param name="id">CDMMethodologyId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.CDMStatusController.Get">
             <summary>
             Get a list of CDMStatus
             </summary>
             <returns>List of CDMStatus</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CDMStatusController.Get(System.Int32)">
+            <summary>
+            Get CDMStatus by id
+            </summary>
+            <param name="id">CDMStatusId</param>
+            <returns>Single CDMStatus</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CDMStatusController.Post(NCCRD.Services.DataV2.Database.Models.CDMStatus)">
+            <summary>
+            Add/Update CDMStatus
+            </summary>
+            <param name="data">A container for CDMStatus</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.CDMStatusController.Delete(System.Int32)">
+            <summary>
+            Delete CDMStatus
+            </summary>
+            <param name="id">CDMStatusId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.FundersController.Get">
             <summary>
             Get a list of Funder
             </summary>
             <returns>List of Funder</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.FundersController.Get(System.Int32)">
+            <summary>
+            Get AdaptationDetail by id
+            </summary>
+            <param name="id">AdaptationDetailId</param>
+            <returns>Single AdaptationDetail</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.FundersController.Post(NCCRD.Services.DataV2.Database.Models.AdaptationDetail)">
+            <summary>
+            Add/Update AdaptationDetail
+            </summary>
+            <param name="data">A container for AdaptationDetail</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.FundersController.Delete(System.Int32)">
+            <summary>
+            Delete AdaptationDetail
+            </summary>
+            <param name="id">AdaptationDetailId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.LookupsController.Get">
             <summary>
@@ -69,11 +216,53 @@
             </summary>
             <returns>List of MitigationDetail</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.MitigationDetailsController.Get(System.Int32)">
+            <summary>
+            Get AdaptationDetail by id
+            </summary>
+            <param name="id">AdaptationDetailId</param>
+            <returns>Single AdaptationDetail</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.MitigationDetailsController.Post(NCCRD.Services.DataV2.Database.Models.AdaptationDetail)">
+            <summary>
+            Add/Update AdaptationDetail
+            </summary>
+            <param name="data">A container for AdaptationDetail</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.MitigationDetailsController.Delete(System.Int32)">
+            <summary>
+            Delete AdaptationDetail
+            </summary>
+            <param name="id">AdaptationDetailId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.MitigationEmissionsDataController.Get">
             <summary>
             Get a list of MitigationEmissionsData
             </summary>
             <returns>List of MitigationEmissionsData</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.MitigationEmissionsDataController.Get(System.Int32)">
+            <summary>
+            Get MitigationEmissionsData by id
+            </summary>
+            <param name="id">MitigationEmissionsDataId</param>
+            <returns>Single MitigationEmissionsData</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.MitigationEmissionsDataController.Post(NCCRD.Services.DataV2.Database.Models.MitigationEmissionsData)">
+            <summary>
+            Add/Update MitigationEmissionsData
+            </summary>
+            <param name="data">A container for MitigationEmissionsData</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.MitigationEmissionsDataController.Delete(System.Int32)">
+            <summary>
+            Delete MitigationEmissionsData
+            </summary>
+            <param name="id">MitigationEmissionsDataId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.ProjectDetailsController.Get(System.Int32)">
             <summary>
@@ -122,11 +311,46 @@
             </summary>
             <returns>List of projects in GeoJSON format</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectsController.Delete(System.Int32)">
+            <summary>
+            Delete Project
+            </summary>
+            <param name="id">ProjectId</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectsController.Verify(System.Int32)">
+            <summary>
+            Verify a Project
+            </summary>
+            <param name="id">ProjectId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.ProjectStatusController.Get">
             <summary>
             Get a list of ProjectStatus
             </summary>
             <returns>List of ProjectStatus</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectStatusController.Get(System.Int32)">
+            <summary>
+            Get ProjectStatus by id
+            </summary>
+            <param name="id">ProjectStatusId</param>
+            <returns>Single ProjectStatus</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectStatusController.Post(NCCRD.Services.DataV2.Database.Models.ProjectStatus)">
+            <summary>
+            Add/Update ProjectStatus
+            </summary>
+            <param name="data">A container for ProjectStatus</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectStatusController.Delete(System.Int32)">
+            <summary>
+            Delete ProjectStatus
+            </summary>
+            <param name="id">ProjectStatusId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.ProjectSubTypeController.Get">
             <summary>
@@ -134,11 +358,53 @@
             </summary>
             <returns>List of ProjectSubType</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectSubTypeController.Get(System.Int32)">
+            <summary>
+            Get ProjectSubType by id
+            </summary>
+            <param name="id">ProjectSubTypeId</param>
+            <returns>Single ProjectSubType</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectSubTypeController.Post(NCCRD.Services.DataV2.Database.Models.ProjectSubType)">
+            <summary>
+            Add/Update ProjectSubType
+            </summary>
+            <param name="data">A container for ProjectSubType</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectSubTypeController.Delete(System.Int32)">
+            <summary>
+            Delete ProjectSubType
+            </summary>
+            <param name="id">ProjectSubTypeId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.ProjectTypeController.Get">
             <summary>
             Get a list of ProjectType
             </summary>
             <returns>List of ProjectType</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectTypeController.Get(System.Int32)">
+            <summary>
+            Get ProjectType by id
+            </summary>
+            <param name="id">ProjectTypeId</param>
+            <returns>Single ProjectType</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectTypeController.Post(NCCRD.Services.DataV2.Database.Models.ProjectType)">
+            <summary>
+            Add/Update ProjectType
+            </summary>
+            <param name="data">A container for ProjectType</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ProjectTypeController.Delete(System.Int32)">
+            <summary>
+            Delete ProjectType
+            </summary>
+            <param name="id">ProjectTypeId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.ResearchDetailsController.Get">
             <summary>
@@ -146,11 +412,53 @@
             </summary>
             <returns>List of ResearchDetail</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ResearchDetailsController.Get(System.Int32)">
+            <summary>
+            Get ResearchDetail by id
+            </summary>
+            <param name="id">ResearchDetailId</param>
+            <returns>Single ResearchDetail</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ResearchDetailsController.Post(NCCRD.Services.DataV2.Database.Models.ResearchDetail)">
+            <summary>
+            Add/Update ResearchDetail
+            </summary>
+            <param name="data">A container for ResearchDetail</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ResearchDetailsController.Delete(System.Int32)">
+            <summary>
+            Delete ResearchDetail
+            </summary>
+            <param name="id">ResearchDetailId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.ResearchTypeController.Get">
             <summary>
             Get a list of ResearchType
             </summary>
             <returns>List of ResearchType</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ResearchTypeController.Get(System.Int32)">
+            <summary>
+            Get ResearchType by id
+            </summary>
+            <param name="id">ResearchTypeId</param>
+            <returns>Single ResearchType</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ResearchTypeController.Post(NCCRD.Services.DataV2.Database.Models.ResearchType)">
+            <summary>
+            Add/Update ResearchType
+            </summary>
+            <param name="data">A container for ResearchType</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ResearchTypeController.Delete(System.Int32)">
+            <summary>
+            Delete ResearchType
+            </summary>
+            <param name="id">ResearchTypeId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.TargetAudienceController.Get">
             <summary>
@@ -158,11 +466,53 @@
             </summary>
             <returns>List of TargetAudience</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.TargetAudienceController.Get(System.Int32)">
+            <summary>
+            Get TargetAudience by id
+            </summary>
+            <param name="id">TargetAudienceId</param>
+            <returns>Single TargetAudience</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.TargetAudienceController.Post(NCCRD.Services.DataV2.Database.Models.TargetAudience)">
+            <summary>
+            Add/Update TargetAudience
+            </summary>
+            <param name="data">A container for TargetAudience</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.TargetAudienceController.Delete(System.Int32)">
+            <summary>
+            Delete TargetAudience
+            </summary>
+            <param name="id">TargetAudienceId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.TypologyController.Get">
             <summary>
             Get a list of Typology
             </summary>
             <returns>List of Typology</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.TypologyController.Get(System.Int32)">
+            <summary>
+            Get AdaptationDetail by id
+            </summary>
+            <param name="id">AdaptationDetailId</param>
+            <returns>Single AdaptationDetail</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.TypologyController.Post(NCCRD.Services.DataV2.Database.Models.AdaptationDetail)">
+            <summary>
+            Add/Update AdaptationDetail
+            </summary>
+            <param name="data">A container for AdaptationDetail</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.TypologyController.Delete(System.Int32)">
+            <summary>
+            Delete AdaptationDetail
+            </summary>
+            <param name="id">AdaptationDetailId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.UserController.Get">
             <summary>
@@ -170,11 +520,53 @@
             </summary>
             <returns>List of Person (previously named User)</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.UserController.Get(System.Int32)">
+            <summary>
+            Get Person by id
+            </summary>
+            <param name="id">PersonId</param>
+            <returns>Single Person</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.UserController.Post(NCCRD.Services.DataV2.Database.Models.Person)">
+            <summary>
+            Add/Update Person
+            </summary>
+            <param name="data">A container for Person</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.UserController.Delete(System.Int32)">
+            <summary>
+            Delete Person
+            </summary>
+            <param name="id">PersonId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.ValidationStatusController.Get">
             <summary>
             Get a list of ValidationStatus
             </summary>
             <returns>List of ValidationStatus</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ValidationStatusController.Get(System.Int32)">
+            <summary>
+            Get ValidationStatus by id
+            </summary>
+            <param name="id">ValidationStatusId</param>
+            <returns>Single ValidationStatus</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ValidationStatusController.Post(NCCRD.Services.DataV2.Database.Models.ValidationStatus)">
+            <summary>
+            Add/Update ValidationStatus
+            </summary>
+            <param name="data">A container for ValidationStatus</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.ValidationStatusController.Delete(System.Int32)">
+            <summary>
+            Delete ValidationStatus
+            </summary>
+            <param name="id">ValidationStatusId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.VoluntaryGoldStandardController.Get">
             <summary>
@@ -182,11 +574,53 @@
             </summary>
             <returns>List of VoluntaryGoldStandard</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.VoluntaryGoldStandardController.Get(System.Int32)">
+            <summary>
+            Get VoluntaryGoldStandard by id
+            </summary>
+            <param name="id">VoluntaryGoldStandardId</param>
+            <returns>Single VoluntaryGoldStandard</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.VoluntaryGoldStandardController.Post(NCCRD.Services.DataV2.Database.Models.VoluntaryGoldStandard)">
+            <summary>
+            Add/Update VoluntaryGoldStandard
+            </summary>
+            <param name="data">A container for VoluntaryGoldStandard</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.VoluntaryGoldStandardController.Delete(System.Int32)">
+            <summary>
+            Delete VoluntaryGoldStandard
+            </summary>
+            <param name="id">VoluntaryGoldStandardId</param>
+            <returns>Success/Fail status</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.VoluntaryMethodologyController.Get">
             <summary>
             Get a list of VoluntaryMethodology
             </summary>
             <returns>List of VoluntaryMethodology</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.VoluntaryMethodologyController.Get(System.Int32)">
+            <summary>
+            Get VoluntaryMethodology by id
+            </summary>
+            <param name="id">VoluntaryMethodologyId</param>
+            <returns>Single VoluntaryMethodology</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.VoluntaryMethodologyController.Post(NCCRD.Services.DataV2.Database.Models.VoluntaryMethodology)">
+            <summary>
+            Add/Update VoluntaryMethodology
+            </summary>
+            <param name="data">A container for VoluntaryMethodology</param>
+            <returns>Success/Fail status</returns>
+        </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.VoluntaryMethodologyController.Delete(System.Int32)">
+            <summary>
+            Delete VoluntaryMethodology
+            </summary>
+            <param name="id">VoluntaryMethodologyId</param>
+            <returns>Success/Fail status</returns>
         </member>
         <member name="T:NCCRD.Services.DataV2.Database.Contexts.CustomDocumentFilter">
             <summary>

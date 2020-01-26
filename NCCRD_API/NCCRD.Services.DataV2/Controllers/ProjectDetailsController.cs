@@ -45,21 +45,21 @@ namespace NCCRD.Services.DataV2.Controllers
                 .Include(x => x.ProjectRegions)
                 .Include(x => x.ProjectDAOs)
                 .Include(x => x.ProjectLocations).ThenInclude(x => x.Location)
-                .FirstOrDefault(x => x.ProjectId == id);
+                .FirstOrDefault(x => x.ProjectId == id && x.IsDeleted == false);
 
-            var funders = _context.ProjectFunder.Include(x => x.Funder).Where(x => x.ProjectId == id)
+            var funders = _context.ProjectFunder.Include(x => x.Funder).Where(x => x.ProjectId == id && x.IsDeleted == false)
                 .OrderBy(x => x.FunderId).Select(x => x.Funder).ToArray();
 
-            var adaptations = _context.AdaptationDetails.Where(x => x.ProjectId == id)
+            var adaptations = _context.AdaptationDetails.Where(x => x.ProjectId == id && x.IsDeleted == false)
                 .OrderBy(x => x.AdaptationDetailId).ToArray();
 
-            var mitigations = _context.MitigationDetails.Where(x => x.ProjectId == id)
+            var mitigations = _context.MitigationDetails.Where(x => x.ProjectId == id && x.IsDeleted == false)
                 .OrderBy(x => x.MitigationDetailId).ToArray();
 
-            var emissions = _context.MitigationEmissionsData.Where(x => x.ProjectId == id)
+            var emissions = _context.MitigationEmissionsData.Where(x => x.ProjectId == id && x.IsDeleted == false)
                 .OrderBy(x => x.MitigationEmissionsDataId).ToArray();
 
-            var research = _context.ResearchDetails.Where(x => x.ProjectId == id)
+            var research = _context.ResearchDetails.Where(x => x.ProjectId == id && x.IsDeleted == false)
                 .OrderBy(x => x.ResearchDetailId).ToArray();
 
             var lookups = new LookupsController(_context).GetLookups();
@@ -108,7 +108,7 @@ namespace NCCRD.Services.DataV2.Controllers
                 var project = new Project();
 
                 //Get project if exists
-                if (_context.Project.Any(x => x.ProjectId == data.Id))
+                if (_context.Project.Any(x => x.ProjectId == data.Id && x.IsDeleted == false))
                 {
                     project = _context.Project
                         .Include(x => x.ProjectDAOs)
@@ -116,7 +116,7 @@ namespace NCCRD.Services.DataV2.Controllers
                         .Include(x => x.ProjectLocations).ThenInclude(x => x.Location)
                         .Include(x => x.ProjectFunders).ThenInclude(x => x.Funder)
                         .Include(x => x.AdaptationDetails).ThenInclude(x => x.ResearchDetail)
-                        .First(x => x.ProjectId == data.Id);
+                        .First(x => x.ProjectId == data.Id && x.IsDeleted == false);
 
                     projectAdded = false;
                 }
@@ -166,12 +166,13 @@ namespace NCCRD.Services.DataV2.Controllers
 
                     foreach (var item in daoRemove)
                     {
-                        var removeItem = project.ProjectDAOs.First(x => x.ProjectDAOId == item);
-                        project.ProjectDAOs.Remove(removeItem);
+                        var removeItem = project.ProjectDAOs.First(x => x.ProjectDAOId == item && x.IsDeleted == false);
+                        //Adding in Soft Delete
+                        removeItem.IsDeleted = true;
                     }
 
                     //...Add
-                    var daoAdd = data.Project.ProjectDAOs.Where(x => !project.ProjectDAOs.Any(y => y.DAOId == x.DAOId));
+                    var daoAdd = data.Project.ProjectDAOs.Where(x => !project.ProjectDAOs.Any(y => y.DAOId == x.DAOId && x.IsDeleted == false));
                     foreach (var item in daoAdd)
                     {
                         project.ProjectDAOs.Add(new ProjectDAO()
@@ -191,18 +192,20 @@ namespace NCCRD.Services.DataV2.Controllers
                     }
 
                     //...Remove
-                    var prRemove = project.ProjectRegions.Where(x => !data.Project.ProjectRegions.Any(y => y.RegionId == x.RegionId))
+                    var prRemove = project.ProjectRegions.Where(x => !data.Project.ProjectRegions.Any(y => y.RegionId == x.RegionId && y.IsDeleted == false))
                         .Select(x => x.ProjectRegionId)
                         .ToArray();
 
                     foreach (var item in prRemove)
                     {
-                        var removeItem = project.ProjectRegions.First(x => x.ProjectRegionId == item);
-                        project.ProjectRegions.Remove(removeItem);
+                        var removeItem = project.ProjectRegions.First(x => x.ProjectRegionId == item && x.IsDeleted == false);
+                        //project.ProjectRegions.Remove(removeItem);
+                        //Adding in Soft Delete
+                        removeItem.IsDeleted = true;
                     }
 
                     //...Add
-                    var prAdd = data.Project.ProjectRegions.Where(x => !project.ProjectRegions.Any(y => y.RegionId == x.RegionId));
+                    var prAdd = data.Project.ProjectRegions.Where(x => !project.ProjectRegions.Any(y => y.RegionId == x.RegionId && y.IsDeleted == false));
                     foreach (var item in prAdd)
                     {
                         project.ProjectRegions.Add(new ProjectRegion()
@@ -222,20 +225,20 @@ namespace NCCRD.Services.DataV2.Controllers
                     }
 
                     //...Remove
-                    var locRemove = project.ProjectLocations.Where(x => !data.Project.ProjectLocations
-                            .Any(y => y.Location.LatCalculated == x.Location.LatCalculated && y.Location.LonCalculated == x.Location.LonCalculated))
+                    var locRemove = project.ProjectLocations.Where(x => !data.Project.ProjectLocations.Any(y => y.Location.LatCalculated == x.Location.LatCalculated && y.Location.LonCalculated == x.Location.LonCalculated) && x.IsDeleted == false)
                         .Select(x => x.ProjectLocationId)
                         .ToArray();
 
                     foreach (var item in locRemove)
                     {
                         var removeItem = project.ProjectLocations.First(x => x.ProjectLocationId == item);
-                        project.ProjectLocations.Remove(removeItem);
+                        //project.ProjectLocations.Remove(removeItem);
+                        //Adding in Soft Delete
+                        removeItem.IsDeleted = true;
                     }
 
                     //...Add
-                    var locAdd = data.Project.ProjectLocations.Where(x => !project.ProjectLocations
-                        .Any(y => y.Location.LatCalculated == x.Location.LatCalculated && y.Location.LonCalculated == x.Location.LonCalculated));
+                    var locAdd = data.Project.ProjectLocations.Where(x => !project.ProjectLocations.Any(y => y.Location.LatCalculated == x.Location.LatCalculated && y.Location.LonCalculated == x.Location.LonCalculated) && x.IsDeleted == false);
                     foreach (var item in locAdd)
                     {
                         project.ProjectLocations.Add(new ProjectLocation()
@@ -260,18 +263,20 @@ namespace NCCRD.Services.DataV2.Controllers
                     }
 
                     //...Remove
-                    var pfRemove = project.ProjectFunders.Where(x => !data.Funders.Any(y => y.FunderId == x.FunderId))
+                    var pfRemove = project.ProjectFunders.Where(x => !data.Funders.Any(y => y.FunderId == x.FunderId) && x.IsDeleted == false)
                         .Select(x => x.ProjectFunderId)
                         .ToArray();
 
                     foreach (var item in pfRemove)
                     {
                         var removeItem = project.ProjectFunders.First(x => x.ProjectFunderId == item);
-                        project.ProjectFunders.Remove(removeItem);
+                        //project.ProjectFunders.Remove(removeItem);
+                        //Adding in Soft Delete
+                        removeItem.IsDeleted = false;
                     }
 
                     //...Update
-                    var pfUpdate = project.ProjectFunders.Where(x => data.Funders.Any(y => y.FunderId == x.FunderId));
+                    var pfUpdate = project.ProjectFunders.Where(x => data.Funders.Any(y => y.FunderId == x.FunderId) && x.IsDeleted == false);
                     foreach (var item in pfUpdate)
                     {
                         var updateItem = item.Funder;
@@ -287,7 +292,7 @@ namespace NCCRD.Services.DataV2.Controllers
                     }
 
                     //...Add
-                    var pfAdd = data.Funders.Where(x => !project.ProjectFunders.Any(y => y.FunderId == x.FunderId));
+                    var pfAdd = data.Funders.Where(x => !project.ProjectFunders.Any(y => y.FunderId == x.FunderId) && x.IsDeleted == false);
                     foreach (var item in pfAdd)
                     {
                         project.ProjectFunders.Add(new ProjectFunder()
@@ -317,7 +322,7 @@ namespace NCCRD.Services.DataV2.Controllers
                     }
 
                     //...Remove
-                    var adRemove = project.AdaptationDetails.Where(x => !data.AdaptationDetails.Any(y => y.AdaptationDetailId == x.AdaptationDetailId))
+                    var adRemove = project.AdaptationDetails.Where(x => !data.AdaptationDetails.Any(y => y.AdaptationDetailId == x.AdaptationDetailId) && x.IsDeleted == false)
                         .Select(x => x.AdaptationDetailId)
                         .ToArray();
 
@@ -325,22 +330,25 @@ namespace NCCRD.Services.DataV2.Controllers
                     {
                         var removeItem = project.AdaptationDetails.First(x => x.AdaptationDetailId == item);
 
-
                         if (removeItem.ResearchDetail != null)
                         {
                             //Remove ResearchDetail
-                            _context.ResearchDetails.Remove(removeItem.ResearchDetail);
+                            //_context.ResearchDetails.Remove(removeItem.ResearchDetail);
+                            //Adding in Soft Delete
+                            removeItem.ResearchDetail.IsDeleted = true;
                         }
 
-                        project.AdaptationDetails.Remove(removeItem);
+                        //project.AdaptationDetails.Remove(removeItem);
+                        //Adding in Soft Delete
+                        removeItem.IsDeleted = true;
                     }
 
                     //...Update
-                    var adUpdate = project.AdaptationDetails.Where(x => data.AdaptationDetails.Any(y => y.AdaptationDetailId == x.AdaptationDetailId));
+                    var adUpdate = project.AdaptationDetails.Where(x => data.AdaptationDetails.Any(y => y.AdaptationDetailId == x.AdaptationDetailId) && x.IsDeleted == false);
                     foreach (var item in adUpdate)
                     {
                         var updateItem = item;
-                        var updateSource = data.AdaptationDetails.First(y => y.AdaptationDetailId == updateItem.AdaptationDetailId);
+                        var updateSource = data.AdaptationDetails.First(y => y.AdaptationDetailId == updateItem.AdaptationDetailId && y.IsDeleted == false);
 
                         updateItem.Title = updateSource.Title;
                         updateItem.Description = updateSource.Description;
@@ -358,12 +366,15 @@ namespace NCCRD.Services.DataV2.Controllers
                         if (updateItem.ResearchDetail != null && updateSource.ResearchDetail == null)
                         {
                             //Remove ResearchDetail
-                            _context.ResearchDetails.Remove(updateItem.ResearchDetail);
-                            updateItem.ResearchDetail = null;
+                            //_context.ResearchDetails.Remove(updateItem.ResearchDetail);
+                            //Adding in Soft Delete 
+                            updateItem.ResearchDetail.IsDeleted = false;
+                            //NOTE HERE
+                            //updateItem.ResearchDetail = null;
                         }
 
                         //...Update
-                        if (updateItem.ResearchDetail != null && updateSource.ResearchDetail != null)
+                        if (updateItem.ResearchDetail != null && updateItem.IsDeleted == false && updateSource.ResearchDetail != null && updateSource.IsDeleted == false)
                         {
                             updateItem.ResearchDetail.Author = updateSource.ResearchDetail.Author;
                             updateItem.ResearchDetail.PaperLink = updateSource.ResearchDetail.PaperLink;
@@ -395,7 +406,7 @@ namespace NCCRD.Services.DataV2.Controllers
                     }
 
                     //...Add
-                    var adAdd = data.AdaptationDetails.Where(x => !project.AdaptationDetails.Any(y => y.AdaptationDetailId == x.AdaptationDetailId));
+                    var adAdd = data.AdaptationDetails.Where(x => !project.AdaptationDetails.Any(y => y.AdaptationDetailId == x.AdaptationDetailId) && x.IsDeleted == false);
                     foreach (var item in adAdd)
                     {
                         project.AdaptationDetails.Add(new AdaptationDetail()
