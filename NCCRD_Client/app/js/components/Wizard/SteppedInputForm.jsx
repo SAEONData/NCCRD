@@ -403,7 +403,7 @@ class SteppedInputForm extends React.Component {
       steps.push({
         title: `Mitigation #${index} - Funding`,
         backAction: "Actions - Overview",
-        content: <FundingDetailStep details={action} />,
+        content: <MitigationFundingDetailStep details={action} />,
         error: false
       })
       //Mitigation Cross Cutting Adaptation Details

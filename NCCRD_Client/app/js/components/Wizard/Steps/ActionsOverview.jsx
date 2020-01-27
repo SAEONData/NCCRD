@@ -254,7 +254,8 @@ class ActionsOverview extends React.Component {
         this.props.addAdaptationDetailsFundingStatus({
           id: id, 
           state: 'modified',
-          FundingStatusId: fundingStatus
+          FundingStatusId: fundingStatus,
+          value: ""
         })
       }
       else if (type === "Mitigation") {

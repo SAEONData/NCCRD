@@ -6,6 +6,7 @@ import SelectComponent from '../../Shared/SelectComponent.jsx';
 import { Popover } from 'antd'
 
 import "./shared.css"
+import { ActionsOverview, Select } from './ActionsOverview.jsx';
 
 const mapStateToProps = (state, props) => {
   let { lookupData: { users, fundingStatus } } = state
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-class FundingDetailStep extends React.Component {
+class MitigationFundingDetailStep extends React.Component {
 
   constructor(props) {
     super(props);
@@ -34,20 +35,20 @@ class FundingDetailStep extends React.Component {
     let { addFundingAction, details } = this.props
     addFundingAction({
       id: details.MitigationDetailId, 
-      state: 'modified'
+      state: "modified"
     })
   }
 
 
   onRemove() {
-    let { removeFundingAction, details, projectFunderDetails } = this.props
+    let { removeFundingAction, details, projectFunderDetails, removeMitigationFundingAction } = this.props
     let actionIndex = projectFunderDetails.indexOf(details)
     removeFundingAction(actionIndex)
   }
 
   render() {
 
-    let { details, users, fundingStatus } = this.props
+    let { details, users, fundingStatus, value } = this.props
 
     
 
@@ -58,10 +59,10 @@ class FundingDetailStep extends React.Component {
             col="col-md-6"
             id="lblFundingStatus"
             label="Funding Status:"
-            selectedValue={details.FundingStatusId}
+            selectedValue={value}
             data={fundingStatus}
-            setSelectedValueKey={"SET_PROJECTFUNDERS_FUNDINGSTATUS"}
-            parentId={details.FunderId}
+            setSelectedValueKey={"ADD_MITIGATION_DETAILS"}
+            parentId={this.ActionsOverview}
             dispatch={"LOAD_PROJECTFUNDERS_FUNDINGSTATUS"}
             persist="FundingStatus"
             allowEdit={false}
@@ -230,4 +231,4 @@ class FundingDetailStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FundingDetailStep)
+export default connect(mapStateToProps, mapDispatchToProps)(MitigationFundingDetailStep)
