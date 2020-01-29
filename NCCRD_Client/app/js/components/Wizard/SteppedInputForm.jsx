@@ -12,7 +12,7 @@ import AdaptationDetailsStep from './Steps/AdaptationDetailsStep.jsx';
 import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
 import AdaptationFundingDetailStep from './Steps/AdaptationFundingStep.jsx'
-import FundingDetailStep from './Steps/MitigationFundingDetailStep.jsx';
+import FundingDetailStep from './Steps/FundingDetailStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
 import MitigationFundingDetailStep from './Steps/MitigationFundingDetailStep.jsx'
 import MitigationAdaptationDetailStep from './Steps/MitigationAdaptationStep.jsx'
@@ -159,7 +159,7 @@ class SteppedInputForm extends React.Component {
     //}
 
     //Add Funding
-    if (projectFunderDetails.filter(x => x.state === 'modified').length > 0) {
+    //if (projectFunderDetails.filter(x => x.state === 'modified').length > 0) {
     let funderData = []
     projectFunderDetails/*.filter(x => x.state === 'modified')*/.forEach(item => {
       let funderItem = _.clone(item)
@@ -169,7 +169,7 @@ class SteppedInputForm extends React.Component {
       funderData.push(funderItem)
     })
     dataObj.Funders = funderData
-    }
+  //  }
 
     //Add AdaptationDetails
     //if (adaptationDetails.filter(x => x.state === 'modified').length > 0) {
@@ -358,11 +358,11 @@ class SteppedInputForm extends React.Component {
       }
 
       // Optionally add Funding
-      steps.push({
-        title: `Adaptation #${index} - Funding`,
-        content: <AdaptationFundingDetailStep details={action} />,
-        error: false
-      })
+      // steps.push({
+      //   title: `Adaptation #${index} - Funding`,
+      //   content: <AdaptationFundingDetailStep details={action} />,
+      //   error: false
+      // })
     })
 
     //Mitigation
@@ -400,12 +400,13 @@ class SteppedInputForm extends React.Component {
         content: <ProjectLocationStep details={action} />,
         error: false
       })
-      steps.push({
-        title: `Mitigation #${index} - Funding`,
-        backAction: "Actions - Overview",
-        content: <MitigationFundingDetailStep details={action} />,
-        error: false
-      })
+      // steps.push({
+      //   title: `Mitigation #${index} - Funding`,
+      //   backAction: "Actions - Overview",
+      //   content: <MitigationFundingDetailStep details={action} />,
+      //   error: false
+      // })
+
       //Mitigation Cross Cutting Adaptation Details
       steps.push({
         title: `Mitigation #${index} - Adaptation Details`,
@@ -531,7 +532,7 @@ class SteppedInputForm extends React.Component {
         stepValidations.push(this.validateRequiredInput("selAdaptationSector", ad, "SectorId"))
         stepValidations.push(this.validateRequiredInput("selAdaptationHazard", ad, "HazardId"))
         stepValidations.push(this.validateRequiredInput("selAdaptationActionStatus", ad, "ProjectStatusId"))
-        stepValidations.push(this.validateRequiredInput("lblFundingStatus", ad, "FundingStatusId"))
+      
         step.error = stepValidations.includes(false)
       }
 

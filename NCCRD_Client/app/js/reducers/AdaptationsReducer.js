@@ -51,7 +51,7 @@ export default function AdaptationsReducer(state = {}, action) {
 
         case "ADD_ADAPTATION_DETAILS": {
 
-            let { adaptationDetails, projectDetails, adaptationFundingDetail } = state
+            let { adaptationDetails, projectDetails } = state
 
             let newItem = {
                 AdaptationDetailId: _gf.getRndInteger(1111111, 9999999),
@@ -65,8 +65,7 @@ export default function AdaptationsReducer(state = {}, action) {
                 HazardId: null,
                 ProjectStatusId: null,
                 ResearchDetail: null,
-                state: "modified",
-                adaptationFundingDetail: []
+                state: "modified"
             }
 
             return { ...state, adaptationDetails: [...adaptationDetails, newItem] }
@@ -283,31 +282,6 @@ export default function AdaptationsReducer(state = {}, action) {
 
             //return updated state
             return { ...state, adaptationDetails: [...adaptationDetails, { ...details.item, ResearchDetail: researchDetail, state: modState }] }
-        }
-
-        // case "SET_ADAPTATION_FUNDING_DETAIL": {
-        //     let { adaptationDetails } = state
-        
-        //     //Get item and ID
-        //     let details = extractItemAndId(adaptationDetails, "AdaptationDetailId", id)
-        //     adaptationDetails.splice(details.id, 1)
-
-        //     let adaptationFundingDetail = details.item.FundingDetail
-        //     fundingDetail.FundingStatusId = payload
-
-        //     return { ...state, adaptationDetails: [...adaptationDetails, { ...details.item, adaptationFundingDetail: FundingDetail, state: modState }]}
-        // }
-
-        case "SET_PROJECTFUNDERS_PROJECTCOORDINATOR": {
-            let { adaptationFunderDetails } = state
-
-            //Get item and Id
-            let details = extractItemAndId(adaptationFunderDetails, "FunderId", id)
-            //Remove item from array
-            adaptationFunderDetails.splice(details.id, 1);
-
-            //return updated state
-            return { ...state, adaptationFunderDetails: [...adaptationFunderDetails, { ...details.item, adaptationCoordinatorId: payload, state: modState }] }
         }
 
         default: {
