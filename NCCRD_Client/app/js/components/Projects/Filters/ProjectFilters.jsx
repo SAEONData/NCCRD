@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import { DEAGreen } from '../../../config/colours.js'
 
 const mapStateToProps = (state, props) => {
-  let { filterData: { titleFilter, statusFilter, typologyFilter, sectorFilter, regionFilter, favoritesFilter, unverifiedOnlyFilter } } = state
-  let { lookupData: { projectStatus, typology, sector, region } } = state
+  let { filterData: { titleFilter, statusFilter, typologyFilter, sectorFilter, regionFilter, hazardFilter, favoritesFilter, unverifiedOnlyFilter } } = state
+  let { lookupData: { projectStatus, typology, sector, region, hazards } } = state
   return {
-    titleFilter, statusFilter, typologyFilter, sectorFilter, regionFilter, projectStatus, typology, sector, region,
+    titleFilter, statusFilter, typologyFilter, sectorFilter, regionFilter, hazardFilter, projectStatus, typology, sector, region, hazards,
     favoritesFilter, unverifiedOnlyFilter
   }
 }
@@ -38,6 +38,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: "LOAD_SECTOR_FILTER", payload: 0 })
       dispatch({ type: "SET_FILTERS_CHANGED", payload: true })
     },
+    clearHazardFilter: () => {
+      dispatch({ type: "LOAD_HAZARD_FILTER", payload: 0 })
+      dispatch({ type: "SET_FILTERS_CHANGED", payload: true })
+    },
     toggleFavorites: () => {
       dispatch({ type: "TOGGLE_FAVS_FILTER", payload: false })
       dispatch({ type: "SET_FILTERS_CHANGED", payload: true })
@@ -60,12 +64,12 @@ class ProjectFilters extends React.Component {
   renderFilterChips() {
 
     let {
-      titleFilter, statusFilter, typologyFilter, sectorFilter, regionFilter, projectStatus, typology, sector, region,
-      favoritesFilter, unverifiedOnlyFilter
+      titleFilter, statusFilter, typologyFilter, sectorFilter, regionFilter, projectStatus, typology, sector, region, hazards,
+      favoritesFilter, unverifiedOnlyFilter, hazardFilter
     } = this.props
     let filterChips = []
 
-    if (titleFilter !== "" || statusFilter !== 0 || typologyFilter !== 0 || sectorFilter !== 0 || regionFilter !== 0 ||
+    if (titleFilter !== "" || statusFilter !== 0 || typologyFilter !== 0 || hazardFilter !== 0 || sectorFilter !== 0 || regionFilter !== 0 ||
       favoritesFilter === true || unverifiedOnlyFilter === true) {
 
       if (unverifiedOnlyFilter === true) {
@@ -123,6 +127,15 @@ class ProjectFilters extends React.Component {
         )
       }
 
+      if (hazardFilter > 0 && hazards.length > 0) {
+        filterChips.push(
+          <div className="chip" key="hazardFilterChip" style={{ backgroundColor: DEAGreen }}>
+            {"Hazard: " + hazards.filter(x => x.Id == hazardFilter)[0].Text}
+            <i className="close fa fa-times" onClick={() => this.deleteFilterCHip("hazard")}></i>
+          </div>
+        )
+      }
+
       if (sectorFilter > 0 && sector.length > 0) {
         filterChips.push(
           <div className="chip" key="sectorFilterChip" style={{ backgroundColor: DEAGreen }}>
@@ -161,6 +174,10 @@ class ProjectFilters extends React.Component {
 
       case "sector":
         this.props.clearSectorFilter()
+        break
+
+      case "hazards":
+        this.props.clearHazardFilter()
         break
 
       case "favs":

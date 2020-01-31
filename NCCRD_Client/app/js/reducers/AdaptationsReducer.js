@@ -88,7 +88,16 @@ export default function AdaptationsReducer(state = {}, action) {
             adaptationDetails.splice(details.id, 1);
 
             //return updated state
-            return { ...state, adaptationDetails: [...adaptationDetails, { ...details.item, Title: payload, state: modState }] }
+            return { 
+                ...state, 
+                adaptationDetails: [...adaptationDetails, 
+                    { 
+                        ...details.item, 
+                        Title: payload, 
+                        state: modState 
+                    }
+                ] 
+            }
         }
 
         case "SET_ADAPTATION_DETAILS_DESCR": {

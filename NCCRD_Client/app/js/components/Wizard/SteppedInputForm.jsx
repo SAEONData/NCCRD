@@ -16,6 +16,7 @@ import FundingDetailStep from './Steps/FundingDetailStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
 import MitigationFundingDetailStep from './Steps/MitigationFundingDetailStep.jsx'
 import MitigationAdaptationDetailStep from './Steps/MitigationAdaptationStep.jsx'
+import MitigationResearchStep from './Steps/MitigationResearchStep.jsx'
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
 import { UILookup } from "../../config/ui_config.js"
@@ -52,6 +53,11 @@ const mapStateToProps = (state, props) => {
   //Sort Adaptations on Id
   adaptationDetails.sort((a, b) => {
     return a.AdaptationDetailId - b.AdaptationDetailId;
+  })
+
+  //Sort Mitigations on Id
+  mitigationDetails.sort((a, b) => {
+    return a.MitigationDetailId - b.MitigationDetailId
   })
 
   return {
@@ -170,6 +176,21 @@ class SteppedInputForm extends React.Component {
     })
     dataObj.Funders = funderData
   //  }
+
+    //Add MitigationDetails
+    let mitigationData = []
+    mitigationDetails.forEach(item => {
+      let mitigationItem = _.clone(item)
+      delete mitigationItem.state
+      mitigationItem.ProjectId = parseInt(projectId)
+
+      if (mitigationItem.ResearchDetail) {
+        mitigationItem.ResearchDetail.ProjectId = partseInt(projectId)
+      }
+
+      mitigationData.push(mitigationItem)
+    })
+    dataObj.MitigationDetails = mitigationData
 
     //Add AdaptationDetails
     //if (adaptationDetails.filter(x => x.state === 'modified').length > 0) {
@@ -342,11 +363,11 @@ class SteppedInputForm extends React.Component {
       })
 
       //Adaptation Cross Cutting Mitigation Details
-      steps.push({
-        title: `Adaptation #${index} - Mitigation Details`,
-        content: <AdaptationMitigationStep details={action} />,
-        error: false
-      })
+      // steps.push({
+      //   title: `Adaptation #${index} - Mitigation Details`,
+      //   content: <AdaptationMitigationStep details={action} />,
+      //   error: false
+      // })
 
       // Optionally add Research
       if (action.ResearchDetail !== null) {
@@ -376,12 +397,7 @@ class SteppedInputForm extends React.Component {
         content: <MitigationDetailsStep details={action} />,
         error: false
       })
-      steps.push({
-        title: `Mitigation #${index} - Adaptation`,
-        backAction: "Actions - Overview",
-        content: <AdaptationDetailsStep details={action} />,
-        error: false
-      })
+   
       steps.push({
         title: `Mitigation #${index} - Approach`,
         backAction: "Actions - Overview",
@@ -394,12 +410,16 @@ class SteppedInputForm extends React.Component {
         content: <CarbonCreditStep details={action} />,
         error: false
       })
-      steps.push({
-        title: `Mitigation #${index} - Location`,
-        backAction: "Actions - Overview",
-        content: <ProjectLocationStep details={action} />,
-        error: false
-      })
+
+      //TODO split location per action
+      // steps.push({
+      //   title: `Mitigation #${index} - Location`,
+      //   backAction: "Actions - Overview",
+      //   content: <ProjectLocationStep details={action} />,
+      //   error: false
+      // })
+
+      //TODO split funding per action
       // steps.push({
       //   title: `Mitigation #${index} - Funding`,
       //   backAction: "Actions - Overview",
@@ -407,12 +427,22 @@ class SteppedInputForm extends React.Component {
       //   error: false
       // })
 
-      //Mitigation Cross Cutting Adaptation Details
-      steps.push({
-        title: `Mitigation #${index} - Adaptation Details`,
-        content: <MitigationAdaptationDetailStep details={action} />,
-        error: false
-      })
+      //TODO build cross cutting functionality
+      //  Mitigation Cross Cutting Adaptation Details
+      // steps.push({
+      //   title: `Mitigation #${index} - Adaptation Details`,
+      //   content: <MitigationAdaptationDetailStep details={action} />,
+      //   error: false
+      // })
+
+      // Optionally add Research
+      if (action.ResearchDetail !== null) {
+        steps.push({
+          title: `Mitigation #${index} - Research`,
+          content: <MitigationResearchStep details={action} stepWizard={this.stepWizard} />,
+          error: false
+        })
+      }
    
     })
 

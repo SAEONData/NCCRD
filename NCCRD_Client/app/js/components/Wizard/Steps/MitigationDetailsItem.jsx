@@ -188,10 +188,6 @@ class MitigationDetailsItem extends React.Component {
 
           <br />
 
-        
-
-          { 
-           CarbonCreditMarketId === 2 &&
            
            <div className="row">
             <SelectComponent
@@ -213,7 +209,7 @@ class MitigationDetailsItem extends React.Component {
               allowClear={true}
             />
             </div>
-            }
+            
 
             <br />
 
