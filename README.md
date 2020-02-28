@@ -7,7 +7,7 @@ To get a copy of this on your machine, please follow the instructions outlined i
 
 
 #### Licensing
-The NCCRD isf ree to share, adapt, and apply the work, even for commercial purposes, provided that you give appropriate credit and distribute the adaptations under the same license.
+The NCCRD is free to share, adapt, and apply the work, even for commercial purposes, provided that you give appropriate credit and distribute the adaptations under the same license.
 
 http://creativecommons.org/licenses/by-sa/4.0/
 
