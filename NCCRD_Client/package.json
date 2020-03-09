@@ -2,7 +2,6 @@
   "name": "nccrd",
   "version": "1.0.0",
   "main": "./app/index.ejs",
-  
   "scripts": {
     "app-dev": "webpack-dev-server --hot --watch-poll --progress=true --open --config ./webpack.dev.config.js",
     "build-test": "webpack --optimize-minimize --progress --config ./webpack.test.config.js",
@@ -49,6 +48,7 @@
     "redux": "^3.7.2",
     "redux-oidc": "^3.1.2",
     "smoothscroll-polyfill": "^0.4.4",
+    "swagger-ui-react": "^3.25.0",
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
