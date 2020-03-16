@@ -16,7 +16,7 @@ import FundingDetailStep from './Steps/FundingDetailStep.jsx';
 import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
 import MitigationFundingDetailStep from './Steps/MitigationFundingDetailStep.jsx'
 import MitigationAdaptationDetailStep from './Steps/MitigationAdaptationStep.jsx'
-import MitigationResearchStep from './Steps/MitigationResearchStep.jsx'
+// import MitigationResearchStep from './Steps/MitigationResearchStep.jsx'
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
 import { UILookup } from "../../config/ui_config.js"

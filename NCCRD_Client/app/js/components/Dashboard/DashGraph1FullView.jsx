@@ -178,8 +178,9 @@ class DashGraph1FullView extends React.Component {
     let { chart1, filteredProjectIDs } = this.props
     let filteredData = chart1.filter(p => filteredProjectIDs.includes(p.ProjectId))
     let transformedData = this.transformData(filteredData)
-
+    console.log(typeof(data))
     return (
+      
       <div
         style={{
           backgroundColor: "white",

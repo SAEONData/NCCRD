@@ -64,7 +64,7 @@ class HazardFilters extends React.Component {
   render() {
 
     let { hazards, hazardFilter } = this.props
-    console.log(hazards)
+    // console.log(hazards)
 
     return (
      
