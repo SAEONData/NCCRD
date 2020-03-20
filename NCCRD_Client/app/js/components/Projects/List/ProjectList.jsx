@@ -299,7 +299,10 @@ class ProjectList extends React.Component {
       this.setProjectSort(oHandler);
 
       //Select
-      oHandler.select("ProjectId,ProjectTitle,ProjectDescription")
+      oHandler
+      .select(
+        "ProjectId,ProjectTitle,ProjectDescription,LeadAgent,HostPartner,HostOrganisation,StartYear,EndYear,link,validationComments,budgetLower,budgetUpper,verified,projectStatusId,projectTypeId,projectSubTypeId,projectManagerId,validationStatusId,projectRegions,projectLocations,adaptationDetails,mitigationDetails,mitigationEmissionsData,researchDetails,projectFunders,projectDAOs"
+        )
 
       let res = await oHandler.post(filters).save()
       setLoading(false)
@@ -381,7 +384,6 @@ class ProjectList extends React.Component {
 
     let { user, daoid, favoritesFilter, unverifiedOnlyFilter, projects } = this.props
     let { ellipsisMenu } = this.state
-    // console.log(projects)
     const projComps = this.buildList()
     let projectlist = []
 
