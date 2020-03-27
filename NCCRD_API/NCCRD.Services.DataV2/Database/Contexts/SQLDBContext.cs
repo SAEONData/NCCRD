@@ -36,6 +36,8 @@ namespace NCCRD.Services.DataV2.Database.Contexts
         public DbSet<VoluntaryMethodology> VoluntaryMethodology { get; set; }
         public DbSet<ResearchMaturity> ResearchMaturity { get; set; }
 
+        public DbSet<BulkUpload> BulkUpload { get; set; }
+
         public SQLDBContext() : base() { }
 
         public SQLDBContext(DbContextOptions options) : base(options) { }

@@ -505,5 +505,22 @@ namespace NCCRD.Services.DataV2.Controllers
 
             return geoItems;
         }
+
+        public int BulkUpload(Project record, ref System.Text.StringBuilder errorLog)
+        {
+            int returnInt = -1;
+            try
+            {
+                _context.Project.Add(record);
+                _context.SaveChanges();
+                returnInt = record.ProjectId;
+            }
+            catch (Exception e)
+            {
+                errorLog.Append(e.Message + " | Project Title : " + record.ProjectTitle);
+            }
+
+            return returnInt;
+        }
     }
 }

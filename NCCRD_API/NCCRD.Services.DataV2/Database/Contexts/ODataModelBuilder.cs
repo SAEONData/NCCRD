@@ -278,6 +278,15 @@ namespace NCCRD.Services.DataV2.Database.Contexts
                 .Page() // Allow for the $top and $skip Commands
                 .Select();// Allow for the $select Command; 
 
+            builder.EntitySet<BulkUpload>("BulkUpload")
+                .EntityType
+                .Filter() // Allow for the $filter Command
+                .Count() // Allow for the $count Command
+                .Expand(maxExpandDepth) // Allow for the $expand Command
+                .OrderBy() // Allow for the $orderby Command
+                .Page() // Allow for the $top and $skip Commands
+                .Select();// Allow for the $select Command; 
+
 
             //#####################//
             // FUNCTIONS & ACTIONS //

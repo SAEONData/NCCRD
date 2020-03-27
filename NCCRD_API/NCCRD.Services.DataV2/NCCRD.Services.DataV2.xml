@@ -58,6 +58,12 @@
             <param name="id">AdaptationPurposeId</param>
             <returns>Success/Fail status</returns>
         </member>
+        <member name="M:NCCRD.Services.DataV2.Controllers.BulkUploadController.Post(NCCRD.Services.DataV2.Controllers.BulkUpload)">
+            <summary>
+            Get a list of AdaptationDetail
+            </summary>
+            <returns>List of AdaptationDetail</returns>
+        </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditController.Get">
             <summary>
             A list of CarbonCredit
