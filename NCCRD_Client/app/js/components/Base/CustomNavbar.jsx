@@ -151,6 +151,26 @@ class CustomNavbar extends React.Component {
               <Fa icon="plus" style={{ marginRight: 15 }} />
               Add New Project
             </Button>
+            
+            
+            <Button
+              color=""
+              style={{ backgroundColor: DEAGreen }}
+              size="sm"
+              onClick={() => {
+                if (!user || user.expired) {
+                  notification.warning({
+                    message: 'Please login to submit projects.'
+                  })
+                }
+                else {
+                  window.open("https://drive.google.com/file/d/1PDWhfKI83PbxE1lstgf4YMHj7V-vX3Tb/view?usp=sharing")
+                }
+              }}>
+              <Fa icon="plus" style={{ marginRight: 15 }} />
+              Bulk upload
+            </Button>
+            
 
             {/* Monitoring */}
             <NavItem>

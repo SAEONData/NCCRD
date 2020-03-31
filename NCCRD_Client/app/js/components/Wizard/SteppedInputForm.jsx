@@ -398,18 +398,18 @@ class SteppedInputForm extends React.Component {
         error: false
       })
    
-      steps.push({
-        title: `Mitigation #${index} - Approach`,
-        backAction: "Actions - Overview",
-        content: <MitigationApproachStep details={action} />,
-        error: false
-      })
-      steps.push({
-        title: `Mitigation #${index} - Carbon Credits`,
-        backAction: "Actions - Overview",
-        content: <CarbonCreditStep details={action} />,
-        error: false
-      })
+      // steps.push({
+      //   title: `Mitigation #${index} - Approach`,
+      //   backAction: "Actions - Overview",
+      //   content: <MitigationApproachStep details={action} />,
+      //   error: false
+      // })
+      // steps.push({
+      //   title: `Mitigation #${index} - Carbon Credits`,
+      //   backAction: "Actions - Overview",
+      //   content: <CarbonCreditStep details={action} />,
+      //   error: false
+      // })
 
       //TODO split location per action
       // steps.push({
