@@ -35,6 +35,7 @@
     "react-error-overlay": "^4.0.0",
     "react-favicon": "0.0.14",
     "react-fetch-component": "^6.0.0",
+    "react-ga": "^2.7.0",
     "react-leaflet": "^2.1.1",
     "react-odata": "^10.1.0",
     "react-redux": "^5.0.7",
