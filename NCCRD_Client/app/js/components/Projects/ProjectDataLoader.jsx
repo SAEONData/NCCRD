@@ -76,6 +76,9 @@ const mapDispatchToProps = (dispatch) => {
     loadFundingStatus: payload => {
       dispatch({ type: "LOAD_FUNDINGSTATUS", payload })
     },
+    loadFundingType: payload => {
+      dispatch({ type: "LOAD_FUNDINGTYPE", payload })
+    },
     loadUsers: payload => {
       dispatch({ type: "LOAD_USERS", payload })
     },
@@ -305,6 +308,7 @@ class ProjectDataLoader extends React.Component {
         "VoluntaryGoldStandard",
         "VoluntaryMethodology",
         "FundingStatus",
+        "FundingType",
         "ResearchMaturity"
       ]
     })
@@ -328,6 +332,7 @@ class ProjectDataLoader extends React.Component {
         this.props.loadTargetAudience(resBody.TargetAudience)
         this.props.loadTypology(resBody.Typology)
         this.props.loadFundingStatus(resBody.FundingStatus)
+        this.props.loadFundingType(resBody.FundingType)
         this.props.loadUsers(resBody.Person)
         this.props.loadValidationStatus(resBody.ValidationStatus)
         this.props.loadVoluntaryGoldStandard(resBody.VoluntaryGoldStandard)

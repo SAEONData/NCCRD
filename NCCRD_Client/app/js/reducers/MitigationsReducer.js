@@ -49,7 +49,7 @@ export default function MitigationsReducer(state = {}, action) {
             return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, state: "original" }] }
         }
 
-        case "ADD_MITIGATION_DETAILS": {
+        case "ADD_MITIGATION_DETAILS": { 
 
             let { mitigationDetails, projectDetails } = state
 
@@ -63,6 +63,8 @@ export default function MitigationsReducer(state = {}, action) {
                 CarbonCreditMarketId: null,
                 CDMStatusId: null,
                 CDMMethodologyId: null,
+                MitigationPurposeId: null,
+                MitigationFundingId: null,
                 VoluntaryMethodologyId: null,
                 VoluntaryGoldStandardId: null,
                 ProjectId: payload,
@@ -72,12 +74,52 @@ export default function MitigationsReducer(state = {}, action) {
                 state: "modified"
             }
 
-            if (mitigationDetails.length > 0) {
-                return { ...state, mitigationDetails: [...mitigationDetails, newItem] }
+            // if (mitigationDetails.length > 0) {
+            //     return { ...state, mitigationDetails: [...mitigationDetails, newItem] }
+            // }
+            // else {
+            //     return { ...state, mitigationDetails: [newItem] }
+            // }
+
+            return { ...state, mitigationDetails: [...mitigationDetails, newItem]}
+        }
+
+        case "REMOVE_MITIGATION_DETAILS": {
+
+            let { mitigationDetails } = state
+            mitigationDetails.splice(payload, 1)
+
+            return { ...state, mitigationDetails: [...mitigationDetails] }
+        }
+
+        case "SET_MITIGATION_DETAILS_TITLE": {
+
+            let { mitigationDetails } = state
+            //get item and id
+            let details = extractItemAndId(mitigationDetails, "MitigationDetailId", id)
+            //remove item from array
+            mitigationDetails.splice(details.id, 1)
+
+            return { 
+                ...state, 
+                mitigationDetails: [ ...mitigationDetails, 
+                    { 
+                        ...details.item,
+                        Title: payload, 
+                        state: modstate
+                    }
+                ]
             }
-            else {
-                return { ...state, mitigationDetails: [newItem] }
-            }
+        }
+
+        case "SET_MITIGATION_DETAILS_DESCR": {
+            let { mitigationDetails } = state
+            
+            //get item and id
+            let details = extractItemAndId(mitigationDetails, "MitigationDetails", id)
+            mitigationDetails.splice(details.id, 1)
+
+            return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, Description: payload, state: modState }]}
         }
 
         case "SET_MITIGATION_CARBON_CREDIT": {
@@ -127,6 +169,18 @@ export default function MitigationsReducer(state = {}, action) {
 
             //return updated state
             return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, CDMMethodologyId: payload, state: modState }] }
+        }
+
+        case "SET_MITIGATION_FUNDING_DETAIL": {
+            let { mitigationDetails } = state
+
+            //get item and id
+            let details = extractItemAndId(mitigationDetails, "MitigationDetailId", id)
+            //remove item from arary
+            mitigationDetails.splice(details.id, 1);
+
+            //return updated state
+            return { ...state, mitigationDetails: [ ...mitigationDetails, { ...details.item, MitigationFundingId: payload, state: modState }]}
         }
 
         case "SET_MITIGATION_VOLUNTARY_METHODOLOGY": {
@@ -210,9 +264,33 @@ export default function MitigationsReducer(state = {}, action) {
             //Remove item from array
             mitigationDetails.splice(details.id, 1);
 
+            //Add new research
+            let newResearchDetails = {
+                ResearchDetailId: _gf.getRndInteger(1111111, 9999999),
+                Author: "",
+                PaperLink: "",
+                ResearchTypeId: null,
+                TargetAudienceId: null,
+                ResearchMaturityId: null
+            }
+            //return updated state
+            return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, ResearchDetail: newResearchDetails, state: modState }] }
+        
+        }
+
+        case "SET_MITIGATION_DETAILS_RESEARCH_DETAILS": {
+            let { mitigationDetails } = state
+
+            //Get item and Id
+            let details = extractItemAndId(mitigationDetails, "DetailId", id)
+            //Remove item from array
+            mitigationDetails.splice(details.id, 1);
+
             //return updated state
             return { ...state, mitigationDetails: [...mitigationDetails, { ...details.item, ResearchDetail: payload, state: modState }] }
         }
+
+
 
         case "SET_MITIGATION_RESEARCH_AUTHOR": {
             let { mitigationDetails } = state

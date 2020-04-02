@@ -64,15 +64,17 @@ class HazardFilters extends React.Component {
   render() {
 
     let { hazards, hazardFilter } = this.props
+    // console.log(hazards)
 
     return (
+     
       <>
         <TreeSelectComponent
           col="col-md-2"
           id="treeHazardFilter"
           label="Hazard"
-          placeholder="Coming Soon..."
-          disabled
+          placeholder="Select..."
+          // disabled
           selectedValue={hazardFilter}
           data={hazards}
           editModeOverride={true}
@@ -87,6 +89,7 @@ class HazardFilters extends React.Component {
           }}
           setSelectedValueKey="LOAD_HAZARD_FILTER"
         />
+        
       </>
     )
   }

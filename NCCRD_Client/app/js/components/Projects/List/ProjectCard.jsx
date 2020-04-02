@@ -3,7 +3,6 @@ import { Card, CardBody, CardText, CardTitle, Button, Fa } from 'mdbreact'
 import { connect } from 'react-redux'
 import { DEAGreen } from "../../../config/colours.js"
 import { notification } from 'antd'
-import { CSVLink } from 'react-csv'
 
 const _gf = require('../../../globalFunctions')
 
@@ -128,7 +127,7 @@ class ProjectCard extends React.Component {
 
   render() {
 
-    let { pdes, pid, user, projectDetails } = this.props
+    let { pdes, pid, user, projectDetails, plag } = this.props
     let { favorite } = this.state
 
     if (pdes.length > 240) {

@@ -36,6 +36,10 @@ export default function LookupsReducer(state = {}, action) {
       return { ...state, fundingStatus: payload }
     }
 
+    case "LOAD_FUNDINGTYPE" : {
+      return { ...state, fundingType: payload }
+    }
+
     case "LOAD_TYPOLOGY": {
       return { ...state, typology: payload }
     }

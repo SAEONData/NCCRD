@@ -5,28 +5,28 @@ import TextComponent from '../../Shared/TextComponent.jsx';
 import TextAreaComponent from '../../Shared/TextAreaComponent.jsx';
 import SelectComponent from '../../Shared/SelectComponent.jsx';
 import TreeSelectComponent from '../../Shared/TreeSelectComponent.jsx';
-
+import { Popover } from 'antd'
 
 import "./shared.css"
 
 const mapStateToProps = (state, props) => {
-  let { adaptationData: { adaptationDetails } } = state
-  let { lookupData: { adaptationPurpose, sector, sectorType, typology, hazards, projectStatus } } = state
-  return { adaptationDetails, adaptationPurpose, sector, sectorType, typology, hazards, projectStatus }
+  let { mitigationData: { mitigationDetails } } = state
+  let { lookupData: { mitigationPurpose, sector, sectorType, typology, hazards, projectStatus } } = state
+  return { mitigationDetails, mitigationPurpose, sector, sectorType, typology, hazards, projectStatus }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeAdaptationAction: payload => {
-      dispatch({ type: "REMOVE_ADAPTATION_DETAILS", payload })
+    removeMitigationAction: payload => {
+      dispatch({ type: "REMOVE_MITIGATION_DETAILS", payload })
     },
-    addAdaptationDetailsResearchDetails: payload => {
-      dispatch({ type: "ADD_ADAPTATION_DETAILS_RESEARCH_DETAILS", payload })
+    addMitigationDetailsResearchDetails: payload => {
+      dispatch({ type: "ADD_MITIGATION_DETAILS_RESEARCH_DETAILS", payload })
     }
   }
 }
 
-class AdaptationDetailsStep extends React.Component {
+class MitigationDetailsStep extends React.Component {
 
   constructor(props) {
     super(props);
@@ -37,27 +37,27 @@ class AdaptationDetailsStep extends React.Component {
 
   onAdd() {
 
-    let { addAdaptationDetailsResearchDetails } = this.props
+    let { addMitigationDetailsResearchDetails, details } = this.props
 
-    //Add adaptation action
-    addAdaptationDetailsResearchDetails({
-      id: details.AdaptationDetailId,
+    //Add mitigation action
+    addMitigationDetailsResearchDetails({
+      id: details.MitigationDetailId,
       state: 'modified'
     })
   }
 
   onRemove() {
 
-    let { adaptationDetails, details, removeAdaptationAction } = this.props
+    let { mitigationDetails, details, removeMitigationAction } = this.props
 
-    //Remove adaptation action
-    let actionIndex = adaptationDetails.indexOf(details)
-    removeAdaptationAction(actionIndex)
+    //Remove mitigation action
+    let actionIndex = mitigationDetails.indexOf(details)
+    removeMitigationAction(actionIndex)
   }
 
   render() {
 
-    let { details, adaptationPurpose, sector, sectorType, typology, hazards, projectStatus } = this.props
+    let { details, mitigationPurpose, sector, sectorType, typology, hazards, projectStatus } = this.props
 
     return (
       <>
@@ -65,10 +65,10 @@ class AdaptationDetailsStep extends React.Component {
           <TextAreaComponent
             col="col-md-12"
             label="Title:"
-            id="txtAdaptationTitle"
+            id="txtMitigationTitle"
             value={details.Title}
-            setValueKey={"SET_ADAPTATION_DETAILS_TITLE"}
-            parentId={details.AdaptationDetailId}
+            setValueKey={"SET_MITIGATION_DETAILS_TITLE"}
+            parentId={details.MitigationDetailId}
           />
         </Row>
 
@@ -78,49 +78,49 @@ class AdaptationDetailsStep extends React.Component {
           <TextAreaComponent
             col="col-md-12"
             label="Description:"
-            id="txtAdaptationDescription"
+            id="txtMitigationDescription"
             value={details.Description}
-            setValueKey={"SET_ADAPTATION_DETAILS_DESCR"}
-            parentId={details.AdaptationDetailId}
+            setValueKey={"SET_MITIGATION_OTHER_DESCR"}
+            parentId={details.MitigationDetailId}
             rows={3}
           />
         </Row>
 
-        <div className="vertical-spacer" />
+        {/* <div className="vertical-spacer" />
 
         <Row>
           <SelectComponent
-            id="selAdaptationPurpose"
+            id="selMitigationPurpose"
             col="col-md-6"
             label="Purpose:"
             readOnly="true"
-            selectedValue={details.AdaptationPurposeId}
-            data={adaptationPurpose}
-            setSelectedValueKey={"SET_ADAPTATION_DETAILS_PURPOSE"}
-            parentId={details.AdaptationDetailId}
-            dispatch={"LOAD_ADAPTATION_PURPOSE"}
-            persist="AdaptationPurpose"
-            allowEdit={false}
+            selectedValue={details.MitigationPurposeId}
+            data={mitigationPurpose}
+            setSelectedValueKey={"SET_MITIGATION_DETAILS_PURPOSE"}
+            parentId={details.MitigationDetailId}
+            dispatch={"LOAD_MITIGATION_PURPOSE"}
+            persist="MitigationPurpose"
+            allowEdit={true}
             newItemTemplate={{
-              "AdaptationPurposeId": 0,
+              "MitigationPurposeId": 0,
               "Value": "",
               "Description": ""
             }}
             allowClear={true}
           />
-        </Row>
+        </Row> */}
 
         <div className="vertical-spacer" />
 
         <Row>
           <TreeSelectComponent
-            id="selAdaptationSector"
+            id="selMitigationSector"
             col="col-md-6"
             label="Sector:"
             selectedValue={details.SectorId}
             data={sector}
-            setSelectedValueKey={"SET_ADAPTATION_DETAILS_SECTOR"}
-            parentId={details.AdaptationDetailId}
+            setSelectedValueKey={"SET_MITIGATION_SECTOR"}
+            parentId={details.MitigationDetailId}
             dispatch={"LOAD_SECTOR"}
             persist="Sector"
             type="tree"
@@ -139,19 +139,20 @@ class AdaptationDetailsStep extends React.Component {
             }}
           />
         </Row>
-
+        
         <div className="vertical-spacer" />
 
         <Row>
           <TreeSelectComponent
-            id="selAdaptationHazard"
+            id="selMitigationHazard"
             col="col-md-6"
             label="Hazard:"
             placeholder="Select..."
+            // disabled
             selectedValue={details.HazardId} 
             data={hazards}
-            setSelectedValueKey={"SET_ADAPTATION_DETAILS_HAZARD"}
-            parentId={details.AdaptationDetailId}
+            setSelectedValueKey={"SET_MITIGATION_DETAILS_HAZARD"}
+            parentId={details.MitigationDetailId}
             dispatch={"LOAD_HAZARDS"}
             type="tree"
             allowEdit={false}
@@ -162,13 +163,13 @@ class AdaptationDetailsStep extends React.Component {
 
         <Row>
           <SelectComponent
-            id="selAdaptationActionStatus"
+            id="selMitigationActionStatus"
             col="col-md-6"
             label="Status:"
             selectedValue={details.ProjectStatusId}
             data={projectStatus}
-            setSelectedValueKey={"SET_ADAPTATION_DETAILS_PROJECT_STATUS"}
-            parentId={details.AdaptationDetailId}
+            setSelectedValueKey={"SET_MITIGATION_DETAILS_PROJECT_STATUS"}
+            parentId={details.MitigationDetailId}
             allowEdit={false}
             allowClear={true}
           />
@@ -178,4 +179,4 @@ class AdaptationDetailsStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdaptationDetailsStep)
+export default connect(mapStateToProps, mapDispatchToProps)(MitigationDetailsStep)

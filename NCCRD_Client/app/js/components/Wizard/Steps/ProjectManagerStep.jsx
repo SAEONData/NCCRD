@@ -38,7 +38,7 @@ class ProjectManagerStep extends React.Component {
           />
         </Row>
 
-        <div className="vertical-spacer" />
+        {/* <div className="vertical-spacer" />
 
         <Row>
           <SelectComponent
@@ -62,7 +62,7 @@ class ProjectManagerStep extends React.Component {
             }}
             allowClear={true}
           />
-        </Row>
+        </Row> */}
 
         <div className="vertical-spacer" />
 

@@ -11,7 +11,12 @@ import ProjectManagerStep from './Steps/ProjectManagerStep.jsx';
 import AdaptationDetailsStep from './Steps/AdaptationDetailsStep.jsx';
 import AdaptationContactStep from './Steps/AdaptationContactStep.jsx';
 import AdaptationResearchStep from './Steps/AdaptationResearchStep.jsx';
-import FundingDetailsStep from './Steps/FundingDetailsStep.jsx';
+import AdaptationFundingDetailStep from './Steps/AdaptationFundingStep.jsx'
+import FundingDetailStep from './Steps/FundingDetailStep.jsx';
+import MitigationDetailsStep from './Steps/MitigationDetailsStep.jsx'
+import MitigationFundingDetailStep from './Steps/MitigationFundingDetailStep.jsx'
+import MitigationAdaptationDetailStep from './Steps/MitigationAdaptationStep.jsx'
+// import MitigationResearchStep from './Steps/MitigationResearchStep.jsx'
 import OverallSummaryStep from './Steps/OverallSummaryStep.jsx';
 import ActionsOverview from './Steps/ActionsOverview.jsx';
 import { UILookup } from "../../config/ui_config.js"
@@ -22,6 +27,9 @@ import ProjectVerifyStep from './Steps/ProjectVerifyStep.jsx';
 
 import "./SteppedInputForm.css"
 import { CustomFetch } from '../../globalFunctions.js';
+import MitigationApproachStep from './Steps/MitigationApproachStep.jsx'
+import CarbonCreditStep from './Steps/CarbonCreditStep.jsx'
+import AdaptationMitigationStep from './Steps/AdaptationMitigationStep.jsx'
 
 const _gf = require("../../globalFunctions")
 
@@ -31,8 +39,8 @@ const mapStateToProps = (state, props) => {
   let { projectData: { projectDetails, selectedProjectId } } = state
   let { projectFundersData: { projectFunderDetails } } = state
   let { adaptationData: { adaptationDetails } } = state
-  // let { mitigationData: { mitigationDetails } } = state
-  // let { emissionsData: { emissionsData } } = state
+  let { mitigationData: { mitigationDetails } } = state
+  let { emissionsData: { emissionsData } } = state
   let lookupDataLoaded = state.lookupData.loaded
   let editListModalType = state.editListModalData.type
   let editListModalShow = state.editListModalData.show
@@ -47,8 +55,13 @@ const mapStateToProps = (state, props) => {
     return a.AdaptationDetailId - b.AdaptationDetailId;
   })
 
+  //Sort Mitigations on Id
+  mitigationDetails.sort((a, b) => {
+    return a.MitigationDetailId - b.MitigationDetailId
+  })
+
   return {
-    projectDetails, projectFunderDetails, adaptationDetails, //mitigationDetails, emissionsData,
+    projectDetails, projectFunderDetails, adaptationDetails, mitigationDetails, emissionsData,
     lookupDataLoaded, selectedProjectId, user, editListModalType, editListModalShow
   }
 }
@@ -136,7 +149,7 @@ class SteppedInputForm extends React.Component {
 
   async saveChanges() {
 
-    let { user, projectDetails, adaptationDetails, projectFunderDetails, selectedProjectId: projectId } = this.props
+    let { user, projectDetails, adaptationDetails, mitigationDetails, projectFunderDetails, selectedProjectId: projectId } = this.props
     let result = true
     let dataObj = { Id: projectId }
 
@@ -162,7 +175,22 @@ class SteppedInputForm extends React.Component {
       funderData.push(funderItem)
     })
     dataObj.Funders = funderData
-    //}
+  //  }
+
+    //Add MitigationDetails
+    let mitigationData = []
+    mitigationDetails.forEach(item => {
+      let mitigationItem = _.clone(item)
+      delete mitigationItem.state
+      mitigationItem.ProjectId = parseInt(projectId)
+
+      if (mitigationItem.ResearchDetail) {
+        mitigationItem.ResearchDetail.ProjectId = partseInt(projectId)
+      }
+
+      mitigationData.push(mitigationItem)
+    })
+    dataObj.MitigationDetails = mitigationData
 
     //Add AdaptationDetails
     //if (adaptationDetails.filter(x => x.state === 'modified').length > 0) {
@@ -268,7 +296,7 @@ class SteppedInputForm extends React.Component {
 
   getSteps() {
 
-    let { projectDetails, adaptationDetails, projectFunderDetails, setLinkedDAOGoalId, user } = this.props
+    let { projectDetails, adaptationDetails, mitigationDetails, projectFunderDetails, setLinkedDAOGoalId, user } = this.props
     steps = []
 
     //Project
@@ -307,13 +335,13 @@ class SteppedInputForm extends React.Component {
     })
 
     //Funding
-    projectFunderDetails.map(funder => {
-      let index = projectFunderDetails.indexOf(funder) + 1
+    projectFunderDetails.map(action => {
+      let index = projectFunderDetails.indexOf(action) + 1
 
       steps.push({
         title: `Funding #${index} - Details`,
         backAction: "Actions - Overview",
-        content: <FundingDetailsStep details={funder} />,
+        content: <FundingDetailStep details={action} />,
         error: false
       })
     })
@@ -334,6 +362,13 @@ class SteppedInputForm extends React.Component {
         error: false
       })
 
+      //Adaptation Cross Cutting Mitigation Details
+      // steps.push({
+      //   title: `Adaptation #${index} - Mitigation Details`,
+      //   content: <AdaptationMitigationStep details={action} />,
+      //   error: false
+      // })
+
       // Optionally add Research
       if (action.ResearchDetail !== null) {
         steps.push({
@@ -344,11 +379,72 @@ class SteppedInputForm extends React.Component {
       }
 
       // Optionally add Funding
-      // ...
+      // steps.push({
+      //   title: `Adaptation #${index} - Funding`,
+      //   content: <AdaptationFundingDetailStep details={action} />,
+      //   error: false
+      // })
     })
 
     //Mitigation
-    //...coming soon...
+   
+    mitigationDetails.map(action => {
+      let index = mitigationDetails.indexOf(action) + 1
+
+      steps.push({
+        title: `Mitigation #${index} - Details`,
+        backAction: "Actions - Overview",
+        content: <MitigationDetailsStep details={action} />,
+        error: false
+      })
+   
+      // steps.push({
+      //   title: `Mitigation #${index} - Approach`,
+      //   backAction: "Actions - Overview",
+      //   content: <MitigationApproachStep details={action} />,
+      //   error: false
+      // })
+      // steps.push({
+      //   title: `Mitigation #${index} - Carbon Credits`,
+      //   backAction: "Actions - Overview",
+      //   content: <CarbonCreditStep details={action} />,
+      //   error: false
+      // })
+
+      //TODO split location per action
+      // steps.push({
+      //   title: `Mitigation #${index} - Location`,
+      //   backAction: "Actions - Overview",
+      //   content: <ProjectLocationStep details={action} />,
+      //   error: false
+      // })
+
+      //TODO split funding per action
+      // steps.push({
+      //   title: `Mitigation #${index} - Funding`,
+      //   backAction: "Actions - Overview",
+      //   content: <MitigationFundingDetailStep details={action} />,
+      //   error: false
+      // })
+
+      //TODO build cross cutting functionality
+      //  Mitigation Cross Cutting Adaptation Details
+      // steps.push({
+      //   title: `Mitigation #${index} - Adaptation Details`,
+      //   content: <MitigationAdaptationDetailStep details={action} />,
+      //   error: false
+      // })
+
+      // Optionally add Research
+      if (action.ResearchDetail !== null) {
+        steps.push({
+          title: `Mitigation #${index} - Research`,
+          content: <MitigationResearchStep details={action} stepWizard={this.stepWizard} />,
+          error: false
+        })
+      }
+   
+    })
 
     //Validate inputs before summary
     this.validateInputs()
@@ -366,10 +462,11 @@ class SteppedInputForm extends React.Component {
     steps.push({
       title: 'Review - Summary',
       content: <OverallSummaryStep
-        header={<h6><i>Please review before submitting</i></h6>}
+        header={<h6><i>Please review your entry before submitting. Once the project has been submitted, it will be reviewed by the Department of Environmental Affairs prior to being added to the database and any queries will be sent to the project manger details listed on page 4. If you would like proof of submission, please download your entry by selecting the 'Download' option above.</i></h6>}
         projectDetails={projectDetails}
         adaptationDetails={adaptationDetails}
         funderDetails={projectFunderDetails}
+        mitigationDetails={mitigationDetails}
         errors={steps.filter(s => s.error === true).length > 0}
       />,
       error: false
@@ -465,7 +562,7 @@ class SteppedInputForm extends React.Component {
         stepValidations.push(this.validateRequiredInput("selAdaptationSector", ad, "SectorId"))
         stepValidations.push(this.validateRequiredInput("selAdaptationHazard", ad, "HazardId"))
         stepValidations.push(this.validateRequiredInput("selAdaptationActionStatus", ad, "ProjectStatusId"))
-
+      
         step.error = stepValidations.includes(false)
       }
 
@@ -480,7 +577,41 @@ class SteppedInputForm extends React.Component {
         step.error = stepValidations.includes(false)
       }
     })
+
+    //MITIGATION//
+    mitigationDetails.map(ad => {
+      let index = adaptationDetails.indexOf(ad) + 1
+
+      //Mitigation ## details //
+      step = this.getStepByTitle(`Adaptation #${index} - Details`)
+     
+      if (step && steps.indexOf(step) < currentStep) {
+        
+        let stepValidations = []
+
+        stepValidations.push(this.validateRequiredInput("txtMitigationTitle", ad, "Title"))
+        stepValidations.push(this.validateRequiredInput("txtMitigationDescription", ad, "Description"))
+        stepValidations.push(this.validateRequiredInput("selMitigationPurpose", ad, "MitigationPurposeId"))
+        stepValidations.push(this.validateRequiredInput("selMitigationSector", ad, "SectorId"))
+        stepValidations.push(this.validateRequiredInput("selMitigationHazard", ad, "HazardId"))
+        stepValidations.push(this.validateRequiredInput("selMitigationActionStatus", ad, "ProjectStatusId"))
+
+        step.error = stepValidations.includes(false)
+      }
+      //MITIGATION #XX - CONTACT//
+      step = this.getStepByTitle(`Mitigation #${index} - Contact`)
+      if (step && steps.indexOf(step) < currentStep) {
+        let stepValidations = []
+
+        stepValidations.push(this.validateRequiredInput("txtMitigationContactName", ad, "ContactName"))
+        stepValidations.push(this.validateRequiredInput("txtMitigationContactEmail", ad, "ContactEmail"))
+
+        step.error = stepValidations.includes(false)
+      }
+    })
   }
+
+
 
   validateRequiredInput(id, data, key) {
     if (id && data && key) {
@@ -516,7 +647,7 @@ class SteppedInputForm extends React.Component {
   render() {
 
     let { winHeight, currentStep, progressCompleteOverride } = this.state
-    let { projectDetails, projectFunderDetails, adaptationDetails, /*mitigationDetails, MitigationEmissionsData*/ } = this.props
+    let { projectDetails, projectFunderDetails, adaptationDetails, mitigationDetails, MitigationEmissionsData } = this.props
 
     this.getSteps()
     let errors = steps.filter(s => s.error === true).length > 0

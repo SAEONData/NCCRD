@@ -33,6 +33,7 @@ const mapStateToProps = (state, props) => {
     listScrollPos, user, loading, typology, daoid, favoritesFilter, showListExpandCollapse, showFavoritesOption,
     hazardFilter, filtersChanged, unverifiedOnlyFilter
   }
+
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -223,7 +224,7 @@ class ProjectList extends React.Component {
     }
     else {
 
-      let batchSize = 25
+      let batchSize = 10000
       let skip = 0
       let batchCount = Math.floor(end / batchSize)
       let filters = {}
@@ -298,7 +299,10 @@ class ProjectList extends React.Component {
       this.setProjectSort(oHandler);
 
       //Select
-      oHandler.select("ProjectId,ProjectTitle,ProjectDescription")
+      oHandler
+      .select(
+        "ProjectId,ProjectTitle,ProjectDescription,LeadAgent,HostPartner,HostOrganisation,StartYear,EndYear,link,validationComments,budgetLower,budgetUpper,verified,projectStatusId,projectTypeId,projectSubTypeId,projectManagerId,validationStatusId,projectRegions,projectLocations,adaptationDetails,mitigationDetails,mitigationEmissionsData,researchDetails,projectFunders,projectDAOs"
+        )
 
       let res = await oHandler.post(filters).save()
       setLoading(false)
@@ -378,9 +382,8 @@ class ProjectList extends React.Component {
 
   render() {
 
-    let { user, daoid, favoritesFilter, unverifiedOnlyFilter, projectDetails } = this.props
+    let { user, daoid, favoritesFilter, unverifiedOnlyFilter, projects } = this.props
     let { ellipsisMenu } = this.state
-
     const projComps = this.buildList()
     let projectlist = []
 
@@ -405,7 +408,7 @@ class ProjectList extends React.Component {
             <CSVLink
               style={{ marginRight: '', textDecoration: 'none', color: 'white' }}
               filename={"projects-list.csv"}
-              data={[...this.props.projects]}
+              data={[...projects]}
               asyncOnClick={true}
               onClick={() => {
                 console.log(this.props.projects)

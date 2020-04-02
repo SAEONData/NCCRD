@@ -1,13 +1,14 @@
-import { siteBaseURL } from '../js/config/serviceURLs.js'
+import { siteBaseURL, apiBaseURL } from '../js/config/serviceURLs.js'
 
 export const MapConfig = {
-    service: "http://app01.saeon.ac.za/nccrdtestapi/odata/projects/extensions.geojson",
+    service: `${apiBaseURL + 'projects/extensions.geojson' }`,
+    //  "https://ccis.environment.gov.za/nccrd/api/odata/projects/extensions.geojson",
     domain: siteBaseURL,
     IDField: "properties.id",
     toolTipTitle: "properties.name",
     toolTipFields: [
         {
-            field: "data.startYear",
+            field: "data.startYear", 
             alias: "Start Year"
         },
         {
@@ -25,21 +26,21 @@ export const MapConfig = {
             value: 1,
             title: "Mitigation",
             default: true,
-            icon: "http://app01.saeon.ac.za/dev/blue_2.png",
+            icon:  `${siteBaseURL + '/map/blue_2.png' }`,//"https://ccis.environment.gov.za/map/blue_2.png",
             anchorX: 0,
             anchorY: 8
         },
         {
             value: 2,
             title: "Adaptation",
-            icon: "http://app01.saeon.ac.za/dev/green.png",
+            icon: `${siteBaseURL + '/map/green.png' }`, //"https://ccis.environment.gov.za/map/green.png",
             anchorX: 0,
             anchorY: 8
         },
         {
             value: 3,
             title: "Research",
-            icon: "http://app01.saeon.ac.za/dev/red.png",
+            icon: `${siteBaseURL + '/map/red.png' }`,//"https://ccis.environment.gov.za/map/red.png",
             anchorX: 0,
             anchorY: 8
         }

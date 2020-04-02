@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-class FundingDetailsStep extends React.Component {
+class FundingDetailStep extends React.Component {
 
   constructor(props) {
     super(props);
@@ -80,14 +80,14 @@ class FundingDetailsStep extends React.Component {
 
         <div className="vertical-spacer" />
 
-        <Row>
+        {/* <Row>
           <SelectComponent
             col="col-md-6"
             id="lblProjectCoordinator"
             label="Project Coordinator:"
             readOnly={true}
             selectedValue={details.ProjectCoordinatorId}
-            data={users.map(x => { return { Id: x.PersonId, Value: (x.FirstName + " " + x.Surname + " (" + x.EmailAddress + ")") } })}
+            data={users.map(x => { return { Id: x.PersonId} })}
             setSelectedValueKey={"SET_PROJECTFUNDERS_PROJECTCOORDINATOR"}
             parentId={details.FunderId}
             dispatch={"LOAD_PROJECTFUNDERS_PROJECTCOORDINATOR"}
@@ -100,7 +100,7 @@ class FundingDetailsStep extends React.Component {
             }}
             allowClear={true}
           />
-        </Row>
+        </Row> */}
 
         <div className="vertical-spacer" />
 
@@ -170,4 +170,4 @@ class FundingDetailsStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FundingDetailsStep)
+export default connect(mapStateToProps, mapDispatchToProps)(FundingDetailStep)
