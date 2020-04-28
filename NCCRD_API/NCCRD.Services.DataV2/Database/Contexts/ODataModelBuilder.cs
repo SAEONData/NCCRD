@@ -312,6 +312,20 @@ namespace NCCRD.Services.DataV2.Database.Contexts
                 Function("GeoJson").
                 Returns<JsonResult>();
 
+            builder
+                .Function("RetrieveFileById")
+                .ReturnsCollectionFromEntitySet<BulkUpload>("BulkUpload")
+                .Parameter<int>("Id");
+
+            builder
+                .Function("RetrieveFileByName")
+                .ReturnsCollectionFromEntitySet<BulkUpload>("BulkUpload")
+                .Parameter<string>("Name");
+
+            builder
+                .Function("GetAllFiles")
+                .ReturnsCollectionFromEntitySet<BulkUpload>("BulkUpload");
+
             return builder.GetEdmModel();
         }
     }

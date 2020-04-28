@@ -1,22 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NCCRD.Services.DataV2.Database.Models
 {
-    [Table("BulkUpload")]
-    public class BulkUpload
+    [Table("MitigationSector")]
+    public class MitigationSector
     {
-        public int BulkUploadId { get; set; }
+        public int MitigationSectorId { get; set; }
 
-        public string Title { get; set; }
-        public string Path { get; set; }
-        public byte[] File { get; set; }
+        [Required]
+        [MaxLength(450)]
+        public string Description { get; set; }
+
+        [Required]
+        public MitigationSectorType MitigationSectorType { get; set; }
+
+        [Required]
+        public int ParentId { get; set; }
 
         //Arbitrary DB Fields
         [MaxLength(50)]

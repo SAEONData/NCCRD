@@ -27,5 +27,6 @@ namespace NCCRD.Services.DataV2.ViewModels
         public VoluntaryGoldStandard[] VoluntaryGoldStandard { get; set; }
         public VoluntaryMethodology[] VoluntaryMethodology { get; set; }
         public ResearchMaturity[] ResearchMaturity { get; set; }
+        public MitigationSector[] MitigationSector { get; set; }
     }
 }

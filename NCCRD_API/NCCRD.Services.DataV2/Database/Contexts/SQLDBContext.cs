@@ -37,6 +37,8 @@ namespace NCCRD.Services.DataV2.Database.Contexts
         public DbSet<ResearchMaturity> ResearchMaturity { get; set; }
 
         public DbSet<BulkUpload> BulkUpload { get; set; }
+        public DbSet<MitigationSector> MitigationSector { get; set; }
+        public DbSet<MitigationSectorType> MitigationSectorType { get; set; }
 
         public SQLDBContext() : base() { }
 

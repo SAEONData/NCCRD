@@ -278,6 +278,7 @@ namespace NCCRD.Services.DataV2.Controllers
             var voluntaryGoldStandard = _context.VoluntaryGoldStandard.OrderBy(x => x.Value).ToArray();
             var voluntaryMethodology = _context.VoluntaryMethodology.OrderBy(x => x.Value).ToArray();
             var researchMaturity = _context.ResearchMaturity.OrderBy(x => x.Value).ToArray();
+            var mitigationSector = _context.MitigationSector.OrderBy(x => x.Description).ToArray();
 
             return new Lookups()
             {
@@ -298,7 +299,8 @@ namespace NCCRD.Services.DataV2.Controllers
                 ValidationStatus = validationStatus,
                 VoluntaryGoldStandard = voluntaryGoldStandard,
                 VoluntaryMethodology = voluntaryMethodology,
-                ResearchMaturity = researchMaturity
+                ResearchMaturity = researchMaturity,
+                MitigationSector = mitigationSector
             };
         }
 

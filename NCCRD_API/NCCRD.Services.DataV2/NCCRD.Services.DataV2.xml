@@ -58,11 +58,11 @@
             <param name="id">AdaptationPurposeId</param>
             <returns>Success/Fail status</returns>
         </member>
-        <member name="M:NCCRD.Services.DataV2.Controllers.BulkUploadController.Post(NCCRD.Services.DataV2.Controllers.BulkUpload)">
+        <member name="M:NCCRD.Services.DataV2.Controllers.BulkUploadController.Post(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
-            Get a list of AdaptationDetail
+            Insert a mass amount of Projects
             </summary>
-            <returns>List of AdaptationDetail</returns>
+            <returns>Http Status code</returns>
         </member>
         <member name="M:NCCRD.Services.DataV2.Controllers.CarbonCreditController.Get">
             <summary>

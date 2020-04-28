@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using Excel;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
@@ -16,11 +17,6 @@ using NCCRD.Services.DataV2.Database.Models;
 
 namespace NCCRD.Services.DataV2.Controllers
 {
-    public class BulkUpload
-    {
-        public string FilePath { get; set; }
-    }
-
     [Produces("application/json")]
     [ODataRoutePrefix("BulkUpload")]
     [EnableCors("CORSPolicy")]
@@ -39,41 +35,126 @@ namespace NCCRD.Services.DataV2.Controllers
         /// </summary>
         /// <returns>Http Status code</returns>
         [HttpPost]
-        public StatusCodeResult Post([FromBody] BulkUpload bulkUpload)
-        {
-            if (bulkUpload.FilePath != null)
-                InsertValues(ReadExcel(bulkUpload.FilePath));
-            else
-                return StatusCode(415);
-
-            return StatusCode(200);
-        }
-
-        private StatusCodeResult InsertValues(DataTable values)
+        public async System.Threading.Tasks.Task<IActionResult> Post([FromForm] IFormFile file)
         {
             System.Text.StringBuilder errorLog = new System.Text.StringBuilder();
+            try
+            {
 
+                //Get file
+                var fileDetails = new FileInfo(file.FileName);
+                var fileExtension = fileDetails.Extension;
+                int insertedRecs = 0;
+
+                //Save File
+                IFormFile formFile = file;
+                string filePath = "C:/UPLOADS/" + file.FileName;
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                    formFile.CopyTo(stream);
+
+                if (file != null)
+                    InsertValues(ReadExcel(filePath), ref errorLog, ref insertedRecs);
+                else
+                    return StatusCode(415, new { File = file.Name, StatusCode = 415, Meaning = "Unsuported meadia type, nothing has been uploaded. Review your file and attempt again" });
+
+                //If successful, upload the file to the DB then delete the file from the Server
+                if (insertedRecs > 0)
+                    Cleanup(fileDetails, filePath, ref errorLog);
+
+            }
+            catch (Exception a) { errorLog.Append(a); }
+
+            if (errorLog.Length != 0)
+                return StatusCode(500, new { StatusCode = 500, Meaning = "Internal Server Error - An error has occrured, your spreadsheet has not been uploaded, please review it and attempt again ", DetailedError = errorLog.ToString() });
+            else
+                return StatusCode(200, new { StatusCode = 200, Meaning = "OK - Everything is fine and your data has been ingested without issue" });
+        }
+        
+        private void InsertValues(DataTable values, ref System.Text.StringBuilder errorLog, ref int insertedCounter)
+        {
             #region Header stuff
-            //Check Headers
+            //Check Headers and ensure that all the mandatory headers are present, if not then error returned
 
             string[] mandatoryFields = new string[] {
                                                         "ProjectTitle (ProjectDetails)",
+                                                        "Description (ProjectDetails)",
+                                                        "Link (ProjectDetails)",
+                                                        "StartYear (ProjectDetails)",
+                                                        "EndYear (ProjectDetails)",
                                                         "ProjectStatus (ProjectDetails)",
+                                                        "BudgetRange (ProjectDetails)",
+                                                        "Province (ProjectLocation)",
+                                                        "DistrictMunicipality (ProjectLocation)",
+                                                        "LocalMunicipalityMetros (ProjectLocation)",  
+                                                        "Locations (ProjectLocation)",
                                                         "LeadOrganisation (ProjectManager)",
                                                         "Name (ProjectManager)",
                                                         "Organisation (ProjectManager)",
                                                         "PhoneNumber (ProjectManager)",
                                                         "Email (ProjectManager)",
                                                         "HostOrganisation (ProjectManager)",
+                                                        "HostPartner (ProjectManager)",
+                                                        "AltContact (ProjectManager)",
+                                                        "AltContactEmail (ProjectManager)",
+                                                        "AddFunding (ActionOverview)",
+                                                        "AddAdaptationApplied (ActionOverview)",
+                                                        "AddAdaptationResearch (ActionOverview)",
+                                                        "GrantProgramName (Funding)",
                                                         "FundingAgency (Funding)",
+                                                        "PartneringDepartmentsOrganisations (Funding)",
+                                                        "ProjectCoordinator (Funding)",
+                                                        "TotalBudget (Funding)",
+                                                        "AnnualBudget (Funding)",
+                                                        "FundingStatus (Funding)",
+                                                        "Title (AdaptationDetails)",
+                                                        "Description (AdaptationDetails)",
                                                         "Purpose (AdaptationDetails)",
+                                                        "Sector (AdaptationDetails)",
                                                         "ProjectStatus (AdaptationDetails)",
+                                                        "Name (AdaptationContact)",
+                                                        "EmailAddress (AdaptationContact)",
                                                         "Author (ResearchDetails)",
                                                         "PaperLink (ResearchDetails)",
                                                         "ResearchType (ResearchDetails)",
                                                         "TargetAudience (ResearchDetails)",
+                                                        "ResearchMaturity (ResearchDetails)",  
+                                                        "Other (MitigationDetails)",
+                                                        "OtherDescription (MitigationDetails)",
+                                                        "CDMProjectNumber (MitigationDetails)",
+                                                        "CarbonCredit (MitigationDetails)",
+                                                        "CarbonCreditMarket (MitigationDetails)",
+                                                        "CDMStatus (MitigationDetails)",
+                                                        "CDMMethodology (MitigationDetails)",
+                                                        "VoluntaryMethodology (MitigationDetails)",
+                                                        "VoluntaryGoldStandard (MitigationDetails)",
+                                                        "Sector (MitigationDetails)",
+                                                        "Year (EmmissionsData)",
+                                                        "C02 (EmmissionsData)",
+                                                        "CH4 (EmmissionsData)",
+                                                        "CH4_CO2e (EmmissionsData)",
+                                                        "N2O (EmmissionsData)",
+                                                        "N2O_CO2e (EmmissionsData)",
+                                                        "HFC (EmmissionsData)",
+                                                        "HFC_CO2e (EmmissionsData)",
+                                                        "PFC (EmmissionsData)",
+                                                        "PFC_CO2e (EmmissionsData)",
+                                                        "SF6 (EmmissionsData)",
+                                                        "SF6_CO2e (EmmissionsData)",
+                                                        "Hydro (EmmissionsData)",
+                                                        "Hydro_CO2e (EmmissionsData)",
+                                                        "Tidal (EmmissionsData)",
+                                                        "Tidal_CO2e (EmmissionsData)",
+                                                        "Wind (EmmissionsData)",
+                                                        "Wind_CO2e (EmmissionsData)",
+                                                        "Solar (EmmissionsData)",
+                                                        "Solar_CO2e (EmmissionsData)",
+                                                        "FossilFuelElecRed (EmmissionsData)",
+                                                        "FossilFuelElecRed_CO2e (EmmissionsData)",
+                                                        "BioWaste (EmmissionsData)",
+                                                        "BioWaste_CO2e (EmmissionsData)",
+                                                        "Geothermal (EmmissionsData)",
+                                                        "Geothermal_CO2e (EmmissionsData)"
                                                     };
-
 
             #endregion
 
@@ -103,7 +184,7 @@ namespace NCCRD.Services.DataV2.Controllers
                 Project IndividualRecord = new Project();
                 ProjectStatus projectStatusLookup = new ProjectStatus();
                 Person projectManagerLookup = new Person();
-                Location locationSectionLookup = new Location();
+                List<ProjectLocation> locationSectionLookup = new List<ProjectLocation>();
                 ResearchDetail researchDetailLookup = new ResearchDetail
                 {
                     Author = values.Rows[rowCounter]["Author (ResearchDetails)"].ToString(),
@@ -124,7 +205,32 @@ namespace NCCRD.Services.DataV2.Controllers
 
                 projectStatusLookup = _context.ProjectStatus.ToList<ProjectStatus>().Where(x => x.Value == values.Rows[rowCounter]["ProjectStatus (ProjectDetails)"].ToString().Split(':')[0]).FirstOrDefault();
                 projectManagerLookup = _context.Person.ToList<Person>().Where(person => person.EmailAddress == values.Rows[rowCounter]["Email (ProjectManager)"].ToString() && person.FirstName == values.Rows[rowCounter]["Name (ProjectManager)"].ToString().Split(' ')[0]).FirstOrDefault();
-                locationSectionLookup = new Location { LatCalculated = 1, LonCalculated = 01 };
+
+                #region Project Location
+                List<Location> locationList = new List<Location>();
+                
+                if (values.Rows[rowCounter]["Locations (ProjectLocation)"].ToString().Contains(";"))
+                {
+                    //If it contains a semicolon then its multiple locations
+                    foreach (string coordinate in values.Rows[rowCounter]["Locations (ProjectLocation)"].ToString().Split(";"))
+                    {
+                        locationList.Add(new Location
+                        {
+                            LatCalculated = double.Parse(coordinate.Split('.')[0]),
+                            LonCalculated = double.Parse(coordinate.Split('.')[1])
+                        });
+                    }
+                }
+                else
+                {
+                    //If there's no semicolon then its a sinlge location 
+                    locationList.Add(new Location
+                    {
+                        LatCalculated = double.Parse(values.Rows[rowCounter]["Locations (ProjectLocation)"].ToString().Split('.')[0]),
+                        LonCalculated = double.Parse(values.Rows[rowCounter]["Locations (ProjectLocation)"].ToString().Split('.')[1])
+                    });
+                }
+                #endregion 
 
                 adaptationDetailLookup = new AdaptationDetail
                 {
@@ -171,14 +277,8 @@ namespace NCCRD.Services.DataV2.Controllers
 
                 #endregion
 
-                #region Project Location
-                //ProjectLocation
-                ProjectLocation locationSection = new ProjectLocation();
-                locationSection.Location = locationSectionLookup;
-                #endregion
-
                 #region Project Manager
-                
+
                 //ProjectManager
                 IndividualRecord.HostOrganisation = values.Rows[rowCounter]["LeadOrganisation (ProjectManager)"].ToString();
                 IndividualRecord.ProjectManager = projectManagerLookup;
@@ -251,7 +351,7 @@ namespace NCCRD.Services.DataV2.Controllers
 
                 MitigationDetail mitigationDetailLookup = new MitigationDetail();
 
-                mitigationDetailLookup.VCS = int.Parse(values.Rows[rowCounter]["VCS (MitigationDetails)"].ToString());
+                //Removed from Excel templpate 
                 mitigationDetailLookup.Other = int.Parse(values.Rows[rowCounter]["Other (MitigationDetails)"].ToString());
                 mitigationDetailLookup.OtherDescription = values.Rows[rowCounter]["OtherDescription (MitigationDetails)"].ToString();
                 mitigationDetailLookup.CDMProjectNumber = values.Rows[rowCounter]["CDMProjectNumber (MitigationDetails)"].ToString();
@@ -261,7 +361,7 @@ namespace NCCRD.Services.DataV2.Controllers
                 mitigationDetailLookup.CDMMethodology = cdmMethodologyLookup;
                 mitigationDetailLookup.VoluntaryMethodology = voluntaryMethodologyLookup;
                 mitigationDetailLookup.VoluntaryGoldStandard = voluntaryGoldStandardLookup;
-                mitigationDetailLookup.SectorId = FindSectorId(values.Rows[rowCounter]["Sector (MitigationDetails)"].ToString()); //Unless we access the VMS DB we will have to formulate a key/value list to reference for this
+                mitigationDetailLookup.SectorId = _context.MitigationSector.Where(x => x.Description == values.Rows[rowCounter]["Sector (MitigationDetails)"].ToString()).FirstOrDefault().MitigationSectorId;
                 mitigationDetailLookup.ResearchDetail = researchDetailLookup;
 
                 #endregion
@@ -308,6 +408,17 @@ namespace NCCRD.Services.DataV2.Controllers
                     mitigationDetailLookup.ProjectStatusId = int.Parse(IndividualRecord.ProjectStatusId.ToString());
                     adaptationDetailLookup.ProjectId = projectId;
                     adaptationDetailLookup.ProjectStatusId = int.Parse(IndividualRecord.ProjectStatusId.ToString());
+                    
+                    foreach (Location location in locationList)
+                    {
+                        locationSectionLookup.Add(new ProjectLocation
+                        {
+                            Location = location,
+                            ProjectId = projectId
+                        });
+                    }
+
+                    _context.ProjectLocation.AddRange(locationSectionLookup);
 
                     _context.MitigationEmissionsData.Add(mitigationEmissionsData);
                     _context.MitigationDetails.Add(mitigationDetailLookup);
@@ -316,6 +427,7 @@ namespace NCCRD.Services.DataV2.Controllers
                     try
                     {
                         _context.SaveChanges();
+                        insertedCounter++;
                     }
                     catch (Exception e)
                     {
@@ -326,34 +438,18 @@ namespace NCCRD.Services.DataV2.Controllers
 
                 var response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
                 response.Content = new System.Net.Http.StringContent(errorLog.ToString());
-
-                if (errorLog.Length != 0)
-                    return StatusCode(500);
             }
-
-            if (errorLog.Length != 0)
-                return StatusCode(500);
-            else
-                return StatusCode(200);
         }
 
-        private DataTable ReadExcel(string fileName) 
+        private DataTable ReadExcel(string fileName)
         {
             string extention = "xlsx";
             int failed = 0;
-            try
-            {
-                extention = Path.GetFileName(fileName).Split(".")[1];
-            }
-            catch (Exception e)
-            {
-                failed = 1;
-            }
-            finally
-            {
-                extention = failed == 1 ? extention = "xlsx" : extention;
-            }
+            try { extention = Path.GetFileName(fileName).Split(".")[1]; }
+            catch (Exception e) { failed = 1; }
+            finally { extention = failed == 1 ? extention = "xlsx" : extention; }
 
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             DataSet dsData = null;
             FileStream stream = System.IO.File.Open(fileName, FileMode.Open, FileAccess.Read);
             IExcelDataReader excelReader = null;
@@ -368,10 +464,7 @@ namespace NCCRD.Services.DataV2.Controllers
                 excelReader.IsFirstRowAsColumnNames = true;
                 dsData = excelReader.AsDataSet();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 try
@@ -379,12 +472,30 @@ namespace NCCRD.Services.DataV2.Controllers
                     if (excelReader != null)
                         excelReader.Close();
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                catch (Exception e) { throw e; }
             }
+
             return dsData.Tables["Template"];
+        }
+
+        private void Cleanup(FileInfo fileDetails, string localFilePath, ref System.Text.StringBuilder errorLog)
+        {
+            //Check if file was saved
+            if (System.IO.File.Exists(localFilePath))
+            {
+                new BulkUploadFileController(this._context, this._config).BulkUploadInsert(fileDetails, localFilePath, ref errorLog);
+
+                //Remove the locally saved file
+                if (System.IO.File.Exists(fileDetails.FullName))
+                    System.IO.File.Delete(fileDetails.FullName);
+            }
+        }
+
+        [HttpDelete]
+        [ODataRoute("{id}")]
+        public async System.Threading.Tasks.Task<IActionResult> Delete(int id)
+        {
+            return await new BulkUploadFileController(this._context, this._config).Delete(id);
         }
 
         private int FindSectorId(string sector)
