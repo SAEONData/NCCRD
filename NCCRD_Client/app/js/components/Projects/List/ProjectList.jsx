@@ -8,6 +8,7 @@ import popout from '../../../../images/popout.png'
 import popin from '../../../../images/popin.png'
 import { CSVLink } from 'react-csv'
 import { CustomFetch } from '../../../globalFunctions.js'
+import ReactTooltip from 'react-tooltip'
 
 
 // AntD
@@ -404,7 +405,7 @@ class ProjectList extends React.Component {
 
         <div style={{ float: "right" }}>
 
-          <Button size="sm" color="" style={{ backgroundColor: DEAGreen, marginRight: 30, marginTop: 3 }}>
+          <Button data-tip data-for="dlTip" size="sm" color="" style={{ backgroundColor: DEAGreen, marginRight: 30, marginTop: 3 }}>
             <CSVLink
               style={{ marginRight: '', textDecoration: 'none', color: 'white' }}
               filename={"projects-list.csv"}
@@ -419,6 +420,9 @@ class ProjectList extends React.Component {
               Download
             </CSVLink>
           </Button>
+          <ReactTooltip id="dlTip" place="top" effect="solid">
+            To view the contents of this download, open the file in as an Excel spreadsheet in Microsoft Excel
+          </ReactTooltip>
 
           {
             (this.props.showListExpandCollapse === true) &&

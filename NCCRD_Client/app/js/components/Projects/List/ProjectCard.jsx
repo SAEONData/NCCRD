@@ -3,6 +3,7 @@ import { Card, CardBody, CardText, CardTitle, Button, Fa } from 'mdbreact'
 import { connect } from 'react-redux'
 import { DEAGreen } from "../../../config/colours.js"
 import { notification } from 'antd'
+import ReactTooltip from 'react-tooltip'
 
 const _gf = require('../../../globalFunctions')
 
@@ -243,9 +244,10 @@ class ProjectCard extends React.Component {
               Delete
             </Button>
           } */}
-          {
-            this.props.showListViewOption && 
+        
+           
             <Button
+            data-tip data-for="dlTip"
               size="sm"
               color="white"
               style={{
@@ -259,6 +261,7 @@ class ProjectCard extends React.Component {
               }}
               onClick={this.onClick.bind(projectDetails)}
             >
+              
             <Fa icon="download" size="lg" style={{ color: DEAGreen, marginRight: "5px" }} />
             {/* <CSVLink
              
@@ -271,8 +274,15 @@ class ProjectCard extends React.Component {
             >            */}
               Download
             {/* </CSVLink> */}
+            
+           
             </Button>
-          }
+            <ReactTooltip id="dlTip" place="top" effect="solid">
+              To view the contents of this download, open the file in as an Excel spreadsheet in Microsoft Excel
+            </ReactTooltip>
+          
+          
+          
 
         </CardBody>
         <hr style={{ margin: "0px 0px 15px 0px" }} />
