@@ -421,7 +421,7 @@ class ProjectList extends React.Component {
             </CSVLink>
           </Button>
           <ReactTooltip id="dlTip" place="top" effect="solid">
-            To view the contents of this download, open the file in as an Excel spreadsheet in Microsoft Excel
+            To view the contents of this download, open the file as an Excel spreadsheet in Microsoft Excel
           </ReactTooltip>
 
           {

@@ -17,7 +17,7 @@ if (CONSTANTS.DEV) {
   _ndaoSiteBaseURL = 'https://ccis.environment.gov.za/ndao/'
   _vmsBaseURL = 'https://ccis.environment.gov.za/vms/api/'
   _ssoBaseURL = 'https://identity.saeon.ac.za/'
-  _mapServerBaseURL = 'https://ccis.environment.gov.za/map'
+  _mapServerBaseURL = 'https://ccis.environment.gov.za/map/'
   // _apiBaseURL = 'http://192.168.105.102/nccrd/api/odata/'
   // _siteBaseURL = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`
   // _ndmcBaseURL = 'http://192.168.105.102/nhe/'
