@@ -98,7 +98,7 @@ class CustomNavbar extends React.Component {
     return (
       <>
        <ReactTooltip id="buTip" place="top" effect="solid">
-              To download this document, click on the button, in the tab that opens, on the right there is a three-dotted menu button, click on that and select the 'download' option
+              To download this document, click on the button, in the tab that opens, < br/>on the right there is a three-dotted menu button, click on that and select the 'download' option
           </ReactTooltip>
       <Navbar
         size="sm"
