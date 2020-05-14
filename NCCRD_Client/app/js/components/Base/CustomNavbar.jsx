@@ -18,7 +18,8 @@ import userManager from '../Authentication/userManager'
 import { ssoBaseURL, ndaoSiteBaseURL, ndmcBaseURL, nccisBaseURL } from '../../config/serviceURLs.js'
 import { DEAGreen } from '../../config/colours.js'
 import { data as NavData } from '../../../data/sideNavConfig'
-import { destroyFns } from 'antd/lib/modal/Modal';
+import { destroyFns } from 'antd/lib/modal/Modal'
+import ReactTooltip from 'react-tooltip'
 
 const _gf = require("../../globalFunctions")
 const queryString = require('query-string')
@@ -95,6 +96,10 @@ class CustomNavbar extends React.Component {
     let { user, toggleSideNav, showSideNav, showSideNavButton, showNavbar } = this.props
 
     return (
+      <>
+       <ReactTooltip id="buTip" place="top" effect="solid">
+              To download this document, click on the button, in the tab that opens, on the right there is a three-dotted menu button, click on that and select the 'download' option
+          </ReactTooltip>
       <Navbar
         size="sm"
         color="white"
@@ -116,6 +121,8 @@ class CustomNavbar extends React.Component {
         }
 
         <Collapse isOpen={this.state.collapse} navbar>
+
+       
 
           {/* LEFT */}
           <NavbarNav left>
@@ -152,8 +159,9 @@ class CustomNavbar extends React.Component {
               Add New Project
             </Button>
             
-            
+
             <Button
+              data-tip data-for="buTip"
               color=""
               style={{ backgroundColor: DEAGreen }}
               size="sm"
@@ -164,12 +172,13 @@ class CustomNavbar extends React.Component {
                   })
                 }
                 else {
-                  window.open("https://drive.google.com/file/d/1PDWhfKI83PbxE1lstgf4YMHj7V-vX3Tb/view?usp=sharing")
+                  window.open("https://drive.google.com/file/d/1CPNX3mx_F8Y43m59NOn8YOKo4_VPdsZG/view?usp=sharing")
                 }
               }}>
               <Fa icon="plus" style={{ marginRight: 15 }} />
               Bulk upload
             </Button>
+        
             
 
             {/* Monitoring */}
@@ -201,6 +210,7 @@ class CustomNavbar extends React.Component {
               </Dropdown>
             </NavItem>
 
+        
 
 
             {/* Hazards */}
@@ -284,6 +294,8 @@ class CustomNavbar extends React.Component {
 
         </Collapse>
       </Navbar>
+        
+      </>
     )
   }
 }
