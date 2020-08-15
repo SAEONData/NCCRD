@@ -10,6 +10,8 @@ import { CSVLink } from 'react-csv'
 import { CustomFetch } from '../../../globalFunctions.js'
 import ReactTooltip from 'react-tooltip'
 
+import CsvDownload from 'react-json-to-csv'
+
 
 // AntD
 import { Popover, Select, Button as ABtn } from 'antd'
@@ -371,13 +373,19 @@ class ProjectList extends React.Component {
 
     let { projects } = this.props
 
+   
     let ar = []
+    
     if (typeof projects !== 'undefined' && projects.length > 0) {
       for (let i of projects) {
         ar.push(<ProjectCard key={i.ProjectId} pid={i.ProjectId} ptitle={i.ProjectTitle} pdes={i.ProjectDescription} />)
+        
       }
+      
       return ar
     }
+    
+    
     return <div />
   }
 
@@ -390,7 +398,7 @@ class ProjectList extends React.Component {
 
     if (projComps.length > 0) {
       projectlist = (
-        projComps.slice(this.props.start, this.props.end)
+        projComps.slice(this.props.start, this.props.end)      
       )
     }
 
@@ -406,19 +414,25 @@ class ProjectList extends React.Component {
         <div style={{ float: "right" }}>
 
           <Button data-tip data-for="dlTip" size="sm" color="" style={{ backgroundColor: DEAGreen, marginRight: 30, marginTop: 3 }}>
-            <CSVLink
+            {/* <CSVLink
+              
               style={{ marginRight: '', textDecoration: 'none', color: 'white' }}
               filename={"projects-list.csv"}
               data={[...projects]}
-              asyncOnClick={true}
+              enclosingCharacter={''}
+              // asyncOnClick={true}
               onClick={() => {
-                console.log(this.props.projects)
+              
               }}
             >
-              {/* <Fa icon="arrow-circle-down" style={{ marginRight: 15 }} /> */}
+           
               <MDBIcon icon="arrow-circle-down" style={{ marginRight: 15 }} />
               Download
-            </CSVLink>
+            </CSVLink> */}
+            <CsvDownload 
+            style={{ marginRight: '', textDecoration: 'none', backgroundColor: DEAGreen, border: 'none' }}
+            data={[...projects]} />
+
           </Button>
           <ReactTooltip id="dlTip" place="top" effect="solid">
             To view the contents of this download, open the file as an Excel spreadsheet in Microsoft Excel

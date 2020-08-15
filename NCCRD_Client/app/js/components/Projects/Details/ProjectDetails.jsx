@@ -8,6 +8,9 @@ import { DEAGreen } from '../../../config/colours.js'
 
 import './ProjectDetails.css'
 
+const _gf = require("../../../globalFunctions.js")
+
+
 const mapStateToProps = (state, props) => {
   let { globalData: { projectsFullView } } = state
   let { projectData: { projectDetails, selectedProjectId } } = state
@@ -67,8 +70,10 @@ class ProjectDetails extends React.Component {
 
   render() {
 
-    let { projectDetails, projectFunderDetails, adaptationDetails } = this.props
+    let { projectDetails, projectFunderDetails, adaptationDetails, projectDescription } = this.props
     let { showBackToTop } = this.state
+
+    {projectDetails.projectDescription = _gf.StringToHTML()}
 
     return (
       <div id="app-content" className="pd-container ">
