@@ -128,7 +128,7 @@ class App extends React.Component {
   componentWillMount() {
     //this.genTestConfig()
     this.processURLConfig()
-    console.log('loadedurl')
+    // console.log('loadedurl')
     this.processSilentSignIn()
   }
 
@@ -299,7 +299,7 @@ class App extends React.Component {
     headers.push({ name: "Accept", value: "application/json" })
     ReactGA.initialize('UA-145168002-1');
     ReactGA.pageview(location.href);
-    console.log('url: ' + location.href)
+    // console.log('url: ' + location.href)
     if (user && !user.expired) {
       //Add auth token to headers
       headers.push({ name: "Authorization", value: "Bearer " + (user === null ? "" : user.access_token) })

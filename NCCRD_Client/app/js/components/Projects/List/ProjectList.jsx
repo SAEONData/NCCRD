@@ -90,7 +90,7 @@ let role = ""
 class ProjectList extends React.Component {
 
   constructor(props) {
-    super(props);
+    super();
 
     this.showMessage = this.showMessage.bind(this)
 
