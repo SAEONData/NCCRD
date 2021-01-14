@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -31,5 +32,14 @@ namespace NCCRD.Services.DataV2.Database.Models
         //public double? LonDirection { get; set; }
 
         public double? LonCalculated { get; set; }
+
+        //Arbitrary DB Fields
+        [MaxLength(50)]
+        public string CreatedBy { get; set; } = "System";
+        [MaxLength(50)]
+        public string LastModifiedBy { get; set; } = "System";
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; } = false;
     }
 }

@@ -44,9 +44,16 @@ namespace NCCRD.Services.DataV2.Controllers
         /// <returns>List of projects</returns>
         [HttpGet]
         [EnableQuery]
+        [Authorize(Roles = "Contributor,Custodian,Configurator,SysAdmin")]
         public IQueryable<Project> Get()
         {
-            return _context.Project.AsQueryable();
+            string userName = "";
+
+            foreach (var claim in User.Identities.FirstOrDefault().Claims.ToArray())
+                if (claim.Type == "name")
+                    userName = claim.Value;
+
+            return _context.Project.AsQueryable().Where(x => x.IsDeleted == false && x.Owner == userName);
         }
 
         /// <summary>
@@ -59,7 +66,7 @@ namespace NCCRD.Services.DataV2.Controllers
         [ODataRoute("({id})")]
         public Project Get(int id)
         {
-            return _context.Project.FirstOrDefault(x => x.ProjectId == id);
+            return _context.Project.FirstOrDefault(x => x.ProjectId == id && x.IsDeleted == false);
         }
 
         /*
@@ -74,12 +81,11 @@ namespace NCCRD.Services.DataV2.Controllers
         [HttpPost]
         [EnableQuery]
         [ODataRoute("ByPolygon")]
+        [Authorize(Roles = "Contributor,Custodian,Configurator,SysAdmin")]
         public IQueryable<Project> ByPolygon([FromBody] Polygon polyObj)
         {
             var projectIDs = GetByPolygon(polyObj.polygon);
-            return _context.Project
-                .Where(x => projectIDs.Contains(x.ProjectId))
-                .AsQueryable();
+            return _context.Project.Where(x => projectIDs.Contains(x.ProjectId) && x.IsDeleted == false).AsQueryable();
         }
 
         /// <summary>
@@ -90,6 +96,7 @@ namespace NCCRD.Services.DataV2.Controllers
         [HttpPost]
         [EnableQuery]
         [ODataRoute("Filter")]
+        [Authorize(Roles = "Contributor,Custodian,Configurator,SysAdmin")]
         public IQueryable<Project> Filter([FromBody] Filters filters)
         {
             string titleFilter = filters.title;
@@ -108,7 +115,7 @@ namespace NCCRD.Services.DataV2.Controllers
                 try
                 {
                     var favs = favsFilter.Split(",").Select(f => int.Parse(f)).ToList();
-                    return _context.Project.Where(p => favs.Contains(p.ProjectId));
+                    return _context.Project.Where(p => favs.Contains(p.ProjectId) && p.IsDeleted == false);
                 }
                 catch
                 {
@@ -125,7 +132,7 @@ namespace NCCRD.Services.DataV2.Controllers
                 allRegionIDs.Add(regionFilter);
 
                 //Get all ProjectIds assigned to these Regions and/or Typology
-                regionProjectIds = _context.ProjectRegion.Where(p => allRegionIDs.Contains(p.RegionId)).Select(p => p.ProjectId).Distinct().ToList();
+                regionProjectIds = _context.ProjectRegion.Where(p => allRegionIDs.Contains(p.RegionId) && p.IsDeleted == false).Select(p => p.ProjectId).Distinct().ToList();
             }
 
             //SECTOR//
@@ -135,8 +142,8 @@ namespace NCCRD.Services.DataV2.Controllers
                 var allSectorIDs = GetChildren(sectorFilter, GetVMSData("sectors/flat").Result).Select(r => r).Distinct().ToList();
                 allSectorIDs.Add(sectorFilter);
 
-                sectorProjectIds.AddRange(_context.MitigationDetails.Where(x => sectorFilter == 0 || allSectorIDs.Contains((int)x.SectorId)).Select(x => x.ProjectId).ToList());
-                sectorProjectIds.AddRange(_context.AdaptationDetails.Where(x => sectorFilter == 0 || allSectorIDs.Contains((int)x.SectorId)).Select(x => x.ProjectId).ToList());
+                sectorProjectIds.AddRange(_context.MitigationDetails.Where(x => (sectorFilter == 0 || allSectorIDs.Contains((int)x.SectorId)) && x.IsDeleted == false).Select(x => x.ProjectId).ToList());
+                sectorProjectIds.AddRange(_context.AdaptationDetails.Where(x => (sectorFilter == 0 || allSectorIDs.Contains((int)x.SectorId)) && x.IsDeleted == false).Select(x => x.ProjectId).ToList());
 
                 //Remove duplicates
                 sectorProjectIds = sectorProjectIds.Distinct().ToList();
@@ -146,17 +153,17 @@ namespace NCCRD.Services.DataV2.Controllers
             var typologyProjectIds = new List<int>();
             if (typologyFilter > 0)
             {
-                if (_context.Typology.FirstOrDefault(x => x.TypologyId == typologyFilter).Value == "Adaptation")
+                if (_context.Typology.FirstOrDefault(x => x.TypologyId == typologyFilter && x.IsDeleted == false).Value == "Adaptation")
                 {
-                    typologyProjectIds.AddRange(_context.AdaptationDetails.Select(x => x.ProjectId).Distinct().ToList());
+                    typologyProjectIds.AddRange(_context.AdaptationDetails.Where(x => x.IsDeleted == false).Select(x => x.ProjectId).Distinct().ToList());
                 }
-                else if (_context.Typology.FirstOrDefault(x => x.TypologyId == typologyFilter).Value == "Mitigation")
+                else if (_context.Typology.FirstOrDefault(x => x.TypologyId == typologyFilter && x.IsDeleted == false).Value == "Mitigation")
                 {
-                    typologyProjectIds.AddRange(_context.MitigationDetails.Select(x => x.ProjectId).Distinct().ToList());
+                    typologyProjectIds.AddRange(_context.MitigationDetails.Where(x => x.IsDeleted == false).Select(x => x.ProjectId).Distinct().ToList());
                 }
-                else if (_context.Typology.FirstOrDefault(x => x.TypologyId == typologyFilter).Value == "Research")
+                else if (_context.Typology.FirstOrDefault(x => x.TypologyId == typologyFilter && x.IsDeleted == false).Value == "Research")
                 {
-                    typologyProjectIds.AddRange(_context.ResearchDetails.Select(x => x.ProjectId).Distinct().ToList());
+                    typologyProjectIds.AddRange(_context.ResearchDetails.Where(x => x.IsDeleted == false).Select(x => x.ProjectId).Distinct().ToList());
                 }
 
                 //Remove duplicates
@@ -167,9 +174,9 @@ namespace NCCRD.Services.DataV2.Controllers
             var statusProjectIds = new List<int>();
             if (statusFilter > 0)
             {
-                statusProjectIds.AddRange(_context.Project.Where(x => x.ProjectStatusId == statusFilter).Select(x => x.ProjectId).ToList());
-                statusProjectIds.AddRange(_context.AdaptationDetails.Where(x => x.ProjectStatusId == statusFilter).Select(x => x.ProjectId).ToList());
-                statusProjectIds.AddRange(_context.MitigationDetails.Where(x => x.ProjectStatusId == statusFilter).Select(x => x.ProjectId).ToList());
+                statusProjectIds.AddRange(_context.Project.Where(x => x.ProjectStatusId == statusFilter && x.IsDeleted == false).Select(x => x.ProjectId).ToList());
+                statusProjectIds.AddRange(_context.AdaptationDetails.Where(x => x.ProjectStatusId == statusFilter && x.IsDeleted == false).Select(x => x.ProjectId).ToList());
+                statusProjectIds.AddRange(_context.MitigationDetails.Where(x => x.ProjectStatusId == statusFilter && x.IsDeleted == false).Select(x => x.ProjectId).ToList());
                 statusProjectIds = statusProjectIds.Distinct().ToList();
             }
 
@@ -183,7 +190,7 @@ namespace NCCRD.Services.DataV2.Controllers
 
                 //Get all ProjectIds assigned to these Regions and/or Typology
                 hazardProjectIds = _context.AdaptationDetails
-                    .Where(a => allHazardIDs.Contains(a.HazardId == null ? 0 : (int)a.HazardId))
+                    .Where(a => allHazardIDs.Contains(a.HazardId == null ? 0 : (int)a.HazardId) && a.IsDeleted == false)
                     .Select(p => p.ProjectId)
                     .Distinct().ToList();
             }
@@ -199,7 +206,8 @@ namespace NCCRD.Services.DataV2.Controllers
                             (hazardFilter == 0 || hazardProjectIds.Contains(p.ProjectId)) &&
                             (typologyFilter == 0 || typologyProjectIds.Contains(p.ProjectId)) &&
                             (daoidFilter == Guid.Empty || p.ProjectDAOs.Any(dao => dao.DAOId == daoidFilter)) &&
-                            (verified == "all" || verified == "verified" && p.Verified == true || verified == "unverified" && p.Verified == false)
+                            (verified == "all" || verified == "verified" && p.Verified == true || verified == "unverified" && p.Verified == false) &&
+                            (p.IsDeleted == false)
                         );
         }
 
@@ -238,7 +246,7 @@ namespace NCCRD.Services.DataV2.Controllers
                                 {
                                     id = pl.ProjectId,
                                     name = pl.Project.ProjectTitle,
-                                    regions = GetGeoProps(pl.Project.ProjectRegions.Select(pr => pr.RegionId).ToArray(), vmsRegionData),
+                                    regions = GetGeoProps(pl.Project.ProjectRegions.Where(pr => pr.IsDeleted == false).Select(pr => pr.RegionId).ToArray(), vmsRegionData),
                                     sectors = GetGeoProps(GetProjectSectors(pl.Project.AdaptationDetails, pl.Project.MitigationDetails, pl.Project.ResearchDetails), vmsSectorData),
                                     typology = GetProjectTypology(pl.Project.AdaptationDetails, pl.Project.MitigationDetails, pl.Project.ResearchDetails, typologyData),
                                     status = GetProjectStatuses(pl.Project, pl.Project.AdaptationDetails, pl.Project.MitigationDetails)
@@ -272,6 +280,64 @@ namespace NCCRD.Services.DataV2.Controllers
             return new JsonResult(geoJSON);
         }
 
+        /// <summary>
+        /// Delete Project
+        /// </summary>
+        /// <param name="id">ProjectId</param>
+        /// <returns>Success/Fail status</returns>
+        [HttpDelete]
+        [ODataRoute("({id})")]
+        [Authorize(Roles = "Contributor,Custodian,Configurator,SysAdmin")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            string userName = "";
+
+            foreach (var claim in User.Identities.FirstOrDefault().Claims.ToArray())
+                if (claim.Type == "name")
+                    userName = claim.Value;
+
+            var existing = Get(id);
+
+            if (existing.ProjectId == 0)
+                return NotFound("Record doesn't exist");
+
+            existing.IsDeleted = true;
+            existing.LastModifiedBy = userName.Length != 0 ? userName : "System";
+            existing.LastModifiedDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+            return Ok("Successfully Deleted");
+        }
+
+        /// <summary>
+        /// Verify a Project
+        /// </summary>
+        /// <param name="id">ProjectId</param>
+        /// <returns>Success/Fail status</returns>
+        [HttpPut]
+        [ODataRoute("({id})")]
+        [Authorize(Roles = "SysAdmin")]
+        public async Task<IActionResult> Verify(int id)
+        {
+            string userName = "";
+
+            foreach (var claim in User.Identities.FirstOrDefault().Claims.ToArray())
+                if (claim.Type == "name")
+                    userName = claim.Value;
+
+            var existing = Get(id);
+
+            if (existing.ProjectId == 0)
+                return NotFound("Record doesn't exist"); //BadRequest("Record doesn't exist");
+
+            existing.Verified = true;
+            existing.Verifier = existing.LastModifiedBy = userName.Length != 0 ? userName : "System";
+            existing.LastModifiedDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+            return Ok("Successfully Deleted");
+        }
+
         private int[] GetProjectStatuses(Project project, IEnumerable<AdaptationDetail> adaptations, IEnumerable<MitigationDetail> mitigations)
         {
             var projectStatusIDs = new List<int>();
@@ -281,8 +347,8 @@ namespace NCCRD.Services.DataV2.Controllers
                 projectStatusIDs.Add((int)project.ProjectStatusId);
             }
 
-            projectStatusIDs.AddRange(adaptations.Select(a => a.ProjectStatusId).ToList());
-            projectStatusIDs.AddRange(mitigations.Select(m => m.ProjectStatusId).ToList());
+            projectStatusIDs.AddRange(adaptations.Where(a => a.IsDeleted == false).Select(a => a.ProjectStatusId).ToList());
+            projectStatusIDs.AddRange(mitigations.Where(m => m.IsDeleted == false).Select(m => m.ProjectStatusId).ToList());
 
             return projectStatusIDs.Distinct().ToArray();
         }
@@ -291,8 +357,8 @@ namespace NCCRD.Services.DataV2.Controllers
         {
             var sectors = new List<int>();
 
-            sectors.AddRange(adaptations.Where(a => a.SectorId != null).Select(a => (int)a.SectorId));
-            sectors.AddRange(mitigations.Where(m => m.SectorId != null).Select(a => (int)a.SectorId));
+            sectors.AddRange(adaptations.Where(a => a.SectorId != null && a.IsDeleted == false).Select(a => (int)a.SectorId));
+            sectors.AddRange(mitigations.Where(m => m.SectorId != null && m.IsDeleted == false).Select(a => (int)a.SectorId));
 
             return sectors.ToArray();
         }
@@ -317,10 +383,8 @@ namespace NCCRD.Services.DataV2.Controllers
             var typology = typologyData.FirstOrDefault(t => t.Value == typologyName);
             return typology != null ? typology.TypologyId : 0;
         }
-
-        //##################//
-        // Helper Functions //
-        //##################//
+         
+        #region Helper Functions
 
         private List<int> GetByPolygon(string polygon)
         {
@@ -338,6 +402,7 @@ namespace NCCRD.Services.DataV2.Controllers
             var polygonWKT = new SqlParameter("@WKT", polygon);
             return _context.Project
                 .FromSql("EXECUTE PolygonFilter @WKT", polygonWKT)
+                .Where(p => p.IsDeleted == false)
                 .Select(x => x.ProjectId)
                 .ToList();
         }
@@ -382,9 +447,7 @@ namespace NCCRD.Services.DataV2.Controllers
         private List<int> GetChildren(int filterID, List<StandardVocabItem> data)
         {
             var children = data
-                .Where(x =>
-                    x.AdditionalData.Any(y => y.Key == "ParentId" && y.Value == filterID.ToString())
-                )
+                .Where(x => x.AdditionalData.Any(y => y.Key == "ParentId" && y.Value == filterID.ToString()))
                 .Select(x => int.Parse(x.Id))
                 .ToList();
 
@@ -449,5 +512,7 @@ namespace NCCRD.Services.DataV2.Controllers
 
             return geoItems;
         }
+
+        #endregion
     }
 }

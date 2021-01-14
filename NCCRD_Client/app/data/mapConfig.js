@@ -1,8 +1,11 @@
+
 import { siteBaseURL, apiBaseURL, mapServerBaseURL } from '../js/config/serviceURLs.js'
 
+
 export const MapConfig = {
-    service: `${apiBaseURL + 'projects/extensions.geojson' }`,
-    //  "https://ccis.environment.gov.za/nccrd/api/odata/projects/extensions.geojson",
+
+    service: "http://192.168.105.112/nccrd/api/odata/projects/extensions.geojson",
+    // service: "http://192.168.105.102/nccrd/api/odata/projects/extensions.geojson",
     domain: siteBaseURL,
     IDField: "properties.id",
     toolTipTitle: "properties.name",
@@ -26,21 +29,27 @@ export const MapConfig = {
             value: 1,
             title: "Mitigation",
             default: true,
+
             icon:  `${mapServerBaseURL + '/blue_2.png' }`,//"https://ccis.environment.gov.za/map/blue_2.png",
+
             anchorX: 0,
             anchorY: 8
         },
         {
             value: 2,
             title: "Adaptation",
+
             icon: `${mapServerBaseURL + '/green.png' }`, //"https://ccis.environment.gov.za/map/green.png",
+
             anchorX: 0,
             anchorY: 8
         },
         {
             value: 3,
             title: "Research",
+
             icon: `${mapServerBaseURL + '/red.png' }`,//"https://ccis.environment.gov.za/map/red.png",
+
             anchorX: 0,
             anchorY: 8
         }
