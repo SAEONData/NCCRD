@@ -482,7 +482,7 @@ class OverallSummaryStep extends React.Component {
 
               <div className="vertical-spacer" />
 
-              <Row>
+              {/* <Row>
                 <Col md="6">
                   <h6 className="summary-label">Contact (alt)</h6>
                   <h6 className="summary-value">{projectDetails.AlternativeContact}</h6>
@@ -496,7 +496,7 @@ class OverallSummaryStep extends React.Component {
                   <h6 className="summary-label">Contact Email (alt)</h6>
                   <h6 className="summary-value">{projectDetails.AlternativeContactEmail}</h6>
                 </Col>
-              </Row>
+              </Row> */}
 
               <div className="vertical-spacer" />
 

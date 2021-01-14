@@ -15,10 +15,10 @@ const mapStateToProps = (state, props) => {
   let { globalData: { editMode } } = state
   let { lookupData: {
     researchType, targetAudience, carbonCredit, carbonCreditMarket, cdmStatus, cdmMethodology, projectStatus,
-    voluntaryMethodology, voluntaryGoldStandard, sector, sectorType, typology, researchMaturity
+    voluntaryMethodology, voluntaryGoldStandard, sector, sectorType, typology, researchMaturity, CarbonCreditMarketId
   } } = state
   return {
-    researchType, targetAudience, carbonCredit,
+    researchType, targetAudience, carbonCredit, CarbonCreditMarketId,
     carbonCreditMarket, cdmStatus, cdmMethodology, projectStatus,
     voluntaryMethodology, voluntaryGoldStandard, sector, sectorType, typology,
     mitigationDetails, editMode, researchMaturity
@@ -71,7 +71,7 @@ class MitigationDetailsItem extends React.Component {
 
   render() {
 
-    let { details, carbonCredit, carbonCreditMarket, cdmStatus, cdmMethodology, projectStatus, editMode,
+    let { details, carbonCredit, carbonCreditMarket, CarbonCreditMarketId, cdmStatus, cdmMethodology, projectStatus, editMode,
       voluntaryMethodology, voluntaryGoldStandard, sector, sectorType, typology, mitigationDetails,
       researchType, targetAudience, researchMaturity } = this.props
 
@@ -187,31 +187,33 @@ class MitigationDetailsItem extends React.Component {
           </div>
 
           <br />
-{/* 
+
+           
+           <div className="row">
+            <SelectComponent
+              id="selMitigationVoluntaryMethodology"
+              col="col-md-4"
+              label="Voluntary methodology:"
+              selectedValue={details.VoluntaryMethodologyId}
+              data={voluntaryMethodology}
+              setSelectedValueKey={"SET_MITIGATION_VOLUNTARY_METHODOLOGY"}
+              parentId={details.MitigationDetailId}
+              dispatch={"LOAD_VOLUNTARY_METHODOLOGY"}
+              persist="VoluntaryMethodology"
+              allowEdit={false}
+              newItemTemplate={{
+                "VoluntaryMethodologyId": 0,
+                "Value": "",
+                "Description": ""
+              }}
+              allowClear={true}
+            />
+            </div>
+            
+
+            <br />
+
           <div className="row">
-          <SelectComponent
-            id="selMitigationVoluntaryMethodology"
-            col="col-md-4"
-            label="Voluntary methodology:"
-            selectedValue={details.VoluntaryMethodologyId}
-            data={voluntaryMethodology}
-            setSelectedValueKey={"SET_MITIGATION_VOLUNTARY_METHODOLOGY"}
-            parentId={details.MitigationDetailId}
-            dispatch={"LOAD_VOLUNTARY_METHODOLOGY"}
-            persist="VoluntaryMethodology"
-            allowEdit={false}
-            newItemTemplate={{
-              "VoluntaryMethodologyId": 0,
-              "Value": "",
-              "Description": ""
-            }}
-            allowClear={true}
-          />
-          </div> */}
-
-          <br />
-
-          {/* <div className="row">
           <SelectComponent
             id="selMitigationVoluntaryGoldStandard"
             col="col-md-4"
@@ -230,7 +232,7 @@ class MitigationDetailsItem extends React.Component {
             }}
             allowClear={true}
           />
-        </div> */}
+        </div>
 
      
 
@@ -245,7 +247,7 @@ class MitigationDetailsItem extends React.Component {
           />
          </div>
 
-         {/* <br />
+         <br />
 
           <div className="row"> 
             <TextComponent
@@ -256,8 +258,8 @@ class MitigationDetailsItem extends React.Component {
               setValueKey={"SET_MITIGATION_OTHER_DESCR"}
               parentId={details.MitigationDetailId}
             />
-          </div>  */}
-          {/* <TreeSelectComponent
+          </div> 
+          <TreeSelectComponent
             id="selMitigationSector"
             col="col-md-4"
             label="Sector:"
@@ -281,12 +283,12 @@ class MitigationDetailsItem extends React.Component {
               "ParentSectorId": 0,
               "TypologyId": 0
             }}
-          /> */}
+          />
        
 
         <br />
 
-        {/* <div className="row">
+        <div className="row">
           <SelectComponent
             id="selProjectStatus"
             col="col-md-4"
@@ -300,7 +302,7 @@ class MitigationDetailsItem extends React.Component {
           />
         </div>
 
-        <br /> */}
+        <br />
 
         {
           details.ResearchDetail &&

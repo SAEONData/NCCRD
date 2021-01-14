@@ -43,6 +43,7 @@ class CallbackPage extends React.Component {
       locHash = lastUrl
     }
     location = locHash
+    window.location.reload()
   }
 
   errorCallbackHandler(e) {

@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-class MitigationDetailsStep extends React.Component {
+class AdaptationMitigationDetailsStep extends React.Component {
 
   constructor(props) {
     super(props);
@@ -179,4 +179,4 @@ class MitigationDetailsStep extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MitigationDetailsStep)
+export default connect(mapStateToProps, mapDispatchToProps)(AdaptationMitigationDetailsStep)

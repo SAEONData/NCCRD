@@ -91,7 +91,7 @@ export function StringToHTML(strVal) {
         {strVal.split("\n").map(x => <p>{x}</p>)}
       </div>
     )
-  }
+  } 
   else {
     return (
       <div>

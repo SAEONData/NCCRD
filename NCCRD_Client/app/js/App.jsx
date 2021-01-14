@@ -1,3 +1,4 @@
+
 'use strict'
 
 //Styles - Ant.Design (has to be loaded before MDB so that MDB can replace all applicable styles)
@@ -33,6 +34,7 @@ import DashGraph3FullView from './components/Dashboard/DashGraph3FullView.jsx'
 import DashGraph4FullView from './components/Dashboard/DashGraph4FullView.jsx'
 import InputWizard from './components/Wizard/InputWizard.jsx';
 import { DEAGreenDark, DEAGreen } from './config/colours.js';
+import ReactGA from "react-ga";
 
 const Oidc = require("oidc-client")
 const _gf = require("./globalFunctions.js")
@@ -126,6 +128,7 @@ class App extends React.Component {
   componentWillMount() {
     //this.genTestConfig()
     this.processURLConfig()
+    // console.log('loadedurl')
     this.processSilentSignIn()
   }
 
@@ -294,7 +297,9 @@ class App extends React.Component {
 
     let headers = []
     headers.push({ name: "Accept", value: "application/json" })
-
+    ReactGA.initialize('UA-145168002-1');
+    ReactGA.pageview(location.href);
+    // console.log('url: ' + location.href)
     if (user && !user.expired) {
       //Add auth token to headers
       headers.push({ name: "Authorization", value: "Bearer " + (user === null ? "" : user.access_token) })
@@ -389,3 +394,4 @@ class App extends React.Component {
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
 
+  

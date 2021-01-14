@@ -64,8 +64,10 @@ class HazardFilters extends React.Component {
   render() {
 
     let { hazards, hazardFilter } = this.props
+    // console.log(hazards)
 
     return (
+     
       <>
         <TreeSelectComponent
           col="col-md-2"
@@ -87,6 +89,7 @@ class HazardFilters extends React.Component {
           }}
           setSelectedValueKey="LOAD_HAZARD_FILTER"
         />
+        
       </>
     )
   }

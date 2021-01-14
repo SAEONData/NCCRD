@@ -8,6 +8,9 @@ import popout from '../../../../images/popout.png'
 import popin from '../../../../images/popin.png'
 import { CSVLink } from 'react-csv'
 import { CustomFetch } from '../../../globalFunctions.js'
+import ReactTooltip from 'react-tooltip'
+
+import CsvDownload from 'react-json-to-csv'
 
 
 // AntD
@@ -33,6 +36,7 @@ const mapStateToProps = (state, props) => {
     listScrollPos, user, loading, typology, daoid, favoritesFilter, showListExpandCollapse, showFavoritesOption,
     hazardFilter, filtersChanged, unverifiedOnlyFilter
   }
+
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -86,7 +90,7 @@ let role = ""
 class ProjectList extends React.Component {
 
   constructor(props) {
-    super(props);
+    super();
 
     this.showMessage = this.showMessage.bind(this)
 
@@ -223,7 +227,7 @@ class ProjectList extends React.Component {
     }
     else {
 
-      let batchSize = 25
+      let batchSize = 10000
       let skip = 0
       let batchCount = Math.floor(end / batchSize)
       let filters = {}
@@ -298,7 +302,10 @@ class ProjectList extends React.Component {
       this.setProjectSort(oHandler);
 
       //Select
-      oHandler.select("ProjectId,ProjectTitle,ProjectDescription")
+      oHandler
+      .select(
+        "ProjectId,ProjectTitle,ProjectDescription,LeadAgent,HostPartner,HostOrganisation,StartYear,EndYear,link,validationComments,budgetLower,budgetUpper,verified,projectStatusId,projectTypeId,projectSubTypeId,projectManagerId,validationStatusId,projectRegions,projectLocations,adaptationDetails,mitigationDetails,mitigationEmissionsData,researchDetails,projectFunders,projectDAOs"
+        )
 
       let res = await oHandler.post(filters).save()
       setLoading(false)
@@ -366,27 +373,32 @@ class ProjectList extends React.Component {
 
     let { projects } = this.props
 
+   
     let ar = []
+    
     if (typeof projects !== 'undefined' && projects.length > 0) {
       for (let i of projects) {
         ar.push(<ProjectCard key={i.ProjectId} pid={i.ProjectId} ptitle={i.ProjectTitle} pdes={i.ProjectDescription} />)
+        
       }
+      
       return ar
     }
+    
+    
     return <div />
   }
 
   render() {
 
-    let { user, daoid, favoritesFilter, unverifiedOnlyFilter, projectDetails } = this.props
+    let { user, daoid, favoritesFilter, unverifiedOnlyFilter, projects } = this.props
     let { ellipsisMenu } = this.state
-
     const projComps = this.buildList()
     let projectlist = []
 
     if (projComps.length > 0) {
       projectlist = (
-        projComps.slice(this.props.start, this.props.end)
+        projComps.slice(this.props.start, this.props.end)      
       )
     }
 
@@ -401,21 +413,30 @@ class ProjectList extends React.Component {
 
         <div style={{ float: "right" }}>
 
-          <Button size="sm" color="" style={{ backgroundColor: DEAGreen, marginRight: 30, marginTop: 3 }}>
-            <CSVLink
+          <Button data-tip data-for="dlTip" size="sm" color="" style={{ backgroundColor: DEAGreen, marginRight: 30, marginTop: 3 }}>
+            {/* <CSVLink
+              
               style={{ marginRight: '', textDecoration: 'none', color: 'white' }}
               filename={"projects-list.csv"}
-              data={[...this.props.projects]}
-              asyncOnClick={true}
+              data={[...projects]}
+              enclosingCharacter={''}
+              // asyncOnClick={true}
               onClick={() => {
-                console.log(this.props.projects)
+              
               }}
             >
-              {/* <Fa icon="arrow-circle-down" style={{ marginRight: 15 }} /> */}
+           
               <MDBIcon icon="arrow-circle-down" style={{ marginRight: 15 }} />
               Download
-            </CSVLink>
+            </CSVLink> */}
+            <CsvDownload 
+            style={{ marginRight: '', textDecoration: 'none', backgroundColor: DEAGreen, border: 'none' }}
+            data={[...projects]} />
+
           </Button>
+          <ReactTooltip id="dlTip" place="top" effect="solid">
+            To view the contents of this download, open the file as an Excel spreadsheet in Microsoft Excel
+          </ReactTooltip>
 
           {
             (this.props.showListExpandCollapse === true) &&
